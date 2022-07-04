@@ -1,0 +1,55 @@
+@model UsuarioCreateForm
+
+<div class="row">
+  <div class="col">
+    <div class="card card-primary">
+      <div class="card-header">
+        <div class="card-title">@ViewData["Title"]</div>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label asp-for="NomeCompleto">Nome Completo</label>
+                <input asp-for="NomeCompleto" type="text" class="form-control">
+                <span asp-validation-for="NomeCompleto" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" type="email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="Senha">Senha</label>
+                <input asp-for="Senha" type="password" class="form-control">
+                <span asp-validation-for="Senha" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ConfirmacaoSenha">Confirmação de senha</label>
+                <input asp-for="ConfirmacaoSenha" type="password" class="form-control">
+                <span asp-validation-for="ConfirmacaoSenha" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success">Salvar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

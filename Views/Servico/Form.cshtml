@@ -1,0 +1,192 @@
+@model ServicoForm
+
+<div class="row">
+  <div class="col">
+    <div class="card card-primary">
+      <div class="card-header">
+        <div class="card-title">@ViewData["Title"]</div>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="Nome">Nome</label>
+                <input asp-for="Nome" type="text" class="form-control">
+                <span asp-validation-for="Nome" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorMinimo">Valor Mínimo</label>
+                <input asp-for="ValorMinimo" type="text" class="form-control money">
+                <span asp-validation-for="ValorMinimo" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="QtdHoras">Quantidade Horas</label>
+                <input asp-for="QtdHoras" type="number" class="form-control">
+                <span asp-validation-for="QtdHoras" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="PorcentagemComissao">Porcentagem Comissão</label>
+                <input asp-for="PorcentagemComissao" type="text" class="form-control money">
+                <span asp-validation-for="PorcentagemComissao" class="text-danger"></span>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="HorasQuarto">Horas Quarto</label>
+                <input asp-for="HorasQuarto" type="number" class="form-control">
+                <span asp-validation-for="HorasQuarto" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorQuarto">Valor Quarto</label>
+                <input asp-for="ValorQuarto" type="text" class="form-control money">
+                <span asp-validation-for="ValorQuarto" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="HorasSala">Horas Sala</label>
+                <input asp-for="HorasSala" type="number" class="form-control">
+                <span asp-validation-for="HorasSala" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorSala">Valor Sala</label>
+                <input asp-for="ValorSala" type="text" class="form-control money">
+                <span asp-validation-for="ValorSala" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="HorasBanheiro">Horas Banheiro</label>
+                <input asp-for="HorasBanheiro" type="number" class="form-control">
+                <span asp-validation-for="HorasBanheiro" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorBanheiro">Valor Banheiro</label>
+                <input asp-for="ValorBanheiro" type="text" class="form-control money">
+                <span asp-validation-for="ValorBanheiro" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="HorasCozinha">Horas Cozinha</label>
+                <input asp-for="HorasCozinha" type="number" class="form-control">
+                <span asp-validation-for="HorasCozinha" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorCozinha">Valor Cozinha</label>
+                <input asp-for="ValorCozinha" type="text" class="form-control money">
+                <span asp-validation-for="ValorCozinha" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="HorasQuintal">Horas Quintal</label>
+                <input asp-for="HorasQuintal" type="number" class="form-control">
+                <span asp-validation-for="HorasQuintal" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorQuintal">Valor Quintal</label>
+                <input asp-for="ValorQuintal" type="text" class="form-control money">
+                <span asp-validation-for="ValorQuintal" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="HorasOutros">Horas Outros</label>
+                <input asp-for="HorasOutros" type="number" class="form-control">
+                <span asp-validation-for="HorasOutros" class="text-danger"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="ValorOutros">Valor Outros</label>
+                <input asp-for="ValorOutros" type="text" class="form-control money">
+                <span asp-validation-for="ValorOutros" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="Icone">Ícone</label>
+                <select asp-for="Icone" class="form-control">
+                  <option value="1">twf-cleaning-1</option>
+                  <option value="2">twf-cleaning-2</option>
+                  <option value="3">twf-cleaning-3</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                <label asp-for="Posicao">Posição</label>
+                <input asp-for="Posicao" type="number" class="form-control">
+                <span asp-validation-for="Posicao" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success">Salvar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.money').mask('#.##0,00', {reverse: true});
+    });
+  </script>
+}

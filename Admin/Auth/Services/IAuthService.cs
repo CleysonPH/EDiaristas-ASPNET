@@ -1,0 +1,9 @@
+using EDiaristas.Admin.Auth.Dtos;
+
+namespace EDiaristas.Admin.Auth.Services;
+
+public interface IAuthService
+{
+    void Login(LoginForm form);
+    void Logout();
+}
