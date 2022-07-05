@@ -59,9 +59,24 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 ## TODO
 
 - [x] Sistema Administrativo parte 1
-- [x] Sistema Administrativo parte 2
+  - [x] Cadastro de Serviços
+  - [x] Listagem de Serviços
+  - [x] Exclusão de Serviços
+  - [x] Edição de Serviços
+- [ ] Sistema Administrativo parte 2
+  - [x] Cadastro de Usuários
+  - [x] Listagem de Usuários
+  - [x] Exclusão de Usuários
+  - [x] Edição de Usuários
+  - [x] Login
+  - [x] Logout
+  - [x] Alteração de senha
+  - [ ] Reset de senha
 - [ ] Buscar diaristas que atendem um cep
-- [x] Contratação de Diarista (Detalhes do Serviço)
+- [ ] Contratação de Diarista (Detalhes do Serviço)
+  - [ ] Verificação de disponibilidade por CEP
+  - [ ] Busca de endereço por CEP
+  - [x] Listagem de Serviços
 - [ ] Contratação de Diarista (Dados do Cliente)
 - [ ] Contratação de Diarista (Cadastro de diária)
 - [ ] Contratação de Diarista (Pagamento Fake)
