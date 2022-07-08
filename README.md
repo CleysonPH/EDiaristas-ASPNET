@@ -54,9 +54,10 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 | Verbo | Rota                           | Funcionalidade                                    | Requer Autenticação? |
 | ----- | ------------------------------ | ------------------------------------------------- | -------------------- |
+| GET   | /api                           | Lista os links iniciais da api                    | Não                  |
 | GET   | /api/servicos                  | Listar serviços cadastrados                       | Não                  |
-| GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
 | GET   | /api/enderecos                 | Buscar endereço por cep                           | Não                  |
+| GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
 | GET   | /api/diaristas/disponibilidade | Verifica a disponibildiade de atendimento por cep | Não                  |
 
 ## TODO
@@ -81,7 +82,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Verificação de disponibilidade por CEP
   - [x] Busca de endereço por CEP
   - [x] Listagem de Serviços
-  - [ ] Implementar HATEOAS
+  - [x] Implementar HATEOAS
 - [ ] Contratação de Diarista (Dados do Cliente)
 - [ ] Contratação de Diarista (Cadastro de diária)
 - [ ] Contratação de Diarista (Pagamento Fake)
