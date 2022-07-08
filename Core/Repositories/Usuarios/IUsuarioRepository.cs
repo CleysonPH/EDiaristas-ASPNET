@@ -10,4 +10,5 @@ public interface IUsuarioRepository : ICrudRepository<Usuario, int>
     void UpdatePassword(string email, string oldPassword, string newPassword);
     bool CheckPassword(string email, string password);
     void AddRole(string email, string role);
+    PagedResult<Usuario> FindByCidadesAtentidasCodigoIbge(string codigoIbge, PagedFilter filter);
 }

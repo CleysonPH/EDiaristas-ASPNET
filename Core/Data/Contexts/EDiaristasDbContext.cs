@@ -20,5 +20,6 @@ public class EDiaristasDbContext : IdentityDbContext<Usuario, IdentityRole<int>,
         base.OnModelCreating(builder);
         builder.ApplyConfiguration(new ServicoEntityConfig());
         builder.ApplyConfiguration(new UsuarioEntityConfig());
+        builder.ApplyConfiguration(new CidadeAtendidaEntityConfig());
     }
 }

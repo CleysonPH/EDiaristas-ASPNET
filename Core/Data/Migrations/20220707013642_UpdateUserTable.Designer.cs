@@ -4,6 +4,7 @@ using EDiaristas.Core.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EDiaristas.Core.Data.Migrations
 {
     [DbContext(typeof(EDiaristasDbContext))]
-    partial class EDiaristasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220707013642_UpdateUserTable")]
+    partial class UpdateUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,49 +23,6 @@ namespace EDiaristas.Core.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CidadeAtendidaUsuario", b =>
-                {
-                    b.Property<int>("CidadesAtendidasId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuariosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CidadesAtendidasId", "UsuariosId");
-
-                    b.HasIndex("UsuariosId");
-
-                    b.ToTable("CidadeAtendidaUsuario");
-                });
-
-            modelBuilder.Entity("EDiaristas.Core.Models.CidadeAtendida", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Cidade")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("CodigoIbge")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CidadeAtendida", (string)null);
-                });
 
             modelBuilder.Entity("EDiaristas.Core.Models.Servico", b =>
                 {
@@ -362,21 +321,6 @@ namespace EDiaristas.Core.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("CidadeAtendidaUsuario", b =>
-                {
-                    b.HasOne("EDiaristas.Core.Models.CidadeAtendida", null)
-                        .WithMany()
-                        .HasForeignKey("CidadesAtendidasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EDiaristas.Core.Models.Usuario", null)
-                        .WithMany()
-                        .HasForeignKey("UsuariosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

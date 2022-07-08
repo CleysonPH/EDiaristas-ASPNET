@@ -76,6 +76,24 @@ public class UsuarioRepository : IUsuarioRepository
         return _userManager.Users.AsNoTracking().ToList();
     }
 
+    public PagedResult<Usuario> FindByCidadesAtentidasCodigoIbge(string codigoIbge, PagedFilter filter)
+    {
+        var query = _userManager.Users.AsNoTracking()
+            .Include(x => x.CidadesAtendidas)
+            .Where(x => x.CidadesAtendidas.Any(c => c.CodigoIbge == codigoIbge));
+        var usuarios = query.Skip((filter.Page - 1) * filter.PageSize)
+            .Take(filter.PageSize)
+            .OrderBy(x => x.Reputacao)
+            .ToList();
+        var count = query.Count();
+        return new PagedResult<Usuario>
+        {
+            Elements = usuarios,
+            PageSize = filter.PageSize,
+            TotalElements = count
+        };
+    }
+
     public Usuario? FindByEmail(string email)
     {
         return _userManager.Users.AsNoTracking().FirstOrDefault(u => u.Email == email);
