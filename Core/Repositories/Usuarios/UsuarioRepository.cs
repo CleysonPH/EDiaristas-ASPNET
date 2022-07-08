@@ -56,6 +56,13 @@ public class UsuarioRepository : IUsuarioRepository
         }
     }
 
+    public bool ExistsByCidadesAtentidasCodigoIbge(string codigoIbge)
+    {
+        return _userManager.Users.AsNoTracking()
+            .Include(u => u.CidadesAtendidas)
+            .Any(u => u.CidadesAtendidas.Any(c => c.CodigoIbge == codigoIbge));
+    }
+
     public bool ExistsByEmail(string email)
     {
         return _userManager.Users.Any(u => u.Email == email);

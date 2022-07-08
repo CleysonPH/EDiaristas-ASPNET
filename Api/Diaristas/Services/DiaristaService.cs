@@ -32,4 +32,11 @@ public class DiaristaService : IDiaristaService
             result.TotalElements
         );
     }
+
+    public DisponibilidadeResponse VerificarDisponibilidadePorCep(string cep)
+    {
+        var codigoIbge = _consultaEnderecoService.FindEnderecoByCep(cep).Ibge;
+        var disponibilidade = _usuarioRepository.ExistsByCidadesAtentidasCodigoIbge(codigoIbge);
+        return new DisponibilidadeResponse { Disponibilidade = disponibilidade };
+    }
 }

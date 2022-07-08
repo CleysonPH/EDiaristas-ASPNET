@@ -76,10 +76,9 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [ ] Reset de senha
 - [x] Buscar diaristas que atendem um cep
   - [x] Listar diaristas que atendem um cep
-  - [x] Buscar endereço por cep
-- [ ] Contratação de Diarista (Detalhes do Serviço)
-  - [ ] Verificação de disponibilidade por CEP
-  - [ ] Busca de endereço por CEP
+- [x] Contratação de Diarista (Detalhes do Serviço)
+  - [x] Verificação de disponibilidade por CEP
+  - [x] Busca de endereço por CEP
   - [x] Listagem de Serviços
 - [ ] Contratação de Diarista (Dados do Cliente)
 - [ ] Contratação de Diarista (Cadastro de diária)
