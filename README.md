@@ -36,28 +36,28 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas do Admin
 
-| Rota                         | Funcionalidade                                | Reque autenticação? |
-| ---------------------------- | --------------------------------------------- | ------------------- |
-| admin/login                  | Realizar login na aplicação administrativa    | Não                 |
-| admin/logout                 | Realizar o logout na aplicação administrativa | Sim                 |
-| admin/servicos               | Listar todos os serviços cadastrados          | Sim                 |
-| admin/servicos/cadastrar     | Cadastrar novo serviço                        | Sim                 |
-| admin/servicos/{id}/editar   | Editar os dados de um serviço                 | Sim                 |
-| admin/servicos/{id}/excluir  | Excluir um serviço                            | Sim                 |
-| admin/usuarios               | Listar todos os usuários cadastrados          | Sim                 |
-| admin/usuarios/cadastrar     | Cadastrar um novo usuário com o perfil ADMIN  | Sim                 |
-| admin/usuarios/{id}/editar   | Editar os dados de um usuário                 | Sim                 |
-| admin/usuarios/{id}/excluir  | Excluir um usuário                            | Sim                 |
-| admin/usuarios/alterar-senha | Alterar a senha do usuário logado             | Sim                 |
+| Rota                          | Funcionalidade                                | Reque autenticação? |
+| ----------------------------- | --------------------------------------------- | ------------------- |
+| /admin/login                  | Realizar login na aplicação administrativa    | Não                 |
+| /admin/logout                 | Realizar o logout na aplicação administrativa | Sim                 |
+| /admin/servicos               | Listar todos os serviços cadastrados          | Sim                 |
+| /admin/servicos/cadastrar     | Cadastrar novo serviço                        | Sim                 |
+| /admin/servicos/{id}/editar   | Editar os dados de um serviço                 | Sim                 |
+| /admin/servicos/{id}/excluir  | Excluir um serviço                            | Sim                 |
+| /admin/usuarios               | Listar todos os usuários cadastrados          | Sim                 |
+| /admin/usuarios/cadastrar     | Cadastrar um novo usuário com o perfil ADMIN  | Sim                 |
+| /admin/usuarios/{id}/editar   | Editar os dados de um usuário                 | Sim                 |
+| /admin/usuarios/{id}/excluir  | Excluir um usuário                            | Sim                 |
+| /admin/usuarios/alterar-senha | Alterar a senha do usuário logado             | Sim                 |
 
 ## Rotas da API
 
-| Verbo | Rota                          | Funcionalidade                                    | Requer Autenticação? |
-| ----- | ----------------------------- | ------------------------------------------------- | -------------------- |
-| GET   | api/servicos                  | Listar serviços cadastrados                       | Não                  |
-| GET   | api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
-| GET   | /api/enderecos                | Buscar endereço por cep                           | Não                  |
-| GET   | api/diaristas/disponibilidade | Verifica a disponibildiade de atendimento por cep | Não                  |
+| Verbo | Rota                           | Funcionalidade                                    | Requer Autenticação? |
+| ----- | ------------------------------ | ------------------------------------------------- | -------------------- |
+| GET   | /api/servicos                  | Listar serviços cadastrados                       | Não                  |
+| GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
+| GET   | /api/enderecos                 | Buscar endereço por cep                           | Não                  |
+| GET   | /api/diaristas/disponibilidade | Verifica a disponibildiade de atendimento por cep | Não                  |
 
 ## TODO
 
