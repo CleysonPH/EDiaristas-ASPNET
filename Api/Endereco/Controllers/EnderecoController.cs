@@ -14,7 +14,7 @@ public class EnderecoController : ControllerBase
         _consultaEnderecoService = consultaEnderecoService;
     }
 
-    [HttpGet(EnderecoRoutes.BuscarEnderecoPorCep)]
+    [HttpGet(EnderecoRoutes.BuscarEnderecoPorCep, Name = EnderecoRoutes.BuscarEnderecoPorCepName)]
     public IActionResult BuscarEnderecoPorCep(string cep)
     {
         return Ok(_consultaEnderecoService.FindEnderecoByCep(cep));

@@ -9,6 +9,7 @@ builder.Services.RegisterServices();
 builder.Services.RegisterValidators();
 builder.Services.RegisterIdentity();
 builder.Services.RegisterSeeds();
+builder.Services.RegisterAssemblers();
 
 builder.Services.RegisterControllers();
 
