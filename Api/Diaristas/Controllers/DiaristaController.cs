@@ -19,4 +19,10 @@ public class DiaristaController : ControllerBase
     {
         return Ok(_diaristaService.FindByCep(cep));
     }
+
+    [HttpGet(DiaristaRoutes.VerificarDisponibilidadePorCep)]
+    public IActionResult VerificarDisponibilidadePorCep(string cep)
+    {
+        return Ok(_diaristaService.VerificarDisponibilidadePorCep(cep));
+    }
 }
