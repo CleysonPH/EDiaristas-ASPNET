@@ -52,11 +52,12 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas da API
 
-| Verbo | Rota                      | Funcionalidade                                  | Requer Autenticação? |
-| ----- | ------------------------- | ----------------------------------------------- | -------------------- |
-| GET   | api/servicos              | Listar serviços cadastrados                     | Não                  |
-| GET   | api/diaristas/localidades | Listar diaristas que atendem um determinado cep | Não                  |
-| GET   | /api/enderecos            | Buscar endereço por cep                         | Não                  |
+| Verbo | Rota                          | Funcionalidade                                    | Requer Autenticação? |
+| ----- | ----------------------------- | ------------------------------------------------- | -------------------- |
+| GET   | api/servicos                  | Listar serviços cadastrados                       | Não                  |
+| GET   | api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
+| GET   | /api/enderecos                | Buscar endereço por cep                           | Não                  |
+| GET   | api/diaristas/disponibilidade | Verifica a disponibildiade de atendimento por cep | Não                  |
 
 ## TODO
 
