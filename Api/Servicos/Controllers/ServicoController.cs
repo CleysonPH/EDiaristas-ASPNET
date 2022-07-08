@@ -14,7 +14,7 @@ public class ServicoController : ControllerBase
         _servicoService = servicoService;
     }
 
-    [HttpGet(ServicoRoutes.FindAll)]
+    [HttpGet(ServicoRoutes.FindAll, Name = ServicoRoutes.FindAllName)]
     public IActionResult FindAll()
     {
         return Ok(_servicoService.FindAll());

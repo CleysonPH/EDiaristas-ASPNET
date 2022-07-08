@@ -14,13 +14,13 @@ public class DiaristaController : ControllerBase
         _diaristaService = diaristaService;
     }
 
-    [HttpGet(DiaristaRoutes.BuscarDiaristasPorCep)]
+    [HttpGet(DiaristaRoutes.BuscarDiaristasPorCep, Name = DiaristaRoutes.BuscarDiaristasPorCepName)]
     public IActionResult FindByCep(string cep)
     {
         return Ok(_diaristaService.FindByCep(cep));
     }
 
-    [HttpGet(DiaristaRoutes.VerificarDisponibilidadePorCep)]
+    [HttpGet(DiaristaRoutes.VerificarDisponibilidadePorCep, Name = DiaristaRoutes.VerificarDisponibilidadePorCepName)]
     public IActionResult VerificarDisponibilidadePorCep(string cep)
     {
         return Ok(_diaristaService.VerificarDisponibilidadePorCep(cep));
