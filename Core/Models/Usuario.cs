@@ -10,5 +10,5 @@ public class Usuario : IdentityUser<int>
     public double? Reputacao { get; set; }
     public string? ChavePix { get; set; }
 
-    public ICollection<CidadeAtendida>? CidadesAtendidas { get; set; }
+    public ICollection<CidadeAtendida> CidadesAtendidas { get; set; } = new List<CidadeAtendida>();
 }
