@@ -1,4 +1,5 @@
 using EDiaristas.Api.Diaristas.Services;
+using EDiaristas.Api.Diaristas.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Diaristas.Controllers;
@@ -13,7 +14,7 @@ public class DiaristaController : ControllerBase
         _diaristaService = diaristaService;
     }
 
-    [HttpGet("api/diaristas/localidades")]
+    [HttpGet(DiaristaRoutes.BuscarDiaristasPorCep)]
     public IActionResult FindByCep(string cep)
     {
         return Ok(_diaristaService.FindByCep(cep));

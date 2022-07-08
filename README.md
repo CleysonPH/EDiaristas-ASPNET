@@ -52,9 +52,11 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas da API
 
-| Verbo | Rota         | Funcionalidade              | Requer Autenticação? |
-| ----- | ------------ | --------------------------- | -------------------- |
-| GET   | api/servicos | Listar serviços cadastrados | Não                  |
+| Verbo | Rota                      | Funcionalidade                                  | Requer Autenticação? |
+| ----- | ------------------------- | ----------------------------------------------- | -------------------- |
+| GET   | api/servicos              | Listar serviços cadastrados                     | Não                  |
+| GET   | api/diaristas/localidades | Listar diaristas que atendem um determinado cep | Não                  |
+| GET   | /api/enderecos            | Buscar endereço por cep                         | Não                  |
 
 ## TODO
 
@@ -72,8 +74,9 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Logout
   - [x] Alteração de senha
   - [ ] Reset de senha
-- [ ] Buscar diaristas que atendem um cep
+- [x] Buscar diaristas que atendem um cep
   - [x] Listar diaristas que atendem um cep
+  - [x] Buscar endereço por cep
 - [ ] Contratação de Diarista (Detalhes do Serviço)
   - [ ] Verificação de disponibilidade por CEP
   - [ ] Busca de endereço por CEP
