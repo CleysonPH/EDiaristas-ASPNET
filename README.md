@@ -81,6 +81,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Verificação de disponibilidade por CEP
   - [x] Busca de endereço por CEP
   - [x] Listagem de Serviços
+  - [ ] Implementar HATEOAS
 - [ ] Contratação de Diarista (Dados do Cliente)
 - [ ] Contratação de Diarista (Cadastro de diária)
 - [ ] Contratação de Diarista (Pagamento Fake)
