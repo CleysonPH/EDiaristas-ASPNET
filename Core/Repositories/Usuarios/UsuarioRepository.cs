@@ -44,6 +44,7 @@ public class UsuarioRepository : IUsuarioRepository
                 string.Join("; ", result.Errors.Select(e => e.Description))
             );
         }
+        _userManager.AddToRoleAsync(model, model.TipoUsuario.ToTipoUsuarioName()).Wait();
         return model;
     }
 

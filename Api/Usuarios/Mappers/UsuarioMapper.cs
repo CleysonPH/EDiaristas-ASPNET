@@ -17,6 +17,7 @@ public class UsuarioMapper : IUsuarioMapper
             Nascimento = request.Nascimento,
             PhoneNumber = request.Telefone,
             ChavePix = request.ChavePix,
+            TipoUsuario = request.TipoUsuario.ToTipoUsuario()
         };
     }
 
@@ -31,6 +32,7 @@ public class UsuarioMapper : IUsuarioMapper
             Nascimento = usuario.Nascimento ?? DateTime.MinValue,
             Telefone = usuario.PhoneNumber,
             ChavePix = usuario.ChavePix ?? string.Empty,
+            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt()
         };
     }
 }

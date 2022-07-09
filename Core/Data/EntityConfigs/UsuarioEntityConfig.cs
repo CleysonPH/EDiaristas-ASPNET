@@ -26,5 +26,13 @@ public class UsuarioEntityConfig : IEntityTypeConfiguration<Usuario>
         builder.Property(u => u.ChavePix)
             .HasMaxLength(255)
             .IsRequired(false);
+
+        builder.Property(u => u.TipoUsuario)
+            .IsRequired()
+            .HasMaxLength(8)
+            .HasConversion(
+                v => v.ToTipoUsuarioName(),
+                v => v.ToTipoUsuario()
+            );
     }
 }

@@ -9,6 +9,7 @@ public class Usuario : IdentityUser<int>
     public DateTime? Nascimento { get; set; }
     public double? Reputacao { get; set; }
     public string? ChavePix { get; set; }
+    public TipoUsuario TipoUsuario { get; set; }
 
     public ICollection<CidadeAtendida> CidadesAtendidas { get; set; } = new List<CidadeAtendida>();
 }
