@@ -5,6 +5,7 @@ namespace EDiaristas.Core.Repositories.Usuarios;
 public interface IUsuarioRepository : ICrudRepository<Usuario, int>
 {
     bool ExistsByEmail(string email);
+    bool ExistsByCpf(string cpf);
     bool ExistsByEmailAndNotId(string email, int id);
     Usuario? FindByEmail(string email);
     void UpdatePassword(string email, string oldPassword, string newPassword);

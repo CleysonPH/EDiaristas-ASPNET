@@ -63,6 +63,12 @@ public class UsuarioRepository : IUsuarioRepository
             .Any(u => u.CidadesAtendidas.Any(c => c.CodigoIbge == codigoIbge));
     }
 
+    public bool ExistsByCpf(string cpf)
+    {
+        return _userManager.Users.AsNoTracking()
+            .Any(u => u.Cpf == cpf);
+    }
+
     public bool ExistsByEmail(string email)
     {
         return _userManager.Users.Any(u => u.Email == email);
