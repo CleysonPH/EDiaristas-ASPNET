@@ -19,4 +19,18 @@ public class UsuarioMapper : IUsuarioMapper
             ChavePix = request.ChavePix,
         };
     }
+
+    public UsuarioResponse ToResponse(Usuario usuario)
+    {
+        return new UsuarioResponse
+        {
+            Id = usuario.Id,
+            NomeCompleto = usuario.NomeCompleto,
+            Email = usuario.Email,
+            Cpf = usuario.Cpf ?? string.Empty,
+            Nascimento = usuario.Nascimento ?? DateTime.MinValue,
+            Telefone = usuario.PhoneNumber,
+            ChavePix = usuario.ChavePix ?? string.Empty,
+        };
+    }
 }
