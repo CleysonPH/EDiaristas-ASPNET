@@ -1,4 +1,3 @@
-using EDiaristas.Core.Extensions;
 using EDiaristas.Api.Usuarios.Dtos;
 using EDiaristas.Core.Repositories.Usuarios;
 using FluentValidation;
@@ -64,8 +63,6 @@ public class UsuarioRequestValidator : AbstractValidator<UsuarioRequest>
         When(x => !string.IsNullOrWhiteSpace(x.Cpf), () =>
             {
                 RuleFor(x => x.Cpf)
-                .Must(cpf => cpf.IsValidCpf())
-                .WithMessage("CPF inválido")
                 .Must(cpf => !usuarioRepository.ExistsByCpf(cpf))
                 .WithMessage("CPF já cadastrado")
                 .OverridePropertyName("cpf");
@@ -75,6 +72,7 @@ public class UsuarioRequestValidator : AbstractValidator<UsuarioRequest>
             .NotEmpty()
             .WithMessage("é obrigatório")
             .Must(x => x.GetIdade() >= 18 && x.GetIdade() <= 100)
+            .WithMessage("deve ser maior que 18 anos e menor que 100 anos")
             .OverridePropertyName("nascimento");
 
         RuleFor(x => x.Telefone)
@@ -89,6 +87,8 @@ public class UsuarioRequestValidator : AbstractValidator<UsuarioRequest>
                 RuleFor(x => x.ChavePix)
                 .NotEmpty()
                 .WithMessage("é obrigatório")
+                .MaximumLength(255)
+                .WithMessage("deve ter no máximo 255 caracteres")
                 .OverridePropertyName("chave_pix");
             });
 

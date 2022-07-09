@@ -13,4 +13,5 @@ public interface IUsuarioRepository : ICrudRepository<Usuario, int>
     void AddRole(string email, string role);
     PagedResult<Usuario> FindByCidadesAtentidasCodigoIbge(string codigoIbge, PagedFilter filter);
     bool ExistsByCidadesAtentidasCodigoIbge(string codigoIbge);
+    double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario);
 }

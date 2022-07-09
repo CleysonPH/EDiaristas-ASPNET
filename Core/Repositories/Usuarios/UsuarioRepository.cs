@@ -118,6 +118,16 @@ public class UsuarioRepository : IUsuarioRepository
         return _userManager.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
     }
 
+    public double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario)
+    {
+        var usuarios = _userManager.Users.AsNoTracking()
+            .Where(u => u.TipoUsuario == tipoUsuario)
+            .ToList();
+        var total = usuarios.Count;
+        var somaReputacao = usuarios.Sum(u => u.Reputacao);
+        return (somaReputacao / total) ?? 0;
+    }
+
     public Usuario Update(Usuario model)
     {
         var result = _userManager.UpdateAsync(model).GetAwaiter().GetResult();
