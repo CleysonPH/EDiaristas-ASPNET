@@ -1,8 +1,11 @@
+using System.Security.Claims;
 using EDiaristas.Admin.Auth.Dtos;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Usuarios;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 namespace EDiaristas.Admin.Auth.Services;
@@ -23,20 +26,35 @@ public class AuthService : IAuthService
         _loginFormValidator = loginFormValidator;
     }
 
-    public void Login(LoginForm form)
+    public void Login(LoginForm form, HttpContext httpContext)
     {
         _loginFormValidator.ValidateAndThrow(form);
-        var result = _signInManager.PasswordSignInAsync(form.Email, form.Senha, form.LembrarMe, false)
-            .GetAwaiter()
-            .GetResult();
-        if (!result.Succeeded)
+        var usuario = _usuarioRepository.FindByEmail(form.Email);
+        if (usuario == null)
         {
             throw new InvalidCredentialsException();
         }
+        if (!_usuarioRepository.CheckPassword(form.Email, form.Senha))
+        {
+            throw new InvalidCredentialsException();
+        }
+        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.UserName));
+        identity.AddClaim(new Claim(ClaimTypes.Name, usuario.UserName));
+        identity.AddClaim(new Claim(ClaimTypes.Role, usuario.TipoUsuario.ToTipoUsuarioName()));
+        var principal = new ClaimsPrincipal(identity);
+        httpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            principal,
+            new AuthenticationProperties
+            {
+                IsPersistent = form.LembrarMe
+            }
+        ).Wait();
     }
 
-    public void Logout()
+    public void Logout(HttpContext httpContext)
     {
-        _signInManager.SignOutAsync().GetAwaiter().GetResult();
+        httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
     }
 }

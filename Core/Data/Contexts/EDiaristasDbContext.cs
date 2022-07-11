@@ -10,9 +10,16 @@ public class EDiaristasDbContext : IdentityDbContext<Usuario, IdentityRole<int>,
 {
     public DbSet<Servico> Servicos => Set<Servico>();
 
+    private readonly string _connectionString;
+
+    public EDiaristasDbContext(DbContextOptions options, IConfiguration configuration) : base(options)
+    {
+        _connectionString = configuration.GetConnectionString("EDiaristasSqlServer");
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        builder.UseSqlServer("Server=Localhost;Database=EDiaristas;Trusted_Connection=True;");
+        builder.UseSqlServer(_connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)

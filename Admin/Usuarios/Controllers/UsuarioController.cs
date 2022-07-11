@@ -6,12 +6,13 @@ using EDiaristas.Admin.Usuarios.Services;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Admin.Usuarios.Controllers;
 
-[Authorize(Roles = Roles.Admin)]
+[Authorize(Roles = Roles.Admin, AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
 public class UsuarioController : Controller
 {
     private readonly IUsuarioService _usuarioService;
