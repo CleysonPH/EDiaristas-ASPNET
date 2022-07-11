@@ -58,7 +58,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | GET   | /api/servicos                  | Listar serviços cadastrados                       | Não                  |
 | GET   | /api/enderecos                 | Buscar endereço por cep                           | Não                  |
 | GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
-| GET   | /api/diaristas/disponibilidade | Verifica a disponibildiade de atendimento por cep | Não                  |
+| GET   | /api/diaristas/disponibilidade | Verifica a disponibilidade de atendimento por cep | Não                  |
 
 ## TODO
 
@@ -84,6 +84,13 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Listagem de Serviços
   - [x] Implementar HATEOAS
 - [ ] Contratação de Diarista (Dados do Cliente)
+  - [x] Rotas de cadastro de usuário
+  - [x] Calculo da media de reputação
+  - [ ] Envio de e-mail de boas vindas
+  - [x] Rota de autenticação via credenciais
+  - [ ] Rota de autenticação via refresh token
+  - [ ] Rota de logout
+  - [ ] Rota de exibição dos dados do usuário logado
 - [ ] Contratação de Diarista (Cadastro de diária)
 - [ ] Contratação de Diarista (Pagamento Fake)
 - [ ] Lista de Diárias e Detalhe da Diária
