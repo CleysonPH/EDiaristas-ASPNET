@@ -1,7 +1,8 @@
-using EDiaristas.Admin.Auth.Routes;
+using System.Text;
 using EDiaristas.Core.Data.Contexts;
 using EDiaristas.Core.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EDiaristas.Config;
 
@@ -9,6 +10,7 @@ public static class IdentityConfig
 {
     public static void RegisterIdentity(this IServiceCollection services)
     {
+        var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
         services.AddIdentity<Usuario, IdentityRole<int>>(options =>
         {
             options.Password.RequireUppercase = false;
@@ -19,14 +21,27 @@ public static class IdentityConfig
             options.SignIn.RequireConfirmedAccount = false;
             options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
-        })
-            .AddEntityFrameworkStores<EDiaristasDbContext>();
+        }).AddEntityFrameworkStores<EDiaristasDbContext>();
 
-        services.ConfigureApplicationCookie(options =>
-        {
-            options.LoginPath = AuthRoutes.Login;
-            options.AccessDeniedPath = AuthRoutes.Login;
-            options.ExpireTimeSpan = TimeSpan.FromDays(14);
-        });
+        services.AddAuthorization();
+        services.AddAuthentication()
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/admin/login";
+                options.AccessDeniedPath = "/admin/login";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            })
+            .AddJwtBearer(options =>
+            {
+                var accessKey = Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:AccessKey"));
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(accessKey)
+                };
+            });
     }
 }

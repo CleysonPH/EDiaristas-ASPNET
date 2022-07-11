@@ -44,6 +44,7 @@ public class UsuarioRepository : IUsuarioRepository
                 string.Join("; ", result.Errors.Select(e => e.Description))
             );
         }
+        _userManager.AddToRoleAsync(model, model.TipoUsuario.ToTipoUsuarioName()).Wait();
         return model;
     }
 
@@ -61,6 +62,12 @@ public class UsuarioRepository : IUsuarioRepository
         return _userManager.Users.AsNoTracking()
             .Include(u => u.CidadesAtendidas)
             .Any(u => u.CidadesAtendidas.Any(c => c.CodigoIbge == codigoIbge));
+    }
+
+    public bool ExistsByCpf(string cpf)
+    {
+        return _userManager.Users.AsNoTracking()
+            .Any(u => u.Cpf == cpf);
     }
 
     public bool ExistsByEmail(string email)
@@ -109,6 +116,16 @@ public class UsuarioRepository : IUsuarioRepository
     public Usuario? FindById(int id)
     {
         return _userManager.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
+    }
+
+    public double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario)
+    {
+        var usuarios = _userManager.Users.AsNoTracking()
+            .Where(u => u.TipoUsuario == tipoUsuario)
+            .ToList();
+        var total = usuarios.Count;
+        var somaReputacao = usuarios.Sum(u => u.Reputacao);
+        return (somaReputacao / total) ?? 0;
     }
 
     public Usuario Update(Usuario model)

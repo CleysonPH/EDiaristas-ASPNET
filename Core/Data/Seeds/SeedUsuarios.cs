@@ -20,7 +20,8 @@ public class SeedUsuarios : ISeedUsuarios
             {
                 UserName = "admin@mail.com",
                 Email = "admin@mail.com",
-                NomeCompleto = "Usuário ADMIN"
+                NomeCompleto = "Usuário ADMIN",
+                TipoUsuario = TipoUsuario.Admin
             };
             var result = _userManager.CreateAsync(admin, "senha@123").Result;
             if (result.Succeeded)

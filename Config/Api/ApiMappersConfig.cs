@@ -1,5 +1,6 @@
 using EDiaristas.Api.Diaristas.Mappers;
 using EDiaristas.Api.Servicos.Mappers;
+using EDiaristas.Api.Usuarios.Mappers;
 
 namespace EDiaristas.Config.Api;
 
@@ -9,5 +10,6 @@ public static class ApiMappersConfig
     {
         services.AddScoped<IServicoMapper, ServicoMapper>();
         services.AddScoped<IDiaristaMapper, DiaristaMapper>();
+        services.AddScoped<IUsuarioMapper, UsuarioMapper>();
     }
 }

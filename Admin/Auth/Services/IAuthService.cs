@@ -4,6 +4,6 @@ namespace EDiaristas.Admin.Auth.Services;
 
 public interface IAuthService
 {
-    void Login(LoginForm form);
-    void Logout();
+    void Login(LoginForm form, HttpContext httpContext);
+    void Logout(HttpContext httpContext);
 }
