@@ -1,10 +1,7 @@
 using EDiaristas.Api.Common.Assemblers;
 using EDiaristas.Api.Common.Dtos;
-using EDiaristas.Api.Diaristas.Routes;
-using EDiaristas.Api.Enderecos.Routes;
 using EDiaristas.Api.Home.Dtos;
-using EDiaristas.Api.Servicos.Controllers;
-using EDiaristas.Api.Servicos.Routes;
+using EDiaristas.Api.Common.Routes;
 
 namespace EDiaristas.Api.Home.Assemblers;
 
@@ -23,25 +20,25 @@ public class HomeAssembler : IAssembler<HomeResponse>
         {
             Type = HttpMethods.Get,
             Rel = "listar_servicos",
-            Uri = _linkGenerator.GetUriByName(context, ServicoRoutes.FindAllName, new { })
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Servicos.FindAllName, new { })
         };
         var enderecoLink = new LinkResponse
         {
             Type = HttpMethods.Get,
             Rel = "endereco_cep",
-            Uri = _linkGenerator.GetUriByName(context, EnderecoRoutes.BuscarEnderecoPorCepName, new { })
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Enderecos.BuscarEnderecoPorCepName, new { })
         };
         var diaristasLocalidadesLink = new LinkResponse
         {
             Type = HttpMethods.Get,
             Rel = "diaristas_localidades",
-            Uri = _linkGenerator.GetUriByName(context, DiaristaRoutes.BuscarDiaristasPorCepName, new { })
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diaristas.BuscarDiaristasPorCepName, new { })
         };
         var verificarDisponibilidadeAtendimentoLink = new LinkResponse
         {
             Type = HttpMethods.Get,
             Rel = "verificar_disponibilidade_atendimento",
-            Uri = _linkGenerator.GetUriByName(context, DiaristaRoutes.VerificarDisponibilidadePorCepName, new { })
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diaristas.VerificarDisponibilidadePorCepName, new { })
         };
 
         resource.AddLinks(
