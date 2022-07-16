@@ -1,6 +1,6 @@
 using EDiaristas.Api.Usuarios.Services;
 using EDiaristas.Api.Usuarios.Dtos;
-using EDiaristas.Api.Usuarios.Routes;
+using EDiaristas.Api.Common.Routes;
 using EDiaristas.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +18,9 @@ public class UsuarioController : ControllerBase
         _usuarioService = usuarioService;
     }
 
-    [HttpPost(UsuarioRoutes.CadastrarUsuario, Name = UsuarioRoutes.CadastrarUsuarioName)]
+    [HttpPost(
+        ApiRoutes.Usuarios.CadastrarUsuario,
+        Name = ApiRoutes.Usuarios.CadastrarUsuarioName)]
     public IActionResult Cadastrar([FromForm] UsuarioRequest request)
     {
         var usuario = _usuarioService.Cadastrar(request);

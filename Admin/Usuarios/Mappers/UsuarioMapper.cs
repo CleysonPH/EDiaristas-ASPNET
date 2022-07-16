@@ -9,10 +9,9 @@ public class UsuarioMapper : IUsuarioMapper
     {
         return new Usuario
         {
-            UserName = form.Email,
             NomeCompleto = form.NomeCompleto,
             Email = form.Email,
-            PasswordHash = form.Senha
+            Senha = form.Senha
         };
     }
 

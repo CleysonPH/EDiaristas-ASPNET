@@ -1,6 +1,5 @@
 using EDiaristas.Api.Auth.Dtos;
-using EDiaristas.Core.Exceptions;
-using EDiaristas.Core.Repositories.Usuarios;
+using EDiaristas.Core.Services.Authentication.Adapters;
 using EDiaristas.Core.Services.Token.Adapters;
 using FluentValidation;
 
@@ -9,35 +8,26 @@ namespace EDiaristas.Api.Auth.Services;
 public class AuthService : IAuthService
 {
     private readonly ITokenService _tokenService;
-    private readonly IUsuarioRepository _usuarioRepository;
     private readonly IValidator<LoginRequest> _loginRequestValidator;
+    private readonly ICustomAuthenticationService _authenticationService;
 
     public AuthService(
         ITokenService tokenService,
-        IUsuarioRepository usuarioRepository,
-        IValidator<LoginRequest> loginRequestValidator)
+        IValidator<LoginRequest> loginRequestValidator,
+        ICustomAuthenticationService authenticationService)
     {
         _tokenService = tokenService;
-        _usuarioRepository = usuarioRepository;
         _loginRequestValidator = loginRequestValidator;
+        _authenticationService = authenticationService;
     }
 
     public TokenResponse Token(LoginRequest request)
     {
         _loginRequestValidator.ValidateAndThrow(request);
-        var user = _usuarioRepository.FindByEmail(request.Email);
-        if (user == null)
-        {
-            throw new InvalidCredentialsException();
-        }
-        if (!_usuarioRepository.CheckPassword(request.Email, request.Password))
-        {
-            throw new InvalidCredentialsException();
-        }
-
+        var usuario = _authenticationService.Authenticate(request.Email, request.Password);
         return new TokenResponse
         {
-            Access = _tokenService.GenerateAccessToken(user)
+            Access = _tokenService.GenerateAccessToken(usuario)
         };
     }
 }

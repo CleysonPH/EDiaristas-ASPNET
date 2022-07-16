@@ -1,5 +1,6 @@
 using EDiaristas.Api.Auth.Dtos;
 using EDiaristas.Api.Auth.Services;
+using EDiaristas.Api.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Auth.Controllers;
@@ -14,7 +15,7 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [HttpPost("/api/auth/token")]
+    [HttpPost(ApiRoutes.Auth.Token, Name = ApiRoutes.Auth.TokenName)]
     public IActionResult Token([FromBody] LoginRequest request)
     {
         return Ok(_authService.Token(request));
