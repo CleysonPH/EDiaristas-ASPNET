@@ -36,7 +36,9 @@ public static class ApiRoutes
 
     public static class Auth
     {
-        public const string Token = "/api/auth/token";
+        public const string Token = "/auth/token";
         public const string TokenName = "Token";
+        public const string Refresh = "auth/refresh";
+        public const string RefreshName = "Refresh";
     }
 }

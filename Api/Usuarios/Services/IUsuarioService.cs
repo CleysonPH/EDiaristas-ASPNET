@@ -4,5 +4,5 @@ namespace EDiaristas.Api.Usuarios.Services;
 
 public interface IUsuarioService
 {
-    UsuarioResponse Cadastrar(UsuarioRequest request);
+    UsuarioCreatedResponse Cadastrar(UsuarioRequest request);
 }

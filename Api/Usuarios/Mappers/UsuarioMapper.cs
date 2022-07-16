@@ -5,6 +5,21 @@ namespace EDiaristas.Api.Usuarios.Mappers;
 
 public class UsuarioMapper : IUsuarioMapper
 {
+    public UsuarioCreatedResponse ToCreatedResponse(Usuario usuario)
+    {
+        return new UsuarioCreatedResponse
+        {
+            Id = usuario.Id,
+            NomeCompleto = usuario.NomeCompleto,
+            Email = usuario.Email,
+            Cpf = usuario.Cpf ?? string.Empty,
+            Nascimento = usuario.Nascimento ?? DateTime.MinValue,
+            Telefone = usuario.Telefone ?? string.Empty,
+            ChavePix = usuario.ChavePix ?? string.Empty,
+            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt()
+        };
+    }
+
     public Usuario ToModel(UsuarioRequest request)
     {
         return new Usuario

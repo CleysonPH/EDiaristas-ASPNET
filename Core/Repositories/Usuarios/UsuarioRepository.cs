@@ -123,10 +123,13 @@ public class UsuarioRepository : IUsuarioRepository
 
     public double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario)
     {
-        return _context.Usuarios
+        var usuarios = _context.Usuarios
             .AsNoTracking()
             .Where(x => x.TipoUsuario == tipoUsuario)
-            .Average(x => x.Reputacao) ?? 0;
+            .ToList();
+        var total = usuarios.Count();
+        var somaReputacao = usuarios.Sum(x => x.Reputacao);
+        return (somaReputacao / total) ?? 0;
     }
 
     public Usuario Update(Usuario model)

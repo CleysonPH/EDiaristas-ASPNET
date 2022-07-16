@@ -20,4 +20,10 @@ public class AuthController : ControllerBase
     {
         return Ok(_authService.Token(request));
     }
+
+    [HttpPost(ApiRoutes.Auth.Refresh, Name = ApiRoutes.Auth.RefreshName)]
+    public IActionResult Refresh([FromBody] RefreshTokenRequest request)
+    {
+        return Ok(_authService.RefreshToken(request));
+    }
 }

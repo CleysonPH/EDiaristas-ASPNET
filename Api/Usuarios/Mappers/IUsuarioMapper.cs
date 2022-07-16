@@ -7,4 +7,5 @@ public interface IUsuarioMapper
 {
     Usuario ToModel(UsuarioRequest request);
     UsuarioResponse ToResponse(Usuario usuario);
+    UsuarioCreatedResponse ToCreatedResponse(Usuario usuario);
 }

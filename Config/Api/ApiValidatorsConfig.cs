@@ -12,5 +12,6 @@ public static class ApiValidatorsConfig
     {
         services.AddTransient<IValidator<UsuarioRequest>, UsuarioRequestValidator>();
         services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+        services.AddTransient<IValidator<RefreshTokenRequest>, RefreshTokenRequestValidator>();
     }
 }
