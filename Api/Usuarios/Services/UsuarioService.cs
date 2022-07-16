@@ -57,6 +57,6 @@ public class UsuarioService : IUsuarioService
     private double calcularMediaReputacao(TipoUsuario tipoUsuario)
     {
         var mediaReputacao = _usuarioRepository.GetMediaReputacaoByTipoUsuario(tipoUsuario);
-        return mediaReputacao == 0 ? REPUTACAO_MAXIMA : mediaReputacao;
+        return mediaReputacao == 0.0 ? REPUTACAO_MAXIMA : mediaReputacao;
     }
 }

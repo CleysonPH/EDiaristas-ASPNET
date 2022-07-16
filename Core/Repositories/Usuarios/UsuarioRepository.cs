@@ -128,8 +128,9 @@ public class UsuarioRepository : IUsuarioRepository
             .Where(x => x.TipoUsuario == tipoUsuario)
             .ToList();
         var total = usuarios.Count();
-        var somaReputacao = usuarios.Sum(x => x.Reputacao);
-        return (somaReputacao / total) ?? 0;
+        var somaReputacao = usuarios.Sum(x => x.Reputacao) ?? 0.0;
+        var mediaReputacao = somaReputacao / total;
+        return double.IsNaN(mediaReputacao) ? 0.0 : mediaReputacao;
     }
 
     public Usuario Update(Usuario model)

@@ -17,6 +17,8 @@ public static class CoreServicesConfig
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IPasswordEnconderService, BCryptService>();
         services.AddScoped<ICustomAuthenticationService, CustomAuthenticationService>();
+
         services.AddSingleton<HttpClient>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     }
 }

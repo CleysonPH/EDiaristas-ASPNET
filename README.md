@@ -62,6 +62,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | POST  | /api/usuarios                  | Realiza o cadastro de um novo usuário             | Não                  |
 | POST  | /auth/token                    | Autentica usuários através das credenciais        | Não                  |
 | POST  | /auth/refresh                  | Autentica usuários através do refresh token       | Não                  |
+| POST  | /api/me                        | Exibe os dados do usuário autenticado             | Sim                  |
 
 ## TODO
 
@@ -93,7 +94,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rota de autenticação via credenciais
   - [x] Rota de autenticação via refresh token
   - [ ] Rota de logout
-  - [ ] Rota de exibição dos dados do usuário logado
+  - [x] Rota de exibição dos dados do usuário logado
 - [ ] Contratação de Diarista (Cadastro de diária)
 - [ ] Contratação de Diarista (Pagamento Fake)
 - [ ] Lista de Diárias e Detalhe da Diária

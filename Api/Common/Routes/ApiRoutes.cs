@@ -16,6 +16,12 @@ public static class ApiRoutes
         public const string VerificarDisponibilidadePorCepName = "VerificarDisponibilidadePorCep";
     }
 
+    public static class Me
+    {
+        public const string ExibirUsuarioAutenticado = "/api/me";
+        public const string ExibirUsuarioAutenticadoName = "ExibirUsuarioAutenticado";
+    }
+
     public static class Servicos
     {
         public const string FindAll = "/api/servicos";

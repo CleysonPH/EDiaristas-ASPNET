@@ -24,13 +24,6 @@ public class UsuarioController : ControllerBase
     public IActionResult Cadastrar([FromForm] UsuarioRequest request)
     {
         var usuario = _usuarioService.Cadastrar(request);
-        return Ok(usuario);
-    }
-
-    [Authorize(Roles = $"{Roles.Cliente},{Roles.Diarista}", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("/api/usuarios/teste")]
-    public IActionResult Teste()
-    {
-        return Ok("Teste");
+        return CreatedAtRoute(ApiRoutes.Me.ExibirUsuarioAutenticadoName, usuario);
     }
 }
