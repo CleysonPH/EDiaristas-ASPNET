@@ -6,7 +6,6 @@ public static class SeedConfig
 {
     public static void RegisterSeeds(this IServiceCollection services)
     {
-        services.AddScoped<ISeedRoles, SeedRoles>();
         services.AddScoped<ISeedUsuarios, SeedUsuarios>();
     }
 
@@ -15,7 +14,6 @@ public static class SeedConfig
         var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
         using (var scope = scopedFactory?.CreateScope())
         {
-            scope?.ServiceProvider?.GetService<ISeedRoles>()?.Seed();
             scope?.ServiceProvider?.GetService<ISeedUsuarios>()?.Seed();
         }
     }

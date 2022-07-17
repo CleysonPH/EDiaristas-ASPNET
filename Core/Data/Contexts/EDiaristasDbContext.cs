@@ -1,14 +1,15 @@
 using EDiaristas.Core.Data.EntityConfigs;
 using EDiaristas.Core.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Data.Contexts;
 
-public class EDiaristasDbContext : IdentityDbContext<Usuario, IdentityRole<int>, int>
+public class EDiaristasDbContext : DbContext
 {
     public DbSet<Servico> Servicos => Set<Servico>();
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
+    public DbSet<CidadeAtendida> CidadesAtendidas => Set<CidadeAtendida>();
+    public DbSet<InvalidatedToken> InvalidatedTokens => Set<InvalidatedToken>();
 
     private readonly string _connectionString;
 
@@ -24,9 +25,9 @@ public class EDiaristasDbContext : IdentityDbContext<Usuario, IdentityRole<int>,
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(builder);
         builder.ApplyConfiguration(new ServicoEntityConfig());
         builder.ApplyConfiguration(new UsuarioEntityConfig());
         builder.ApplyConfiguration(new CidadeAtendidaEntityConfig());
+        builder.ApplyConfiguration(new InvalidatedTokenEntityConfig());
     }
 }

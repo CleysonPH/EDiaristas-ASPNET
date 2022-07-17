@@ -1,157 +1,142 @@
-using EDiaristas.Core.Exceptions;
+using EDiaristas.Core.Data.Contexts;
 using EDiaristas.Core.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Repositories.Usuarios;
 
 public class UsuarioRepository : IUsuarioRepository
 {
-    private readonly UserManager<Usuario> _userManager;
+    private readonly EDiaristasDbContext _context;
 
-    public UsuarioRepository(UserManager<Usuario> userManager)
+    public UsuarioRepository(EDiaristasDbContext context)
     {
-        _userManager = userManager;
-    }
-
-    public void AddRole(string email, string role)
-    {
-        var user = _userManager.FindByEmailAsync(email).Result;
-        if (user is not null)
-        {
-            _userManager.AddToRoleAsync(user, role).Wait();
-        }
-    }
-
-    public bool CheckPassword(string email, string password)
-    {
-        var user = _userManager.FindByEmailAsync(email).Result;
-        if (user is null)
-        {
-            return false;
-        }
-        return _userManager.CheckPasswordAsync(user, password).GetAwaiter().GetResult();
+        _context = context;
     }
 
     public Usuario Create(Usuario model)
     {
-        var result = _userManager.CreateAsync(model, model.PasswordHash)
-            .GetAwaiter()
-            .GetResult();
-        if (!result.Succeeded)
-        {
-            throw new UsuarioInsertionException(
-                string.Join("; ", result.Errors.Select(e => e.Description))
-            );
-        }
-        _userManager.AddToRoleAsync(model, model.TipoUsuario.ToTipoUsuarioName()).Wait();
+        _context.Usuarios.Add(model);
+        _context.SaveChanges();
         return model;
     }
 
     public void DeleteById(int id)
     {
-        var usuario = _userManager.Users.FirstOrDefault(u => u.Id == id);
-        if (usuario is not null)
+        var usuario = _context.Usuarios.Find(id);
+        if (usuario != null)
         {
-            _userManager.DeleteAsync(usuario).GetAwaiter().GetResult();
+            _context.Usuarios.Remove(usuario);
+            _context.SaveChanges();
         }
     }
 
-    public bool ExistsByCidadesAtentidasCodigoIbge(string codigoIbge)
+    public bool ExistsByCidadesAtendidasCodigoIbge(string codigoIbge)
     {
-        return _userManager.Users.AsNoTracking()
-            .Include(u => u.CidadesAtendidas)
-            .Any(u => u.CidadesAtendidas.Any(c => c.CodigoIbge == codigoIbge));
+        return _context.Usuarios
+            .AsNoTracking()
+            .Include(x => x.CidadesAtendidas)
+            .Any(x => x.CidadesAtendidas.Any(y => y.CodigoIbge == codigoIbge));
     }
 
     public bool ExistsByCpf(string cpf)
     {
-        return _userManager.Users.AsNoTracking()
-            .Any(u => u.Cpf == cpf);
+        return _context.Usuarios
+            .AsNoTracking()
+            .Any(x => x.Cpf == cpf);
+    }
+
+    public bool ExistsByCpfAndNotId(string cpf, int id)
+    {
+        return _context.Usuarios
+            .AsNoTracking()
+            .Any(x => x.Cpf == cpf && x.Id != id);
     }
 
     public bool ExistsByEmail(string email)
     {
-        return _userManager.Users.Any(u => u.Email == email);
+        return _context.Usuarios
+            .AsNoTracking()
+            .Any(x => x.Email == email);
     }
 
     public bool ExistsByEmailAndNotId(string email, int id)
     {
-        return _userManager.Users.AsNoTracking().Any(u => u.Email == email && u.Id != id);
+        return _context.Usuarios
+            .AsNoTracking()
+            .Any(x => x.Email == email && x.Id != id);
     }
 
     public bool ExistsById(int id)
     {
-        return _userManager.Users.AsNoTracking().Any(u => u.Id == id);
+        return _context.Usuarios
+            .AsNoTracking()
+            .Any(x => x.Id == id);
     }
 
     public ICollection<Usuario> FindAll()
     {
-        return _userManager.Users.AsNoTracking().ToList();
+        return _context.Usuarios
+            .AsNoTracking()
+            .ToList();
     }
 
     public PagedResult<Usuario> FindByCidadesAtentidasCodigoIbge(string codigoIbge, PagedFilter filter)
     {
-        var query = _userManager.Users.AsNoTracking()
+        var query = _context.Usuarios
+            .AsNoTracking()
             .Include(x => x.CidadesAtendidas)
-            .Where(x => x.CidadesAtendidas.Any(c => c.CodigoIbge == codigoIbge));
-        var usuarios = query.Skip((filter.Page - 1) * filter.PageSize)
+            .Where(x => x.CidadesAtendidas.Any(y => y.CodigoIbge == codigoIbge));
+        var totalElements = query.Count();
+        var elements = query
+            .Skip(filter.PageSize * filter.Page)
             .Take(filter.PageSize)
-            .OrderBy(x => x.Reputacao)
             .ToList();
-        var count = query.Count();
         return new PagedResult<Usuario>
         {
-            Elements = usuarios,
+            Elements = elements,
+            TotalElements = totalElements,
             PageSize = filter.PageSize,
-            TotalElements = count
         };
     }
 
     public Usuario? FindByEmail(string email)
     {
-        return _userManager.Users.AsNoTracking().FirstOrDefault(u => u.Email == email);
+        return _context.Usuarios
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Email == email);
     }
 
     public Usuario? FindById(int id)
     {
-        return _userManager.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
+        return _context.Usuarios
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == id);
+    }
+
+    public ICollection<Usuario> FindByTipoUsuario(TipoUsuario tipoUsuario)
+    {
+        return _context.Usuarios
+            .AsNoTracking()
+            .Where(x => x.TipoUsuario == tipoUsuario)
+            .ToList();
     }
 
     public double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario)
     {
-        var usuarios = _userManager.Users.AsNoTracking()
-            .Where(u => u.TipoUsuario == tipoUsuario)
+        var usuarios = _context.Usuarios
+            .AsNoTracking()
+            .Where(x => x.TipoUsuario == tipoUsuario)
             .ToList();
-        var total = usuarios.Count;
-        var somaReputacao = usuarios.Sum(u => u.Reputacao);
-        return (somaReputacao / total) ?? 0;
+        var total = usuarios.Count();
+        var somaReputacao = usuarios.Sum(x => x.Reputacao) ?? 0.0;
+        var mediaReputacao = somaReputacao / total;
+        return double.IsNaN(mediaReputacao) ? 0.0 : mediaReputacao;
     }
 
     public Usuario Update(Usuario model)
     {
-        var result = _userManager.UpdateAsync(model).GetAwaiter().GetResult();
-        if (!result.Succeeded)
-        {
-            throw new UsuarioInsertionException(
-                string.Join("; ", result.Errors.Select(e => e.Description))
-            );
-        }
+        _context.Usuarios.Update(model);
+        _context.SaveChanges();
         return model;
-    }
-
-    public void UpdatePassword(string email, string oldPassword, string newPassword)
-    {
-        var usuario = _userManager.Users.FirstOrDefault(u => u.Email == email);
-        if (usuario is not null)
-        {
-            var result = _userManager.ChangePasswordAsync(usuario, oldPassword, newPassword).GetAwaiter().GetResult();
-            if (!result.Succeeded)
-            {
-                throw new UsuarioInsertionException(
-                    string.Join("; ", result.Errors.Select(e => e.Description))
-                );
-            }
-        }
     }
 }

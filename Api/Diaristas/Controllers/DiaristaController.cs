@@ -1,5 +1,5 @@
 using EDiaristas.Api.Diaristas.Services;
-using EDiaristas.Api.Diaristas.Routes;
+using EDiaristas.Api.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Diaristas.Controllers;
@@ -14,13 +14,17 @@ public class DiaristaController : ControllerBase
         _diaristaService = diaristaService;
     }
 
-    [HttpGet(DiaristaRoutes.BuscarDiaristasPorCep, Name = DiaristaRoutes.BuscarDiaristasPorCepName)]
+    [HttpGet(
+        ApiRoutes.Diaristas.BuscarDiaristasPorCep,
+        Name = ApiRoutes.Diaristas.BuscarDiaristasPorCepName)]
     public IActionResult FindByCep(string cep)
     {
         return Ok(_diaristaService.FindByCep(cep));
     }
 
-    [HttpGet(DiaristaRoutes.VerificarDisponibilidadePorCep, Name = DiaristaRoutes.VerificarDisponibilidadePorCepName)]
+    [HttpGet(
+        ApiRoutes.Diaristas.VerificarDisponibilidadePorCep,
+        Name = ApiRoutes.Diaristas.VerificarDisponibilidadePorCepName)]
     public IActionResult VerificarDisponibilidadePorCep(string cep)
     {
         return Ok(_diaristaService.VerificarDisponibilidadePorCep(cep));

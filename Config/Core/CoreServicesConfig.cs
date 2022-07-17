@@ -1,5 +1,9 @@
+using EDiaristas.Core.Services.Authentication.Adapters;
+using EDiaristas.Core.Services.Authentication.Providers;
 using EDiaristas.Core.Services.ConsultaEndereco.Adapters;
 using EDiaristas.Core.Services.ConsultaEndereco.Providers;
+using EDiaristas.Core.Services.PasswordEnconder.Adapters;
+using EDiaristas.Core.Services.PasswordEnconder.Providers;
 using EDiaristas.Core.Services.Token.Adapters;
 using EDiaristas.Core.Services.Token.Providers;
 
@@ -11,6 +15,10 @@ public static class CoreServicesConfig
     {
         services.AddScoped<IConsultaEnderecoService, ViaCepService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IPasswordEnconderService, BCryptService>();
+        services.AddScoped<ICustomAuthenticationService, CustomAuthenticationService>();
+
         services.AddSingleton<HttpClient>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     }
 }

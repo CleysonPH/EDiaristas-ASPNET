@@ -1,5 +1,5 @@
 using EDiaristas.Core.Services.ConsultaEndereco.Adapters;
-using EDiaristas.Api.Enderecos.Routes;
+using EDiaristas.Api.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Enderecos.Controllers;
@@ -14,7 +14,9 @@ public class EnderecoController : ControllerBase
         _consultaEnderecoService = consultaEnderecoService;
     }
 
-    [HttpGet(EnderecoRoutes.BuscarEnderecoPorCep, Name = EnderecoRoutes.BuscarEnderecoPorCepName)]
+    [HttpGet(
+        ApiRoutes.Enderecos.BuscarEnderecoPorCep,
+        Name = ApiRoutes.Enderecos.BuscarEnderecoPorCepName)]
     public IActionResult BuscarEnderecoPorCep(string cep)
     {
         return Ok(_consultaEnderecoService.FindEnderecoByCep(cep));

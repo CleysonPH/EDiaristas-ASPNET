@@ -6,12 +6,11 @@ public interface IUsuarioRepository : ICrudRepository<Usuario, int>
 {
     bool ExistsByEmail(string email);
     bool ExistsByCpf(string cpf);
+    bool ExistsByCpfAndNotId(string cpf, int id);
     bool ExistsByEmailAndNotId(string email, int id);
     Usuario? FindByEmail(string email);
-    void UpdatePassword(string email, string oldPassword, string newPassword);
-    bool CheckPassword(string email, string password);
-    void AddRole(string email, string role);
     PagedResult<Usuario> FindByCidadesAtentidasCodigoIbge(string codigoIbge, PagedFilter filter);
-    bool ExistsByCidadesAtentidasCodigoIbge(string codigoIbge);
+    bool ExistsByCidadesAtendidasCodigoIbge(string codigoIbge);
     double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario);
+    ICollection<Usuario> FindByTipoUsuario(TipoUsuario tipoUsuario);
 }

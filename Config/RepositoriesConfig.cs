@@ -1,3 +1,4 @@
+using EDiaristas.Core.Repositories.InvalidatedTokens;
 using EDiaristas.Core.Repositories.Servicos;
 using EDiaristas.Core.Repositories.Usuarios;
 
@@ -9,5 +10,6 @@ public static class RepositoriesConfig
     {
         services.AddScoped<IServicoRepository, ServicoRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IInvalidatedTokenRepository, InvalidatedTokenRepository>();
     }
 }

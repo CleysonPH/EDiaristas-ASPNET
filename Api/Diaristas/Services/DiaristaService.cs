@@ -36,7 +36,7 @@ public class DiaristaService : IDiaristaService
     public DisponibilidadeResponse VerificarDisponibilidadePorCep(string cep)
     {
         var codigoIbge = _consultaEnderecoService.FindEnderecoByCep(cep).Ibge;
-        var disponibilidade = _usuarioRepository.ExistsByCidadesAtentidasCodigoIbge(codigoIbge);
+        var disponibilidade = _usuarioRepository.ExistsByCidadesAtendidasCodigoIbge(codigoIbge);
         return new DisponibilidadeResponse { Disponibilidade = disponibilidade };
     }
 }

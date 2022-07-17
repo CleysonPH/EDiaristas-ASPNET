@@ -8,8 +8,20 @@ public class UsuarioEntityConfig : IEntityTypeConfiguration<Usuario>
 {
     public void Configure(EntityTypeBuilder<Usuario> builder)
     {
+        builder.ToTable("Usuarios");
+
+        builder.HasKey(x => x.Id);
+
         builder.Property(u => u.NomeCompleto)
             .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(u => u.Email)
+            .HasMaxLength(255)
+            .IsRequired();
+
+        builder.Property(u => u.Senha)
+            .HasMaxLength(255)
             .IsRequired();
 
         builder.Property(u => u.Cpf)
@@ -17,6 +29,10 @@ public class UsuarioEntityConfig : IEntityTypeConfiguration<Usuario>
             .IsRequired(false);
 
         builder.Property(u => u.Nascimento)
+            .IsRequired(false);
+
+        builder.Property(u => u.Telefone)
+            .HasMaxLength(11)
             .IsRequired(false);
 
         builder.Property(u => u.Reputacao)

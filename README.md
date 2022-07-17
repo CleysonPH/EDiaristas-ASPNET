@@ -59,6 +59,11 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | GET   | /api/enderecos                 | Buscar endereço por cep                           | Não                  |
 | GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
 | GET   | /api/diaristas/disponibilidade | Verifica a disponibilidade de atendimento por cep | Não                  |
+| POST  | /api/usuarios                  | Realiza o cadastro de um novo usuário             | Não                  |
+| POST  | /auth/token                    | Autentica usuários através das credenciais        | Não                  |
+| POST  | /auth/refresh                  | Autentica usuários através do refresh token       | Não                  |
+| POST  | /auth/logout                   | Invalida o refresh token                          | Não                  |
+| POST  | /api/me                        | Exibe os dados do usuário autenticado             | Sim                  |
 
 ## TODO
 
@@ -87,10 +92,11 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rotas de cadastro de usuário
   - [x] Calculo da media de reputação
   - [ ] Envio de e-mail de boas vindas
+  - [ ] Upload de foto documento
   - [x] Rota de autenticação via credenciais
-  - [ ] Rota de autenticação via refresh token
-  - [ ] Rota de logout
-  - [ ] Rota de exibição dos dados do usuário logado
+  - [x] Rota de autenticação via refresh token
+  - [x] Rota de logout
+  - [x] Rota de exibição dos dados do usuário logado
 - [ ] Contratação de Diarista (Cadastro de diária)
 - [ ] Contratação de Diarista (Pagamento Fake)
 - [ ] Lista de Diárias e Detalhe da Diária

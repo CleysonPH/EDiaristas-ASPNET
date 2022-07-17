@@ -1,7 +1,4 @@
-using System.Text;
 using EDiaristas.Config;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,23 +12,6 @@ builder.Services.RegisterSeeds();
 builder.Services.RegisterAssemblers();
 
 builder.Services.RegisterControllers();
-
-// builder.Services.AddAuthorization();
-// builder.Services.AddAuthentication(options =>
-// {
-//     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-// }).AddJwtBearer(options =>
-// {
-//     options.TokenValidationParameters = new TokenValidationParameters
-//     {
-//         ValidateIssuer = false,
-//         ValidateAudience = false,
-//         ValidateLifetime = true,
-//         ValidateIssuerSigningKey = true,
-//         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
-//     };
-// });
 
 var app = builder.Build();
 

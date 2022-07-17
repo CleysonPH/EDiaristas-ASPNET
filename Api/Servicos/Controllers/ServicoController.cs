@@ -1,5 +1,5 @@
 using EDiaristas.Api.Servicos.Services;
-using EDiaristas.Api.Servicos.Routes;
+using EDiaristas.Api.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Servicos.Controllers;
@@ -14,7 +14,7 @@ public class ServicoController : ControllerBase
         _servicoService = servicoService;
     }
 
-    [HttpGet(ServicoRoutes.FindAll, Name = ServicoRoutes.FindAllName)]
+    [HttpGet(ApiRoutes.Servicos.FindAll, Name = ApiRoutes.Servicos.FindAllName)]
     public IActionResult FindAll()
     {
         return Ok(_servicoService.FindAll());

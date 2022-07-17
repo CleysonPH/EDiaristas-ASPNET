@@ -1,6 +1,6 @@
 using EDiaristas.Api.Common.Assemblers;
 using EDiaristas.Api.Home.Dtos;
-using EDiaristas.Api.Home.Routes;
+using EDiaristas.Api.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Home.Controllers;
@@ -15,8 +15,8 @@ public class HomeController : ControllerBase
         _homeAssembler = homeAssembler;
     }
 
-    [HttpGet(HomeRoutes.Home, Name = HomeRoutes.HomeName)]
-    public IActionResult Home()
+    [HttpGet(ApiRoutes.Home.Index, Name = ApiRoutes.Home.IndexName)]
+    public IActionResult Index()
     {
         return Ok(_homeAssembler.ToResource(new HomeResponse(), HttpContext));
     }

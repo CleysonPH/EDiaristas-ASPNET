@@ -3,6 +3,7 @@ using EDiaristas.Admin.Usuarios.Mappers;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Usuarios;
+using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using FluentValidation;
 
 namespace EDiaristas.Admin.Usuarios.Services;
@@ -11,6 +12,7 @@ public class UsuarioService : IUsuarioService
 {
     private readonly IUsuarioMapper _usuarioMapper;
     private readonly IUsuarioRepository _usuarioRepository;
+    private readonly IPasswordEnconderService _passwordEnconderService;
     private readonly IValidator<UsuarioCreateForm> _usuarioCreateFormValidator;
     private readonly IValidator<UsuarioUpdateForm> _usuarioUpdateFormValidator;
     private readonly IValidator<UpdatePasswordForm> _updatePasswordFormValidator;
@@ -20,21 +22,24 @@ public class UsuarioService : IUsuarioService
         IUsuarioRepository repository,
         IValidator<UsuarioCreateForm> usuarioCreateFormValidator,
         IValidator<UsuarioUpdateForm> usuarioUpdateFormValidator,
-        IValidator<UpdatePasswordForm> updatePasswordFormValidator)
+        IValidator<UpdatePasswordForm> updatePasswordFormValidator,
+        IPasswordEnconderService passwordEnconderService)
     {
         _usuarioMapper = mapper;
         _usuarioRepository = repository;
         _usuarioCreateFormValidator = usuarioCreateFormValidator;
         _usuarioUpdateFormValidator = usuarioUpdateFormValidator;
         _updatePasswordFormValidator = updatePasswordFormValidator;
+        _passwordEnconderService = passwordEnconderService;
     }
 
     public void Create(UsuarioCreateForm form)
     {
         _usuarioCreateFormValidator.ValidateAndThrow(form);
         var usuarioToCreate = _usuarioMapper.ToModel(form);
-        var createdUsuario = _usuarioRepository.Create(usuarioToCreate);
-        _usuarioRepository.AddRole(createdUsuario.Email, Roles.Admin);
+        usuarioToCreate.TipoUsuario = TipoUsuario.Admin;
+        usuarioToCreate.Senha = _passwordEnconderService.Enconde(form.Senha);
+        _usuarioRepository.Create(usuarioToCreate);
     }
 
     public void DeleteById(int id)
@@ -48,7 +53,7 @@ public class UsuarioService : IUsuarioService
 
     public ICollection<UsuarioSummary> FindAll()
     {
-        return _usuarioRepository.FindAll()
+        return _usuarioRepository.FindByTipoUsuario(TipoUsuario.Admin)
             .Select(u => _usuarioMapper.ToSummary(u))
             .ToList();
     }
@@ -72,7 +77,6 @@ public class UsuarioService : IUsuarioService
         {
             throw new UsuarioNotFoundException();
         }
-        usuarioToUpdate.UserName = form.Email;
         usuarioToUpdate.Email = form.Email;
         usuarioToUpdate.NomeCompleto = form.NomeCompleto;
         _usuarioRepository.Update(usuarioToUpdate);
@@ -81,14 +85,16 @@ public class UsuarioService : IUsuarioService
     public void UpdatePassword(string email, UpdatePasswordForm form)
     {
         _updatePasswordFormValidator.ValidateAndThrow(form);
-        if (!_usuarioRepository.ExistsByEmail(email))
+        var usuarioToUpdate = _usuarioRepository.FindByEmail(email);
+        if (usuarioToUpdate is null)
         {
             throw new UsuarioNotFoundException();
         }
-        if (!_usuarioRepository.CheckPassword(email, form.SenhaAntiga))
+        if (!_passwordEnconderService.Verify(form.SenhaAntiga, usuarioToUpdate.Senha))
         {
             throw new InvalidCredentialsException();
         }
-        _usuarioRepository.UpdatePassword(email, form.SenhaAntiga, form.NovaSenha);
+        usuarioToUpdate.Senha = _passwordEnconderService.Enconde(form.NovaSenha);
+        _usuarioRepository.Update(usuarioToUpdate);
     }
 }
