@@ -28,10 +28,10 @@ public class HomeAssembler : IAssembler<HomeResponse>
             Rel = "endereco_cep",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Enderecos.BuscarEnderecoPorCepName, new { })
         };
-        var diaristasLocalidadesLink = new LinkResponse
+        var diaristasCidadeLink = new LinkResponse
         {
             Type = HttpMethods.Get,
-            Rel = "diaristas_localidades",
+            Rel = "diaristas_cidade",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diaristas.BuscarDiaristasPorCepName, new { })
         };
         var verificarDisponibilidadeAtendimentoLink = new LinkResponse
@@ -40,12 +40,40 @@ public class HomeAssembler : IAssembler<HomeResponse>
             Rel = "verificar_disponibilidade_atendimento",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diaristas.VerificarDisponibilidadePorCepName, new { })
         };
+        var cadastrarUsuarioLink = new LinkResponse
+        {
+            Type = HttpMethods.Post,
+            Rel = "cadastrar_usuario",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Usuarios.CadastrarUsuarioName, new { })
+        };
+        var loginLink = new LinkResponse
+        {
+            Type = HttpMethods.Post,
+            Rel = "login",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Auth.TokenName, new { })
+        };
+        var usuarioLogadoLink = new LinkResponse
+        {
+            Type = HttpMethods.Get,
+            Rel = "usuario_logado",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Me.ExibirUsuarioAutenticadoName, new { })
+        };
+        var logoutLink = new LinkResponse
+        {
+            Type = HttpMethods.Post,
+            Rel = "logout",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Auth.LogoutName, new { })
+        };
 
         resource.AddLinks(
             listarServicosLink,
             enderecoLink,
-            diaristasLocalidadesLink,
-            verificarDisponibilidadeAtendimentoLink
+            diaristasCidadeLink,
+            verificarDisponibilidadeAtendimentoLink,
+            cadastrarUsuarioLink,
+            loginLink,
+            usuarioLogadoLink,
+            logoutLink
         );
         return resource;
     }
