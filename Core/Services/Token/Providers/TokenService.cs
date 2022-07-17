@@ -39,6 +39,13 @@ public class TokenService : ITokenService
         return email;
     }
 
+    public DateTime GetExpirationDateFromRefreshToken(string refreshToken)
+    {
+        var claims = getClaims(refreshToken, _refreshKey);
+        var expirationDate = claims.First(c => c.Type == JwtRegisteredClaimNames.Exp).Value;
+        return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(double.Parse(expirationDate));
+    }
+
     private IEnumerable<Claim> getClaims(string token, byte[] key)
     {
         var tokenHandler = new JwtSecurityTokenHandler();

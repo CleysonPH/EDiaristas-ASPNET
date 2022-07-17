@@ -9,6 +9,7 @@ public class EDiaristasDbContext : DbContext
     public DbSet<Servico> Servicos => Set<Servico>();
     public DbSet<Usuario> Usuarios => Set<Usuario>();
     public DbSet<CidadeAtendida> CidadesAtendidas => Set<CidadeAtendida>();
+    public DbSet<InvalidatedToken> InvalidatedTokens => Set<InvalidatedToken>();
 
     private readonly string _connectionString;
 
@@ -27,5 +28,6 @@ public class EDiaristasDbContext : DbContext
         builder.ApplyConfiguration(new ServicoEntityConfig());
         builder.ApplyConfiguration(new UsuarioEntityConfig());
         builder.ApplyConfiguration(new CidadeAtendidaEntityConfig());
+        builder.ApplyConfiguration(new InvalidatedTokenEntityConfig());
     }
 }

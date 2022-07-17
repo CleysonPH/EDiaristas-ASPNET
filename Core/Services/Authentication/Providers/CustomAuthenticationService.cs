@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
+using EDiaristas.Core.Repositories.InvalidatedTokens;
 using EDiaristas.Core.Repositories.Usuarios;
 using EDiaristas.Core.Services.Authentication.Adapters;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
@@ -14,17 +15,20 @@ public class CustomAuthenticationService : ICustomAuthenticationService
     private readonly IPasswordEnconderService _passwordEnconderService;
     private readonly ITokenService _tokenService;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IInvalidatedTokenRepository _invalidatedTokenRepository;
 
     public CustomAuthenticationService(
         IUsuarioRepository usuarioRepository,
         IPasswordEnconderService passwordEnconderService,
         ITokenService tokenService,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor,
+        IInvalidatedTokenRepository invalidatedTokenRepository)
     {
         _usuarioRepository = usuarioRepository;
         _passwordEnconderService = passwordEnconderService;
         _tokenService = tokenService;
         _httpContextAccessor = httpContextAccessor;
+        _invalidatedTokenRepository = invalidatedTokenRepository;
     }
 
     public Usuario Authenticate(string email, string password)
@@ -43,12 +47,23 @@ public class CustomAuthenticationService : ICustomAuthenticationService
 
     public Usuario Authenticate(string refreshToken)
     {
+        if (_invalidatedTokenRepository.ExistsByToken(refreshToken))
+        {
+            throw new InvalidatedTokenException();
+        }
         var email = _tokenService.GetEmailFromRefreshToken(refreshToken);
         var usuario = _usuarioRepository.FindByEmail(email);
         if (usuario == null)
         {
             throw new InvalidCredentialsException();
         }
+
+        InvalidatedToken model = new InvalidatedToken
+        {
+            Token = refreshToken,
+            ExpirationDate = _tokenService.GetExpirationDateFromRefreshToken(refreshToken)
+        };
+        _invalidatedTokenRepository.Create(model);
         return usuario;
     }
 
