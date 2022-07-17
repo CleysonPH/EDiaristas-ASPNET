@@ -98,6 +98,8 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rota de logout
   - [x] Rota de exibição dos dados do usuário logado
 - [ ] Contratação de Diarista (Cadastro de diária)
+  - [ ] Rota de cadastro de Diária
+  - [ ] Serviço de consulta de Cidade por Código IBGE
 - [ ] Contratação de Diarista (Pagamento Fake)
 - [ ] Lista de Diárias e Detalhe da Diária
 - [ ] Cadastro de Diarista

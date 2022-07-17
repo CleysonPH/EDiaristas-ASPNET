@@ -14,4 +14,5 @@ public class Usuario
     public string? ChavePix { get; set; }
 
     public ICollection<CidadeAtendida> CidadesAtendidas { get; set; } = new List<CidadeAtendida>();
+    public ICollection<Diaria> Candidaturas { get; set; } = new List<Diaria>();
 }

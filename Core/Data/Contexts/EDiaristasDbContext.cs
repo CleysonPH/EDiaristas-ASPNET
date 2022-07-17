@@ -10,6 +10,7 @@ public class EDiaristasDbContext : DbContext
     public DbSet<Usuario> Usuarios => Set<Usuario>();
     public DbSet<CidadeAtendida> CidadesAtendidas => Set<CidadeAtendida>();
     public DbSet<InvalidatedToken> InvalidatedTokens => Set<InvalidatedToken>();
+    public DbSet<Diaria> Diarias => Set<Diaria>();
 
     private readonly string _connectionString;
 
@@ -29,5 +30,6 @@ public class EDiaristasDbContext : DbContext
         builder.ApplyConfiguration(new UsuarioEntityConfig());
         builder.ApplyConfiguration(new CidadeAtendidaEntityConfig());
         builder.ApplyConfiguration(new InvalidatedTokenEntityConfig());
+        builder.ApplyConfiguration(new DiariaEntityConfig());
     }
 }
