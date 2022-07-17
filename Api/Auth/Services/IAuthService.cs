@@ -7,4 +7,5 @@ public interface IAuthService
 {
     TokenResponse Token(LoginRequest request);
     TokenResponse RefreshToken(RefreshTokenRequest request);
+    void Logout(RefreshTokenRequest request);
 }

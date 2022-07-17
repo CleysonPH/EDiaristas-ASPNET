@@ -1,6 +1,7 @@
 using EDiaristas.Api.Auth.Dtos;
 using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Core.Models;
+using EDiaristas.Core.Repositories.InvalidatedTokens;
 using EDiaristas.Core.Services.Authentication.Adapters;
 using EDiaristas.Core.Services.Token.Adapters;
 using FluentValidation;
@@ -13,17 +14,33 @@ public class AuthService : IAuthService
     private readonly IValidator<LoginRequest> _loginRequestValidator;
     private readonly ICustomAuthenticationService _authenticationService;
     private readonly IValidator<RefreshTokenRequest> _refreshTokenRequestValidator;
+    private readonly IInvalidatedTokenRepository _invalidatedTokenRepository;
 
     public AuthService(
         ITokenService tokenService,
         IValidator<LoginRequest> loginRequestValidator,
         ICustomAuthenticationService authenticationService,
-        IValidator<RefreshTokenRequest> refreshTokenRequestValidator)
+        IValidator<RefreshTokenRequest> refreshTokenRequestValidator,
+        IInvalidatedTokenRepository invalidatedTokenRepository)
     {
         _tokenService = tokenService;
         _loginRequestValidator = loginRequestValidator;
         _authenticationService = authenticationService;
         _refreshTokenRequestValidator = refreshTokenRequestValidator;
+        _invalidatedTokenRepository = invalidatedTokenRepository;
+    }
+
+    public void Logout(RefreshTokenRequest request)
+    {
+        _refreshTokenRequestValidator.ValidateAndThrow(request);
+        if (!_invalidatedTokenRepository.ExistsByToken(request.Refresh))
+        {
+            _invalidatedTokenRepository.Create(new InvalidatedToken
+            {
+                Token = request.Refresh,
+                ExpirationDate = _tokenService.GetExpirationDateFromRefreshToken(request.Refresh)
+            });
+        }
     }
 
     public TokenResponse RefreshToken(RefreshTokenRequest request)

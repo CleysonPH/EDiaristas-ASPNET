@@ -46,5 +46,7 @@ public static class ApiRoutes
         public const string TokenName = "Token";
         public const string Refresh = "auth/refresh";
         public const string RefreshName = "Refresh";
+        public const string Logout = "auth/logout";
+        public const string LogoutName = "Logout";
     }
 }

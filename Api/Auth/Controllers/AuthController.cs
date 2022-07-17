@@ -26,4 +26,11 @@ public class AuthController : ControllerBase
     {
         return Ok(_authService.RefreshToken(request));
     }
+
+    [HttpPost(ApiRoutes.Auth.Logout, Name = ApiRoutes.Auth.LogoutName)]
+    public IActionResult Logout([FromBody] RefreshTokenRequest request)
+    {
+        _authService.Logout(request);
+        return StatusCode(StatusCodes.Status205ResetContent);
+    }
 }
