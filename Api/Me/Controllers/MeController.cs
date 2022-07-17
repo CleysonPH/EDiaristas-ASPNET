@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EDiaristas.Api.Me.Controllers;
 
+[ApiController]
 [Authorize(
     Roles = $"{Roles.Cliente}, {Roles.Diarista}",
     AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

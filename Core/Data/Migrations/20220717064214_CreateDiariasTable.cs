@@ -17,7 +17,7 @@ namespace EDiaristas.Core.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DataAtendimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TempoAtendimento = table.Column<int>(type: "int", nullable: false),
-                    status = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     Preco = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     ValorComissao = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Logradouro = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -37,11 +37,18 @@ namespace EDiaristas.Core.Data.Migrations
                     Observacoes = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     MotivoCancelamento = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    DiaristaId = table.Column<int>(type: "int", nullable: true)
+                    DiaristaId = table.Column<int>(type: "int", nullable: true),
+                    ServicoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Diarias", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Diarias_Servicos_ServicoId",
+                        column: x => x.ServicoId,
+                        principalTable: "Servicos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Diarias_Usuarios_ClienteId",
                         column: x => x.ClienteId,
@@ -56,7 +63,7 @@ namespace EDiaristas.Core.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DiariaUsuario",
+                name: "Candidaturas",
                 columns: table => new
                 {
                     CandidatosId = table.Column<int>(type: "int", nullable: false),
@@ -64,20 +71,23 @@ namespace EDiaristas.Core.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DiariaUsuario", x => new { x.CandidatosId, x.CandidaturasId });
+                    table.PrimaryKey("PK_Candidaturas", x => new { x.CandidatosId, x.CandidaturasId });
                     table.ForeignKey(
-                        name: "FK_DiariaUsuario_Diarias_CandidaturasId",
+                        name: "FK_Candidaturas_Diarias_CandidaturasId",
                         column: x => x.CandidaturasId,
                         principalTable: "Diarias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_DiariaUsuario_Usuarios_CandidatosId",
+                        name: "FK_Candidaturas_Usuarios_CandidatosId",
                         column: x => x.CandidatosId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Candidaturas_CandidaturasId",
+                table: "Candidaturas",
+                column: "CandidaturasId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diarias_ClienteId",
@@ -90,15 +100,15 @@ namespace EDiaristas.Core.Data.Migrations
                 column: "DiaristaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DiariaUsuario_CandidaturasId",
-                table: "DiariaUsuario",
-                column: "CandidaturasId");
+                name: "IX_Diarias_ServicoId",
+                table: "Diarias",
+                column: "ServicoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DiariaUsuario");
+                name: "Candidaturas");
 
             migrationBuilder.DropTable(
                 name: "Diarias");

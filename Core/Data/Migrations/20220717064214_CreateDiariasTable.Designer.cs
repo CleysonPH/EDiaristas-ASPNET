@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EDiaristas.Core.Data.Migrations
 {
     [DbContext(typeof(EDiaristasDbContext))]
-    [Migration("20220717035531_CreateDiariasTable")]
+    [Migration("20220717064214_CreateDiariasTable")]
     partial class CreateDiariasTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,21 @@ namespace EDiaristas.Core.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Candidaturas", b =>
+                {
+                    b.Property<int>("CandidatosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CandidaturasId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CandidatosId", "CandidaturasId");
+
+                    b.HasIndex("CandidaturasId");
+
+                    b.ToTable("Candidaturas");
+                });
 
             modelBuilder.Entity("CidadeAtendidaUsuario", b =>
                 {
@@ -37,21 +52,6 @@ namespace EDiaristas.Core.Data.Migrations
                     b.HasIndex("UsuariosId");
 
                     b.ToTable("CidadeAtendidaUsuario");
-                });
-
-            modelBuilder.Entity("DiariaUsuario", b =>
-                {
-                    b.Property<int>("CandidatosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CandidaturasId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CandidatosId", "CandidaturasId");
-
-                    b.HasIndex("CandidaturasId");
-
-                    b.ToTable("DiariaUsuario");
                 });
 
             modelBuilder.Entity("EDiaristas.Core.Models.CidadeAtendida", b =>
@@ -168,6 +168,14 @@ namespace EDiaristas.Core.Data.Migrations
                     b.Property<int>("QuantidadeSalas")
                         .HasColumnType("int");
 
+                    b.Property<int>("ServicoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
                     b.Property<int>("TempoAtendimento")
                         .HasColumnType("int");
 
@@ -175,16 +183,13 @@ namespace EDiaristas.Core.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("DiaristaId");
+
+                    b.HasIndex("ServicoId");
 
                     b.ToTable("Diarias", (string)null);
                 });
@@ -340,6 +345,21 @@ namespace EDiaristas.Core.Data.Migrations
                     b.ToTable("Usuarios", (string)null);
                 });
 
+            modelBuilder.Entity("Candidaturas", b =>
+                {
+                    b.HasOne("EDiaristas.Core.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("CandidatosId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("EDiaristas.Core.Models.Diaria", null)
+                        .WithMany()
+                        .HasForeignKey("CandidaturasId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CidadeAtendidaUsuario", b =>
                 {
                     b.HasOne("EDiaristas.Core.Models.CidadeAtendida", null)
@@ -351,21 +371,6 @@ namespace EDiaristas.Core.Data.Migrations
                     b.HasOne("EDiaristas.Core.Models.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UsuariosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DiariaUsuario", b =>
-                {
-                    b.HasOne("EDiaristas.Core.Models.Usuario", null)
-                        .WithMany()
-                        .HasForeignKey("CandidatosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EDiaristas.Core.Models.Diaria", null)
-                        .WithMany()
-                        .HasForeignKey("CandidaturasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -382,9 +387,17 @@ namespace EDiaristas.Core.Data.Migrations
                         .WithMany()
                         .HasForeignKey("DiaristaId");
 
+                    b.HasOne("EDiaristas.Core.Models.Servico", "Servico")
+                        .WithMany()
+                        .HasForeignKey("ServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
 
                     b.Navigation("Diarista");
+
+                    b.Navigation("Servico");
                 });
 #pragma warning restore 612, 618
         }

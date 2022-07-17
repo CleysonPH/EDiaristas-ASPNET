@@ -22,7 +22,7 @@ public class DiariaRequestValidator : AbstractValidator<DiariaRequest>
             .WithMessage("deve ser maior que a data atual")
             .Must(x => x.Hour >= 6)
             .WithMessage("a hora deve ser maior ou igual a 6")
-            .Must(x => x < DateTime.Now.AddHours(48))
+            .Must(x => x >= DateTime.Now.AddHours(48))
             .WithMessage("deve ser menor que 48 horas da data atual")
             .OverridePropertyName("data_atendimento");
 
@@ -88,50 +88,36 @@ public class DiariaRequestValidator : AbstractValidator<DiariaRequest>
             .OverridePropertyName("cep");
 
         RuleFor(x => x.CodigoIbge)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .MaximumLength(30)
             .WithMessage("deve ter no máximo 30 caracteres")
             .OverridePropertyName("codigo_ibge");
 
         RuleFor(x => x.QuantidadeQuartos)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .GreaterThanOrEqualTo(0)
             .WithMessage("deve ser maior ou igual a 0")
             .OverridePropertyName("quantidade_quartos");
 
         RuleFor(x => x.QuantidadeSalas)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .GreaterThanOrEqualTo(0)
             .WithMessage("deve ser maior ou igual a 0")
             .OverridePropertyName("quantidade_salas");
 
         RuleFor(x => x.QuantidadeCozinhas)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .GreaterThanOrEqualTo(0)
             .WithMessage("deve ser maior ou igual a 0")
             .OverridePropertyName("quantidade_cozinhas");
 
         RuleFor(x => x.QuantidadeBanheiros)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .GreaterThanOrEqualTo(0)
             .WithMessage("deve ser maior ou igual a 0")
             .OverridePropertyName("quantidade_banheiros");
 
         RuleFor(x => x.QuantidadeQuintais)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .GreaterThanOrEqualTo(0)
             .WithMessage("deve ser maior ou igual a 0")
             .OverridePropertyName("quantidade_quintais");
 
         RuleFor(x => x.QuantidadeOutros)
-            .NotEmpty()
-            .WithMessage("é obrigatório")
             .GreaterThanOrEqualTo(0)
             .WithMessage("deve ser maior ou igual a 0")
             .OverridePropertyName("quantidade_outros");

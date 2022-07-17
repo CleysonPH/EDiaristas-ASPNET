@@ -49,4 +49,10 @@ public static class ApiRoutes
         public const string Logout = "auth/logout";
         public const string LogoutName = "Logout";
     }
+
+    public static class Diarias
+    {
+        public const string Cadastrar = "/api/diarias";
+        public const string CadastrarName = "CadastrarDiaria";
+    }
 }

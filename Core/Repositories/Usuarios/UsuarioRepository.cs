@@ -88,7 +88,7 @@ public class UsuarioRepository : IUsuarioRepository
             .Where(x => x.CidadesAtendidas.Any(y => y.CodigoIbge == codigoIbge));
         var totalElements = query.Count();
         var elements = query
-            .Skip(filter.PageSize * filter.Page)
+            .Skip(filter.PageSize * (filter.Page - 1))
             .Take(filter.PageSize)
             .ToList();
         return new PagedResult<Usuario>

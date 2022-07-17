@@ -18,7 +18,7 @@ public class DiariaEntityConfig : IEntityTypeConfiguration<Diaria>
         builder.Property(d => d.TempoAtendimento)
             .IsRequired();
 
-        builder.Property(d => d.status)
+        builder.Property(d => d.Status)
             .IsRequired()
             .HasMaxLength(12)
             .HasConversion(
@@ -97,12 +97,29 @@ public class DiariaEntityConfig : IEntityTypeConfiguration<Diaria>
             .HasForeignKey(d => d.ClienteId)
             .IsRequired();
 
+        builder.HasOne(d => d.Cliente)
+            .WithMany()
+            .HasForeignKey(d => d.ClienteId)
+            .IsRequired();
+
         builder.HasOne(d => d.Diarista)
             .WithMany()
             .HasForeignKey(d => d.DiaristaId)
             .IsRequired(false);
 
         builder.HasMany(d => d.Candidatos)
-            .WithMany(u => u.Candidaturas);
+            .WithMany(u => u.Candidaturas)
+            .UsingEntity<Dictionary<string, object>>(
+                "Candidaturas",
+                j => j
+                    .HasOne<Usuario>()
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.NoAction),
+                j => j
+                    .HasOne<Diaria>()
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.NoAction
+            )
+        );
     }
 }

@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 namespace EDiaristas.Core.Models;
 
 public class Diaria
@@ -5,7 +7,7 @@ public class Diaria
     public int Id { get; set; }
     public DateTime DataAtendimento { get; set; }
     public int TempoAtendimento { get; set; }
-    public DiariaStatus status { get; set; }
+    public DiariaStatus Status { get; set; }
     public decimal Preco { get; set; }
     public decimal ValorComissao { get; set; }
     public string Logradouro { get; set; } = string.Empty;
@@ -26,8 +28,44 @@ public class Diaria
     public string? MotivoCancelamento { get; set; }
     public int ClienteId { get; set; }
     public int? DiaristaId { get; set; }
+    public int ServicoId { get; set; }
 
-    public Usuario Cliente { get; set; } = new Usuario();
-    public Usuario? Diarista { get; set; }
-    public ICollection<Usuario> Candidatos { get; set; } = new List<Usuario>();
+    private Servico? _servico;
+    private Usuario? _cliente;
+    private Usuario? _diarista;
+    private ICollection<Usuario>? _candidatos;
+
+    private ILazyLoader? LazyLoader { get; set; }
+
+    public Servico Servico
+    {
+        get => LazyLoader.Load(this, ref _servico) ?? new Servico();
+        set => _servico = value;
+    }
+
+    public Usuario Cliente
+    {
+        get => LazyLoader.Load(this, ref _cliente) ?? new Usuario();
+        set => _cliente = value;
+    }
+
+    public Usuario? Diarista
+    {
+        get => LazyLoader.Load(this, ref _diarista);
+        set => _diarista = value;
+    }
+
+    public ICollection<Usuario> Candidatos
+    {
+        get => LazyLoader.Load(this, ref _candidatos) ?? new List<Usuario>();
+        set => _candidatos = value;
+    }
+
+    public Diaria()
+    { }
+
+    public Diaria(ILazyLoader? lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
 }
