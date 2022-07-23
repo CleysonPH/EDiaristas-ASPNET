@@ -194,8 +194,20 @@ public class DiariaRequestValidator : AbstractValidator<DiariaRequest>
             RuleFor(x => x.CodigoIbge)
                 .Must(x => usuarioRepository.ExistsByCidadesAtendidasCodigoIbge(x))
                 .WithMessage("não há diaristas que atendem a cidade selecionada")
+                .Must(x =>
+                {
+                    try
+                    {
+                        var codigoIbge = consultaEnderecoService.FindEnderecoByCep(x).Ibge;
+                        return codigoIbge == x;
+                    }
+                    catch (ConsultaEnderecoServiceException)
+                    {
+                        return false;
+                    }
+                })
+                .WithMessage("código ibge não corresponde ao cep")
                 .OverridePropertyName("codigo_ibge");
-            // validar se o código ibge é existe
         });
     }
 
