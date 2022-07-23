@@ -52,18 +52,19 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas da API
 
-| Verbo | Rota                           | Funcionalidade                                    | Requer Autenticação? |
-| ----- | ------------------------------ | ------------------------------------------------- | -------------------- |
-| GET   | /api                           | Lista os links iniciais da api                    | Não                  |
-| GET   | /api/servicos                  | Listar serviços cadastrados                       | Não                  |
-| GET   | /api/enderecos                 | Buscar endereço por cep                           | Não                  |
-| GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  |
-| GET   | /api/diaristas/disponibilidade | Verifica a disponibilidade de atendimento por cep | Não                  |
-| POST  | /api/usuarios                  | Realiza o cadastro de um novo usuário             | Não                  |
-| POST  | /auth/token                    | Autentica usuários através das credenciais        | Não                  |
-| POST  | /auth/refresh                  | Autentica usuários através do refresh token       | Não                  |
-| POST  | /auth/logout                   | Invalida o refresh token                          | Não                  |
-| POST  | /api/me                        | Exibe os dados do usuário autenticado             | Sim                  |
+| Verbo | Rota                           | Funcionalidade                                    | Requer Autenticação? | Tipo Usuário      |
+| ----- | ------------------------------ | ------------------------------------------------- | -------------------- | ----------------- |
+| GET   | /api                           | Lista os links iniciais da api                    | Não                  | -                 |
+| GET   | /api/servicos                  | Listar serviços cadastrados                       | Não                  | -                 |
+| GET   | /api/enderecos                 | Buscar endereço por cep                           | Não                  | -                 |
+| GET   | /api/diaristas/localidades     | Listar diaristas que atendem um determinado cep   | Não                  | -                 |
+| GET   | /api/diaristas/disponibilidade | Verifica a disponibilidade de atendimento por cep | Não                  | -                 |
+| POST  | /api/usuarios                  | Realiza o cadastro de um novo usuário             | Não                  | -                 |
+| POST  | /auth/token                    | Autentica usuários através das credenciais        | Não                  | -                 |
+| POST  | /auth/refresh                  | Autentica usuários através do refresh token       | Não                  | -                 |
+| POST  | /auth/logout                   | Invalida o refresh token                          | Não                  | -                 |
+| GET   | /api/me                        | Exibe os dados do usuário autenticado             | Sim                  | Diarista, Cliente |
+| POST  | /api/diarias                   | Cadastra uma nova diária                          | Sim                  | Cliente           |
 
 ## TODO
 
@@ -97,9 +98,9 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rota de autenticação via refresh token
   - [x] Rota de logout
   - [x] Rota de exibição dos dados do usuário logado
-- [ ] Contratação de Diarista (Cadastro de diária)
-  - [ ] Rota de cadastro de Diária
-  - [ ] Serviço de consulta de Cidade por Código IBGE
+- [x] Contratação de Diarista (Cadastro de diária)
+  - [x] Rota de cadastro de Diária
+  - [x] Adicionar HATEOAS com link de cadastro de Diária
 - [ ] Contratação de Diarista (Pagamento Fake)
 - [ ] Lista de Diárias e Detalhe da Diária
 - [ ] Cadastro de Diarista

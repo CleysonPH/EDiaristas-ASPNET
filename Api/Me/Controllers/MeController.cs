@@ -1,3 +1,5 @@
+using EDiaristas.Api.Common.Assemblers;
+using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Common.Routes;
 using EDiaristas.Api.Me.Services;
 using EDiaristas.Core.Models;
@@ -14,10 +16,14 @@ namespace EDiaristas.Api.Me.Controllers;
 public class MeController : ControllerBase
 {
     private readonly IMeService _meService;
+    private readonly IAssembler<UsuarioResponse> _usuarioResponseAssembler;
 
-    public MeController(IMeService meService)
+    public MeController(
+        IMeService meService,
+        IAssembler<UsuarioResponse> usuarioResponseAssembler)
     {
         _meService = meService;
+        _usuarioResponseAssembler = usuarioResponseAssembler;
     }
 
     [HttpGet(
@@ -25,7 +31,7 @@ public class MeController : ControllerBase
         Name = ApiRoutes.Me.ExibirUsuarioAutenticadoName)]
     public IActionResult ExibirUsuarioAutenticado()
     {
-        var teste = HttpContext;
-        return Ok(_meService.ExibirUsuarioAutenticado());
+        var body = _meService.ExibirUsuarioAutenticado();
+        return Ok(_usuarioResponseAssembler.ToResource(body, HttpContext));
     }
 }

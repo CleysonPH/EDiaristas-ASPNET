@@ -1,10 +1,9 @@
 using EDiaristas.Api.Usuarios.Services;
 using EDiaristas.Api.Usuarios.Dtos;
 using EDiaristas.Api.Common.Routes;
-using EDiaristas.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using EDiaristas.Api.Common.Assemblers;
+using EDiaristas.Api.Common.Dtos;
 
 namespace EDiaristas.Api.Usuarios.Controllers;
 
@@ -12,10 +11,14 @@ namespace EDiaristas.Api.Usuarios.Controllers;
 public class UsuarioController : ControllerBase
 {
     private readonly IUsuarioService _usuarioService;
+    private readonly IAssembler<UsuarioResponse> _usuarioResponseAssembler;
 
-    public UsuarioController(IUsuarioService usuarioService)
+    public UsuarioController(
+        IUsuarioService usuarioService,
+        IAssembler<UsuarioResponse> usuarioResponseAssembler)
     {
         _usuarioService = usuarioService;
+        _usuarioResponseAssembler = usuarioResponseAssembler;
     }
 
     [HttpPost(
@@ -23,7 +26,9 @@ public class UsuarioController : ControllerBase
         Name = ApiRoutes.Usuarios.CadastrarUsuarioName)]
     public IActionResult Cadastrar([FromForm] UsuarioRequest request)
     {
-        var usuario = _usuarioService.Cadastrar(request);
-        return CreatedAtRoute(ApiRoutes.Me.ExibirUsuarioAutenticadoName, usuario);
+        var body = _usuarioService.Cadastrar(request);
+        return CreatedAtRoute(
+            ApiRoutes.Me.ExibirUsuarioAutenticadoName,
+            _usuarioResponseAssembler.ToResource(body, HttpContext));
     }
 }
