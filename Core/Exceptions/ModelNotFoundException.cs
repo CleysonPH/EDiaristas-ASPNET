@@ -1,7 +1,7 @@
 namespace EDiaristas.Core.Exceptions;
 
-public class ModelNotFoundExceptionException : Exception
+public class ModelNotFoundException : Exception
 {
-    public ModelNotFoundExceptionException(string? message = "Model não encontrado") : base(message)
+    public ModelNotFoundException(string? message = "Model não encontrado") : base(message)
     { }
 }

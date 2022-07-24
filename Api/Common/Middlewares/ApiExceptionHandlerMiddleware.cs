@@ -32,7 +32,7 @@ public class ApiExceptionHandlerMiddleware
         {
             await _next(context);
         }
-        catch (ModelNotFoundExceptionException ex)
+        catch (ModelNotFoundException ex)
         {
             await handleModelNotFoundException(context, ex);
         }
@@ -48,6 +48,15 @@ public class ApiExceptionHandlerMiddleware
         {
             await handleValidationException(context, ex);
         }
+        catch (UnauthorizedException ex)
+        {
+            await handleUnauthorizedException(context, ex);
+        }
+    }
+
+    private Task handleUnauthorizedException(HttpContext context, UnauthorizedException ex)
+    {
+        return handleException(context, 403, "Unauthorized", ex.GetType().Name, ex.Message);
     }
 
     private Task handleValidationException(HttpContext context, ValidationException ex)
@@ -77,7 +86,7 @@ public class ApiExceptionHandlerMiddleware
         return handleException(context, 404, "Not Found", ex.GetType().Name, ex.Message);
     }
 
-    private Task handleModelNotFoundException(HttpContext context, ModelNotFoundExceptionException ex)
+    private Task handleModelNotFoundException(HttpContext context, ModelNotFoundException ex)
     {
         return handleException(context, 404, "Not Found", ex.GetType().Name, ex.Message);
     }

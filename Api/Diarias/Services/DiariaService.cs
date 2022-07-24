@@ -1,5 +1,7 @@
+using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Diarias.Dtos;
 using EDiaristas.Api.Diarias.Mappers;
+using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Diarias;
 using EDiaristas.Core.Repositories.Servicos;
@@ -15,19 +17,22 @@ public class DiariaService : IDiariaService
     private readonly IServicoRepository _servicoRepository;
     private readonly IValidator<DiariaRequest> _diariaRequestValidator;
     private readonly ICustomAuthenticationService _customAuthenticationService;
+    private readonly IValidator<PagamentoRequest> _pagamentoRequestValidator;
 
     public DiariaService(
         IDiariaMapper diariaMapper,
         IDiariaRepository diariaRepository,
         IValidator<DiariaRequest> diariaRequestValidator,
         IServicoRepository servicoRepository,
-        ICustomAuthenticationService customAuthenticationService)
+        ICustomAuthenticationService customAuthenticationService,
+        IValidator<PagamentoRequest> pagamentoRequestValidator)
     {
         _diariaMapper = diariaMapper;
         _diariaRepository = diariaRepository;
         _diariaRequestValidator = diariaRequestValidator;
         _servicoRepository = servicoRepository;
         _customAuthenticationService = customAuthenticationService;
+        _pagamentoRequestValidator = pagamentoRequestValidator;
     }
 
     public DiariaResponse Cadastrar(DiariaRequest request)
@@ -39,6 +44,25 @@ public class DiariaService : IDiariaService
         diaria.Status = DiariaStatus.SemPagamento;
         var diariaCadastrada = _diariaRepository.Create(diaria);
         return _diariaMapper.ToResponse(diariaCadastrada);
+    }
+
+    public MessageResponse Pagar(PagamentoRequest request, int diariaId)
+    {
+        var diaria = _diariaRepository.FindById(diariaId);
+        if (diaria == null)
+        {
+            throw new DiariaNotFoundException();
+        }
+        request.DiariaStatus = diaria.Status;
+        _pagamentoRequestValidator.ValidateAndThrow(request);
+
+        diaria.Status = DiariaStatus.Pago;
+        _diariaRepository.Update(diaria);
+
+        return new MessageResponse
+        {
+            Message = "Pagamento realizado com sucesso"
+        };
     }
 
     private decimal calcularComissao(Diaria diaria)

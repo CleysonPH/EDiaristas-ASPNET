@@ -35,6 +35,13 @@ public class DiariaRepository : IDiariaRepository
         return _context.Diarias.AsNoTracking().Any(d => d.Id == id);
     }
 
+    public bool ExistsByIdAndClienteId(int diariaId, int clienteId)
+    {
+        return _context.Diarias
+            .AsNoTracking()
+            .Any(d => d.Id == diariaId && d.ClienteId == clienteId);
+    }
+
     public ICollection<Diaria> FindAll()
     {
         return _context.Diarias.AsNoTracking().ToList();

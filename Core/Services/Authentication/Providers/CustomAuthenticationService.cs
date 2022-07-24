@@ -78,7 +78,7 @@ public class CustomAuthenticationService : ICustomAuthenticationService
         var usuario = _usuarioRepository.FindByEmail(email ?? "");
         if (usuario == null)
         {
-            throw new ModelNotFoundExceptionException("Usuário não encontrado");
+            throw new ModelNotFoundException("Usuário não encontrado");
         }
         return usuario;
     }

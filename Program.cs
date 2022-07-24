@@ -10,6 +10,7 @@ builder.Services.RegisterValidators();
 builder.Services.RegisterIdentity();
 builder.Services.RegisterSeeds();
 builder.Services.RegisterAssemblers();
+builder.Services.RegisterPermissions();
 
 builder.Services.RegisterControllers();
 
