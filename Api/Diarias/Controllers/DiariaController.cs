@@ -60,4 +60,16 @@ public class DiariaController : ControllerBase
         var body = _diariaService.ListarPeloUsuarioLogado();
         return Ok(_diariaResponseAssembler.ToResourceCollection(body, HttpContext));
     }
+
+    [Authorize(
+        Roles = $"{Roles.Cliente},{Roles.Diarista}",
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)
+    ]
+    [HttpGet(ApiRoutes.Diarias.BuscarPorId, Name = ApiRoutes.Diarias.BuscarPorIdName)]
+    public IActionResult BuscarPorId(int diariaId)
+    {
+        _diariaPermissions.CheckPermission(User, diariaId, DiariaOperations.Detalhar);
+        var body = _diariaService.BuscarPeloId(diariaId);
+        return Ok(_diariaResponseAssembler.ToResource(body, HttpContext));
+    }
 }

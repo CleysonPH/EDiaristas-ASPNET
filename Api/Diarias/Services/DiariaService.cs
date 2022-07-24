@@ -35,6 +35,16 @@ public class DiariaService : IDiariaService
         _pagamentoRequestValidator = pagamentoRequestValidator;
     }
 
+    public DiariaResponse BuscarPeloId(int diariaId)
+    {
+        var diaria = _diariaRepository.FindById(diariaId);
+        if (diaria == null)
+        {
+            throw new DiariaNotFoundException();
+        }
+        return _diariaMapper.ToResponse(diaria);
+    }
+
     public DiariaResponse Cadastrar(DiariaRequest request)
     {
         _diariaRequestValidator.ValidateAndThrow(request);

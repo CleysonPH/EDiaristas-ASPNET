@@ -15,14 +15,24 @@ public class DiariaPermissions : IPermission<int>
 
     public void CheckPermission(ClaimsPrincipal user, int diariaId, string operation)
     {
-        var clienteId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (clienteId == null)
+        var usuarioId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (usuarioId == null)
         {
             throw new UnauthenticatedException();
         }
-        if (operation == DiariaOperations.Pagar && !_diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(clienteId)))
+        if (operation == DiariaOperations.Pagar && !_diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(usuarioId)))
         {
             throw new UnauthorizedException();
+        }
+        if (operation == DiariaOperations.Detalhar)
+        {
+            var hasPermission = _diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(usuarioId))
+                || _diariaRepository.ExistsByIdAndDiaristaId(diariaId, int.Parse(usuarioId));
+
+            if (!hasPermission)
+            {
+                throw new UnauthorizedException();
+            }
         }
     }
 }
@@ -30,4 +40,5 @@ public class DiariaPermissions : IPermission<int>
 public static class DiariaOperations
 {
     public const string Pagar = "Pagar";
+    public const string Detalhar = "Detalhar";
 }
