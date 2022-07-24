@@ -1,3 +1,4 @@
+using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Usuarios.Dtos;
 using EDiaristas.Core.Models;
 

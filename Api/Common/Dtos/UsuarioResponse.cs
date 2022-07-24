@@ -1,6 +1,6 @@
-namespace EDiaristas.Api.Usuarios.Dtos;
+namespace EDiaristas.Api.Common.Dtos;
 
-public class UsuarioResponse
+public class UsuarioResponse : ResourceResponse
 {
     public int Id { get; set; }
     public string NomeCompleto { get; set; } = string.Empty;

@@ -80,6 +80,8 @@ public class UsuarioRequestValidator : AbstractValidator<UsuarioRequest>
                 .WithMessage("é obrigatório")
                 .Length(11)
                 .WithMessage("deve ter 11 caracteres")
+                .Matches("^[0-9]*$")
+                .WithMessage("deve conter apenas números")
                 .OverridePropertyName("telefone");
 
         When(x => x.TipoUsuario.IsDiarista(), () =>

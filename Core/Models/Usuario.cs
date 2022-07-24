@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 namespace EDiaristas.Core.Models;
 
 public class Usuario
@@ -13,5 +15,28 @@ public class Usuario
     public double? Reputacao { get; set; }
     public string? ChavePix { get; set; }
 
-    public ICollection<CidadeAtendida> CidadesAtendidas { get; set; } = new List<CidadeAtendida>();
+    public ICollection<CidadeAtendida>? _cidadesAtendidas;
+    public ICollection<Diaria>? _candidaturas;
+
+    private ILazyLoader? LazyLoader { get; set; }
+
+    public ICollection<CidadeAtendida> CidadesAtendidas
+    {
+        get => LazyLoader.Load(this, ref _cidadesAtendidas) ?? new List<CidadeAtendida>();
+        set => _cidadesAtendidas = value;
+    }
+
+    public ICollection<Diaria> Candidaturas
+    {
+        get => LazyLoader.Load(this, ref _candidaturas) ?? new List<Diaria>();
+        set => _candidaturas = value;
+    }
+
+    public Usuario()
+    { }
+
+    public Usuario(ILazyLoader? lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
 }

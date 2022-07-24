@@ -35,6 +35,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.RegisterMiddlewares();
 app.ExecuteSeeds();
 
 app.Run();
