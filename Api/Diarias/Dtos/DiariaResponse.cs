@@ -1,6 +1,8 @@
+using EDiaristas.Api.Common.Dtos;
+
 namespace EDiaristas.Api.Diarias.Dtos;
 
-public class DiariaResponse
+public class DiariaResponse : ResourceResponse
 {
     public int Id { get; set; }
     public int Status { get; set; }

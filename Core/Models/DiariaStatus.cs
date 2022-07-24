@@ -72,4 +72,9 @@ public static class DiariaStatusExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(diariaStatus), diariaStatus, null)
         };
     }
+
+    public static bool IsSemPagamento(this int diariaStatus)
+    {
+        return diariaStatus == (int)DiariaStatus.SemPagamento;
+    }
 }

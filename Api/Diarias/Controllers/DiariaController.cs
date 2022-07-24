@@ -1,3 +1,4 @@
+using EDiaristas.Api.Common.Assemblers;
 using EDiaristas.Api.Common.Routes;
 using EDiaristas.Api.Diarias.Dtos;
 using EDiaristas.Api.Diarias.Services;
@@ -14,13 +15,16 @@ public class DiariaController : ControllerBase
 {
     private readonly IDiariaService _diariaService;
     private readonly DiariaPermissions _diariaPermissions;
+    private readonly IAssembler<DiariaResponse> _diariaResponseAssembler;
 
     public DiariaController(
         IDiariaService diariaService,
-        DiariaPermissions diariaPermissions)
+        DiariaPermissions diariaPermissions,
+        IAssembler<DiariaResponse> diariaResponseAssembler)
     {
         _diariaService = diariaService;
         _diariaPermissions = diariaPermissions;
+        _diariaResponseAssembler = diariaResponseAssembler;
     }
 
     [Authorize(
@@ -30,7 +34,8 @@ public class DiariaController : ControllerBase
     [HttpPost(ApiRoutes.Diarias.Cadastrar, Name = ApiRoutes.Diarias.CadastrarName)]
     public IActionResult Cadastrar([FromBody] DiariaRequest request)
     {
-        return Created("", _diariaService.Cadastrar(request));
+        var body = _diariaService.Cadastrar(request);
+        return Created("", _diariaResponseAssembler.ToResource(body, HttpContext));
     }
 
     [Authorize(

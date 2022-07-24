@@ -102,9 +102,9 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [x] Contratação de Diarista (Cadastro de diária)
   - [x] Rota de cadastro de Diária
   - [x] Adicionar HATEOAS com link de cadastro de Diária
-- [ ] Contratação de Diarista (Pagamento Fake)
+- [x] Contratação de Diarista (Pagamento Fake)
   - [x] Rota de pagamento de diária
-  - [ ] Adicionar HATEOAS com link de pagamento de Diária
+  - [x] Adicionar HATEOAS com link de pagamento de Diária
 - [ ] Lista de Diárias e Detalhe da Diária
 - [ ] Cadastro de Diarista
 - [ ] Lista de Oportunidades e Candidatar-se a uma Diária
