@@ -1,5 +1,7 @@
 using EDiaristas.Api.Common.Assemblers;
 using EDiaristas.Api.Common.Dtos;
+using EDiaristas.Api.Diarias.Assemblers;
+using EDiaristas.Api.Diarias.Dtos;
 using EDiaristas.Api.Home.Assemblers;
 using EDiaristas.Api.Home.Dtos;
 
@@ -11,5 +13,6 @@ public static class AssemblersConfig
     {
         services.AddScoped<IAssembler<HomeResponse>, HomeAssembler>();
         services.AddScoped<IAssembler<UsuarioResponse>, UsuarioResponseAssembler>();
+        services.AddScoped<IAssembler<DiariaResponse>, DiariaResponseAssembler>();
     }
 }

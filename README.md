@@ -36,19 +36,19 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas do Admin
 
-| Rota                          | Funcionalidade                                | Reque autenticação? |
-| ----------------------------- | --------------------------------------------- | ------------------- |
-| /admin/login                  | Realizar login na aplicação administrativa    | Não                 |
-| /admin/logout                 | Realizar o logout na aplicação administrativa | Sim                 |
-| /admin/servicos               | Listar todos os serviços cadastrados          | Sim                 |
-| /admin/servicos/cadastrar     | Cadastrar novo serviço                        | Sim                 |
-| /admin/servicos/{id}/editar   | Editar os dados de um serviço                 | Sim                 |
-| /admin/servicos/{id}/excluir  | Excluir um serviço                            | Sim                 |
-| /admin/usuarios               | Listar todos os usuários cadastrados          | Sim                 |
-| /admin/usuarios/cadastrar     | Cadastrar um novo usuário com o perfil ADMIN  | Sim                 |
-| /admin/usuarios/{id}/editar   | Editar os dados de um usuário                 | Sim                 |
-| /admin/usuarios/{id}/excluir  | Excluir um usuário                            | Sim                 |
-| /admin/usuarios/alterar-senha | Alterar a senha do usuário logado             | Sim                 |
+| Rota                          | Funcionalidade                                | Reque autenticação? | Tipo Usuário |
+| ----------------------------- | --------------------------------------------- | ------------------- | ------------ |
+| /admin/login                  | Realizar login na aplicação administrativa    | Não                 | -            |
+| /admin/logout                 | Realizar o logout na aplicação administrativa | Sim                 | Admin        |
+| /admin/servicos               | Listar todos os serviços cadastrados          | Sim                 | Admin        |
+| /admin/servicos/cadastrar     | Cadastrar novo serviço                        | Sim                 | Admin        |
+| /admin/servicos/{id}/editar   | Editar os dados de um serviço                 | Sim                 | Admin        |
+| /admin/servicos/{id}/excluir  | Excluir um serviço                            | Sim                 | Admin        |
+| /admin/usuarios               | Listar todos os usuários cadastrados          | Sim                 | Admin        |
+| /admin/usuarios/cadastrar     | Cadastrar um novo usuário com o perfil ADMIN  | Sim                 | Admin        |
+| /admin/usuarios/{id}/editar   | Editar os dados de um usuário                 | Sim                 | Admin        |
+| /admin/usuarios/{id}/excluir  | Excluir um usuário                            | Sim                 | Admin        |
+| /admin/usuarios/alterar-senha | Alterar a senha do usuário logado             | Sim                 | Admin        |
 
 ## Rotas da API
 
@@ -65,6 +65,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | POST  | /auth/logout                   | Invalida o refresh token                          | Não                  | -                 |
 | GET   | /api/me                        | Exibe os dados do usuário autenticado             | Sim                  | Diarista, Cliente |
 | POST  | /api/diarias                   | Cadastra uma nova diária                          | Sim                  | Cliente           |
+| POST  | /api/diarias/{id}/pagar        | Pagar uma diária                                  | Sim                  | Cliente           |
 
 ## TODO
 
@@ -101,7 +102,9 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [x] Contratação de Diarista (Cadastro de diária)
   - [x] Rota de cadastro de Diária
   - [x] Adicionar HATEOAS com link de cadastro de Diária
-- [ ] Contratação de Diarista (Pagamento Fake)
+- [x] Contratação de Diarista (Pagamento Fake)
+  - [x] Rota de pagamento de diária
+  - [x] Adicionar HATEOAS com link de pagamento de Diária
 - [ ] Lista de Diárias e Detalhe da Diária
 - [ ] Cadastro de Diarista
 - [ ] Lista de Oportunidades e Candidatar-se a uma Diária

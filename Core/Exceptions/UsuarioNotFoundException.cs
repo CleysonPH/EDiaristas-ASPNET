@@ -1,6 +1,6 @@
 namespace EDiaristas.Core.Exceptions;
 
-public class UsuarioNotFoundException : ModelNotFoundExceptionException
+public class UsuarioNotFoundException : ModelNotFoundException
 {
     public UsuarioNotFoundException(string? message = "Usuário não encontrado") : base(message)
     { }
