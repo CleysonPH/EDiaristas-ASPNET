@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EDiaristas.Core.Data.Migrations
 {
     [DbContext(typeof(EDiaristasDbContext))]
-    [Migration("20220724221847_CreateEnderecoTable")]
+    [Migration("20220724222431_CreateEnderecoTable")]
     partial class CreateEnderecoTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,7 +194,7 @@ namespace EDiaristas.Core.Data.Migrations
                     b.ToTable("Diarias", (string)null);
                 });
 
-            modelBuilder.Entity("EDiaristas.Core.Models.Endereco", b =>
+            modelBuilder.Entity("EDiaristas.Core.Models.EnderecoDiarista", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -204,7 +204,8 @@ namespace EDiaristas.Core.Data.Migrations
 
                     b.Property<string>("Bairro")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Cep")
                         .IsRequired()
@@ -212,26 +213,31 @@ namespace EDiaristas.Core.Data.Migrations
 
                     b.Property<string>("Cidade")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Complemento")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("Logradouro")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Numero")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Endereco");
+                    b.ToTable("Enderecos", (string)null);
                 });
 
             modelBuilder.Entity("EDiaristas.Core.Models.InvalidatedToken", b =>
@@ -449,7 +455,7 @@ namespace EDiaristas.Core.Data.Migrations
 
             modelBuilder.Entity("EDiaristas.Core.Models.Usuario", b =>
                 {
-                    b.HasOne("EDiaristas.Core.Models.Endereco", "Endereco")
+                    b.HasOne("EDiaristas.Core.Models.EnderecoDiarista", "Endereco")
                         .WithOne()
                         .HasForeignKey("EDiaristas.Core.Models.Usuario", "EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade);

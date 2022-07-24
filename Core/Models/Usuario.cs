@@ -18,7 +18,7 @@ public class Usuario
 
     private ICollection<CidadeAtendida>? _cidadesAtendidas;
     private ICollection<Diaria>? _candidaturas;
-    private Endereco? _endereco;
+    private EnderecoDiarista? _endereco;
 
     private ILazyLoader? LazyLoader { get; set; }
 
@@ -34,7 +34,7 @@ public class Usuario
         set => _candidaturas = value;
     }
 
-    public Endereco? Endereco
+    public EnderecoDiarista? Endereco
     {
         get => LazyLoader.Load(this, ref _endereco);
         set => _endereco = value;

@@ -1,6 +1,6 @@
 namespace EDiaristas.Core.Models;
 
-public class Endereco
+public class EnderecoDiarista
 {
     public int Id { get; set; }
     public string Logradouro { get; set; } = string.Empty;

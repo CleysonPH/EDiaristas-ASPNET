@@ -15,22 +15,22 @@ namespace EDiaristas.Core.Data.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Endereco",
+                name: "Enderecos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Complemento = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logradouro = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Bairro = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Complemento = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Cidade = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                    table.PrimaryKey("PK_Enderecos", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
@@ -41,10 +41,10 @@ namespace EDiaristas.Core.Data.Migrations
                 filter: "[EnderecoId] IS NOT NULL");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Usuarios_Endereco_EnderecoId",
+                name: "FK_Usuarios_Enderecos_EnderecoId",
                 table: "Usuarios",
                 column: "EnderecoId",
-                principalTable: "Endereco",
+                principalTable: "Enderecos",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -52,11 +52,11 @@ namespace EDiaristas.Core.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Usuarios_Endereco_EnderecoId",
+                name: "FK_Usuarios_Enderecos_EnderecoId",
                 table: "Usuarios");
 
             migrationBuilder.DropTable(
-                name: "Endereco");
+                name: "Enderecos");
 
             migrationBuilder.DropIndex(
                 name: "IX_Usuarios_EnderecoId",

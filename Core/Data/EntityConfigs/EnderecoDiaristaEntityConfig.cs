@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class EnderecoEntityConfig : IEntityTypeConfiguration<Endereco>
+public class EnderecoEntityConfig : IEntityTypeConfiguration<EnderecoDiarista>
 {
-    public void Configure(EntityTypeBuilder<Endereco> builder)
+    public void Configure(EntityTypeBuilder<EnderecoDiarista> builder)
     {
         builder.ToTable("Enderecos");
 
