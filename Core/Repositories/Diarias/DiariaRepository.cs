@@ -1,6 +1,5 @@
 using EDiaristas.Core.Data.Contexts;
 using EDiaristas.Core.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Repositories.Diarias;
 
@@ -32,24 +31,43 @@ public class DiariaRepository : IDiariaRepository
 
     public bool ExistsById(int id)
     {
-        return _context.Diarias.AsNoTracking().Any(d => d.Id == id);
+        return _context.Diarias.Any(d => d.Id == id);
     }
 
     public bool ExistsByIdAndClienteId(int diariaId, int clienteId)
     {
         return _context.Diarias
-            .AsNoTracking()
             .Any(d => d.Id == diariaId && d.ClienteId == clienteId);
+    }
+
+    public bool ExistsByIdAndDiaristaId(int diariaId, int diaristaId)
+    {
+        return _context.Diarias
+            .Any(d => d.Id == diariaId && d.DiaristaId == diaristaId);
     }
 
     public ICollection<Diaria> FindAll()
     {
-        return _context.Diarias.AsNoTracking().ToList();
+        return _context.Diarias.ToList();
+    }
+
+    public ICollection<Diaria> FindByClienteId(int clienteId)
+    {
+        return _context.Diarias
+            .Where(d => d.ClienteId == clienteId)
+            .ToList();
+    }
+
+    public ICollection<Diaria> FindByDiaristaId(int diaristaId)
+    {
+        return _context.Diarias
+            .Where(d => d.DiaristaId == diaristaId)
+            .ToList();
     }
 
     public Diaria? FindById(int id)
     {
-        return _context.Diarias.AsNoTracking().FirstOrDefault(d => d.Id == id);
+        return _context.Diarias.FirstOrDefault(d => d.Id == id);
     }
 
     public Diaria Update(Diaria model)

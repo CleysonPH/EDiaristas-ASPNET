@@ -35,7 +35,10 @@ public class DiariaController : ControllerBase
     public IActionResult Cadastrar([FromBody] DiariaRequest request)
     {
         var body = _diariaService.Cadastrar(request);
-        return Created("", _diariaResponseAssembler.ToResource(body, HttpContext));
+        return CreatedAtRoute(
+            ApiRoutes.Diarias.BuscarPorIdName,
+            new { DiariaId = body.Id },
+            _diariaResponseAssembler.ToResource(body, HttpContext));
     }
 
     [Authorize(
@@ -48,5 +51,28 @@ public class DiariaController : ControllerBase
         _diariaPermissions.CheckPermission(User, diariaId, DiariaOperations.Pagar);
         var body = _diariaService.Pagar(request, diariaId);
         return Ok(body);
+    }
+
+    [Authorize(
+        Roles = $"{Roles.Cliente},{Roles.Diarista}",
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)
+    ]
+    [HttpGet(ApiRoutes.Diarias.Listar, Name = ApiRoutes.Diarias.ListarName)]
+    public IActionResult Listar()
+    {
+        var body = _diariaService.ListarPeloUsuarioLogado();
+        return Ok(_diariaResponseAssembler.ToResourceCollection(body, HttpContext));
+    }
+
+    [Authorize(
+        Roles = $"{Roles.Cliente},{Roles.Diarista}",
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)
+    ]
+    [HttpGet(ApiRoutes.Diarias.BuscarPorId, Name = ApiRoutes.Diarias.BuscarPorIdName)]
+    public IActionResult BuscarPorId(int diariaId)
+    {
+        _diariaPermissions.CheckPermission(User, diariaId, DiariaOperations.Detalhar);
+        var body = _diariaService.BuscarPeloId(diariaId);
+        return Ok(_diariaResponseAssembler.ToResource(body, HttpContext));
     }
 }

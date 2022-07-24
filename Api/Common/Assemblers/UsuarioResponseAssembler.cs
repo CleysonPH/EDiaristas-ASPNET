@@ -21,7 +21,14 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
             Rel = "cadastrar_diaria",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.CadastrarName, new { })
         };
+        var listarDiariasLink = new LinkResponse
+        {
+            Type = HttpMethods.Get,
+            Rel = "listar_diarias",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.ListarName, new { })
+        };
         resource.AddLinkIf(resource.TipoUsuario.IsCliente(), cadastrarDiariaLink);
+        resource.AddLink(listarDiariasLink);
         return resource;
     }
 }

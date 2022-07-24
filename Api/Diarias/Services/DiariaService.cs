@@ -35,6 +35,16 @@ public class DiariaService : IDiariaService
         _pagamentoRequestValidator = pagamentoRequestValidator;
     }
 
+    public DiariaResponse BuscarPeloId(int diariaId)
+    {
+        var diaria = _diariaRepository.FindById(diariaId);
+        if (diaria == null)
+        {
+            throw new DiariaNotFoundException();
+        }
+        return _diariaMapper.ToResponse(diaria);
+    }
+
     public DiariaResponse Cadastrar(DiariaRequest request)
     {
         _diariaRequestValidator.ValidateAndThrow(request);
@@ -44,6 +54,21 @@ public class DiariaService : IDiariaService
         diaria.Status = DiariaStatus.SemPagamento;
         var diariaCadastrada = _diariaRepository.Create(diaria);
         return _diariaMapper.ToResponse(diariaCadastrada);
+    }
+
+    public ICollection<DiariaResponse> ListarPeloUsuarioLogado()
+    {
+        var usuario = _customAuthenticationService.GetUsuarioAutenticado();
+        ICollection<Diaria> diarias;
+        if (usuario.TipoUsuario == TipoUsuario.Diarista)
+        {
+            diarias = _diariaRepository.FindByDiaristaId(usuario.Id);
+        }
+        else
+        {
+            diarias = _diariaRepository.FindByClienteId(usuario.Id);
+        }
+        return diarias.Select(d => _diariaMapper.ToResponse(d)).ToList();
     }
 
     public MessageResponse Pagar(PagamentoRequest request, int diariaId)
