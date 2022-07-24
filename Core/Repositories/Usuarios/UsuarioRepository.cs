@@ -75,15 +75,12 @@ public class UsuarioRepository : IUsuarioRepository
 
     public ICollection<Usuario> FindAll()
     {
-        return _context.Usuarios
-            .AsNoTracking()
-            .ToList();
+        return _context.Usuarios.ToList();
     }
 
     public PagedResult<Usuario> FindByCidadesAtentidasCodigoIbge(string codigoIbge, PagedFilter filter)
     {
         var query = _context.Usuarios
-            .AsNoTracking()
             .Include(x => x.CidadesAtendidas)
             .Where(x => x.CidadesAtendidas.Any(y => y.CodigoIbge == codigoIbge));
         var totalElements = query.Count();
@@ -102,21 +99,17 @@ public class UsuarioRepository : IUsuarioRepository
     public Usuario? FindByEmail(string email)
     {
         return _context.Usuarios
-            .AsNoTracking()
             .FirstOrDefault(x => x.Email == email);
     }
 
     public Usuario? FindById(int id)
     {
-        return _context.Usuarios
-            .AsNoTracking()
-            .FirstOrDefault(x => x.Id == id);
+        return _context.Usuarios.FirstOrDefault(x => x.Id == id);
     }
 
     public ICollection<Usuario> FindByTipoUsuario(TipoUsuario tipoUsuario)
     {
         return _context.Usuarios
-            .AsNoTracking()
             .Where(x => x.TipoUsuario == tipoUsuario)
             .ToList();
     }
@@ -124,7 +117,6 @@ public class UsuarioRepository : IUsuarioRepository
     public double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario)
     {
         var usuarios = _context.Usuarios
-            .AsNoTracking()
             .Where(x => x.TipoUsuario == tipoUsuario)
             .ToList();
         var total = usuarios.Count();

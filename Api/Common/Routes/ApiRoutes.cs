@@ -61,4 +61,12 @@ public static class ApiRoutes
         public const string Pagar = "/api/diarias/{diariaId}/pagar";
         public const string PagarName = "PagarDiaria";
     }
+
+    public static class EnderecosDiarista
+    {
+        public const string AtualizarEndereco = "/api/usuarios/endereco";
+        public const string AtualizarEnderecoName = "AtualizarEndereco";
+        public const string ObterEnderecoUsuarioLogado = "/api/usuarios/endereco";
+        public const string ObterEnderecoUsuarioLogadoName = "ObterEnderecoUsuarioLogado";
+    }
 }

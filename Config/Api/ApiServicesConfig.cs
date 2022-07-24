@@ -1,6 +1,7 @@
 using EDiaristas.Api.Auth.Services;
 using EDiaristas.Api.Diarias.Services;
 using EDiaristas.Api.Diaristas.Services;
+using EDiaristas.Api.EnderecosDiarista.Services;
 using EDiaristas.Api.Me.Services;
 using EDiaristas.Api.Servicos.Services;
 using EDiaristas.Api.Usuarios.Services;
@@ -17,5 +18,6 @@ public static class ApiServicesConfig
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IMeService, MeService>();
         services.AddScoped<IDiariaService, DiariaService>();
+        services.AddScoped<IEnderecoDiaristaService, EnderecoDiaristaService>();
     }
 }
