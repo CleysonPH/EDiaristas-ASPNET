@@ -17,6 +17,12 @@ public class DiariaResponseAssembler : IAssembler<DiariaResponse>
 
     public DiariaResponse ToResource(DiariaResponse resource, HttpContext context)
     {
+        var selfLink = new LinkResponse
+        {
+            Type = HttpMethods.Get,
+            Rel = "self",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.BuscarPorIdName, new { DiariaId = resource.Id })
+        };
         var pagarDiariaLink = new LinkResponse
         {
             Type = HttpMethods.Post,
@@ -24,6 +30,7 @@ public class DiariaResponseAssembler : IAssembler<DiariaResponse>
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.PagarName, new { DiariaId = resource.Id })
         };
 
+        resource.AddLink(selfLink);
         resource.AddLinkIf(resource.Status.IsSemPagamento(), pagarDiariaLink);
         return resource;
     }

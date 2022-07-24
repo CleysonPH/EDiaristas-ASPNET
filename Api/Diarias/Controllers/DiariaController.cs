@@ -35,7 +35,10 @@ public class DiariaController : ControllerBase
     public IActionResult Cadastrar([FromBody] DiariaRequest request)
     {
         var body = _diariaService.Cadastrar(request);
-        return Created("", _diariaResponseAssembler.ToResource(body, HttpContext));
+        return CreatedAtRoute(
+            ApiRoutes.Diarias.BuscarPorIdName,
+            new { DiariaId = body.Id },
+            _diariaResponseAssembler.ToResource(body, HttpContext));
     }
 
     [Authorize(
