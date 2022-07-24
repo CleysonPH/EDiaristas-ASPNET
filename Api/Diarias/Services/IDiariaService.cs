@@ -7,4 +7,5 @@ public interface IDiariaService
 {
     DiariaResponse Cadastrar(DiariaRequest request);
     MessageResponse Pagar(PagamentoRequest request, int diariaId);
+    ICollection<DiariaResponse> ListarPeloUsuarioLogado();
 }

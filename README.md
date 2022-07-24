@@ -66,6 +66,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | GET   | /api/me                        | Exibe os dados do usuário autenticado             | Sim                  | Diarista, Cliente |
 | POST  | /api/diarias                   | Cadastra uma nova diária                          | Sim                  | Cliente           |
 | POST  | /api/diarias/{id}/pagar        | Pagar uma diária                                  | Sim                  | Cliente           |
+| GET   | /api/diarias/                  | Lista as diários do usuário autenticado           | Sim                  | Diarista, Cliente |
 
 ## TODO
 
@@ -106,6 +107,10 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rota de pagamento de diária
   - [x] Adicionar HATEOAS com link de pagamento de Diária
 - [ ] Lista de Diárias e Detalhe da Diária
+  - [x] Rota de listagem de diárias
+  - [ ] Rota de detalhes de diária
+  - [ ] Adicionar HATEOAS com link de listagem de Diárias
+  - [ ] Adicionar HATEOAS com link de detalhes de Diária
 - [ ] Cadastro de Diarista
 - [ ] Lista de Oportunidades e Candidatar-se a uma Diária
 - [ ] Confirmação de presença

@@ -54,6 +54,8 @@ public static class ApiRoutes
     {
         public const string Cadastrar = "/api/diarias";
         public const string CadastrarName = "CadastrarDiaria";
+        public const string Listar = "/api/diarias";
+        public const string ListarName = "ListarDiarias";
         public const string Pagar = "/api/diarias/{diariaId}/pagar";
         public const string PagarName = "PagarDiaria";
     }

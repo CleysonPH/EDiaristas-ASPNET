@@ -46,6 +46,21 @@ public class DiariaService : IDiariaService
         return _diariaMapper.ToResponse(diariaCadastrada);
     }
 
+    public ICollection<DiariaResponse> ListarPeloUsuarioLogado()
+    {
+        var usuario = _customAuthenticationService.GetUsuarioAutenticado();
+        ICollection<Diaria> diarias;
+        if (usuario.TipoUsuario == TipoUsuario.Diarista)
+        {
+            diarias = _diariaRepository.FindByDiaristaId(usuario.Id);
+        }
+        else
+        {
+            diarias = _diariaRepository.FindByClienteId(usuario.Id);
+        }
+        return diarias.Select(d => _diariaMapper.ToResponse(d)).ToList();
+    }
+
     public MessageResponse Pagar(PagamentoRequest request, int diariaId)
     {
         var diaria = _diariaRepository.FindById(diariaId);

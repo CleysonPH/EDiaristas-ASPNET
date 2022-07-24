@@ -47,6 +47,28 @@ public class DiariaRepository : IDiariaRepository
         return _context.Diarias.AsNoTracking().ToList();
     }
 
+    public ICollection<Diaria> FindByClienteId(int clienteId)
+    {
+        return _context.Diarias
+            .AsNoTracking()
+            .Where(d => d.ClienteId == clienteId)
+            .Include(d => d.Servico)
+            .Include(d => d.Cliente)
+            .Include(d => d.Diarista)
+            .ToList();
+    }
+
+    public ICollection<Diaria> FindByDiaristaId(int diaristaId)
+    {
+        return _context.Diarias
+            .AsNoTracking()
+            .Where(d => d.DiaristaId == diaristaId)
+            .Include(d => d.Servico)
+            .Include(d => d.Cliente)
+            .Include(d => d.Diarista)
+            .ToList();
+    }
+
     public Diaria? FindById(int id)
     {
         return _context.Diarias.AsNoTracking().FirstOrDefault(d => d.Id == id);

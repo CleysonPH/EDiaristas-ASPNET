@@ -49,4 +49,15 @@ public class DiariaController : ControllerBase
         var body = _diariaService.Pagar(request, diariaId);
         return Ok(body);
     }
+
+    [Authorize(
+        Roles = $"{Roles.Cliente},{Roles.Diarista}",
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)
+    ]
+    [HttpGet(ApiRoutes.Diarias.Listar, Name = ApiRoutes.Diarias.ListarName)]
+    public IActionResult Listar()
+    {
+        var body = _diariaService.ListarPeloUsuarioLogado();
+        return Ok(_diariaResponseAssembler.ToResourceCollection(body, HttpContext));
+    }
 }
