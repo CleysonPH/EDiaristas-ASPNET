@@ -1,4 +1,3 @@
-using System.Net;
 using System.Text.Json;
 using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Common.NamingPolicies;
