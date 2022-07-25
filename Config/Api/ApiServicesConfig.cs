@@ -1,4 +1,5 @@
 using EDiaristas.Api.Auth.Services;
+using EDiaristas.Api.CidadesAtentidas.Services;
 using EDiaristas.Api.Diarias.Services;
 using EDiaristas.Api.Diaristas.Services;
 using EDiaristas.Api.EnderecosDiarista.Services;
@@ -19,5 +20,6 @@ public static class ApiServicesConfig
         services.AddScoped<IMeService, MeService>();
         services.AddScoped<IDiariaService, DiariaService>();
         services.AddScoped<IEnderecoDiaristaService, EnderecoDiaristaService>();
+        services.AddScoped<ICidadeAtendidaService, CidadeAtendidaService>();
     }
 }

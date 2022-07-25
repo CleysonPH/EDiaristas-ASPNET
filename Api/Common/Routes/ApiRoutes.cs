@@ -69,4 +69,10 @@ public static class ApiRoutes
         public const string ObterEnderecoUsuarioLogado = "/api/usuarios/endereco";
         public const string ObterEnderecoUsuarioLogadoName = "ObterEnderecoUsuarioLogado";
     }
+
+    public static class CidadeAtendida
+    {
+        public const string ListarPorUsuarioLogado = "/api/usuarios/cidades-atendidas";
+        public const string ListarPorUsuarioLogadoName = "ListarPorUsuarioLogado";
+    }
 }

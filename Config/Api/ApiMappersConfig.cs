@@ -1,3 +1,4 @@
+using EDiaristas.Api.CidadesAtentidas.Mappers;
 using EDiaristas.Api.Diarias.Mappers;
 using EDiaristas.Api.Diaristas.Mappers;
 using EDiaristas.Api.EnderecosDiarista.Mappers;
@@ -17,5 +18,6 @@ public static class ApiMappersConfig
         services.AddScoped<IMeMapper, MeMapper>();
         services.AddScoped<IDiariaMapper, DiariaMapper>();
         services.AddScoped<IEnderecoDiaristaMapper, EnderecoDiaristaMapper>();
+        services.AddScoped<ICidadeAtendidaMapper, CidadeAtendidaMapper>();
     }
 }
