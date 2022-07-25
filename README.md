@@ -119,7 +119,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Criar o modelo de EnderecoDiarista
   - [x] Criar a rota de atualização de endereço de diarista
   - [x] Criar a rota de detalhes do endereço de diarista
-  - [ ] Criar o serviço de consulta de cidade por codigo IBGE
+  - [x] Criar o serviço de consulta de cidade por codigo IBGE
   - [x] Criar a rota de listagem de cidades atendidas
   - [ ] Criar a rota de alteração de cidades atendidas
 - [ ] Lista de Oportunidades e Candidatar-se a uma Diária
