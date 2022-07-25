@@ -1,3 +1,4 @@
+using EDiaristas.Core.Repositories.CidadesAtendidas;
 using EDiaristas.Core.Repositories.Diarias;
 using EDiaristas.Core.Repositories.InvalidatedTokens;
 using EDiaristas.Core.Repositories.Servicos;
@@ -13,5 +14,6 @@ public static class RepositoriesConfig
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IInvalidatedTokenRepository, InvalidatedTokenRepository>();
         services.AddScoped<IDiariaRepository, DiariaRepository>();
+        services.AddScoped<ICidadeAtendidaRepository, CidadeAtendidaRepository>();
     }
 }

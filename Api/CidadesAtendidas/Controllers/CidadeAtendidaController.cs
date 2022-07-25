@@ -1,3 +1,4 @@
+using EDiaristas.Api.CidadesAtentidas.Dtos;
 using EDiaristas.Api.CidadesAtentidas.Services;
 using EDiaristas.Api.Common.Routes;
 using EDiaristas.Core.Models;
@@ -24,6 +25,13 @@ public class CidadeAtendidaController : ControllerBase
     public IActionResult ListarPorUsuarioLogado()
     {
         var body = _cidadeAtendidaService.ListarPorUsuarioLogado();
+        return Ok(body);
+    }
+
+    [HttpPut(ApiRoutes.CidadeAtendida.Atualizar, Name = ApiRoutes.CidadeAtendida.AtualizarName)]
+    public IActionResult Atualizar([FromBody] CidadesAtendidasRequest request)
+    {
+        var body = _cidadeAtendidaService.Atualizar(request);
         return Ok(body);
     }
 }

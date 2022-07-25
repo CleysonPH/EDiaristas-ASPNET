@@ -39,8 +39,25 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
             Rel = "listar_endereco",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.EnderecosDiarista.ObterEnderecoUsuarioLogadoName, new { })
         };
+        var cidadesAtendidasLink = new LinkResponse
+        {
+            Type = HttpMethods.Get,
+            Rel = "cidades_atendidas",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.CidadeAtendida.ListarPorUsuarioLogadoName, new { })
+        };
+        var relacionarCidadesLink = new LinkResponse
+        {
+            Type = HttpMethods.Put,
+            Rel = "relacionar_cidades",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.CidadeAtendida.AtualizarName, new { })
+        };
         resource.AddLinkIf(resource.TipoUsuario.IsCliente(), cadastrarDiariaLink);
-        resource.AddLinksIf(resource.TipoUsuario.IsDiarista(), atualizarEnderecoLink, listarEnderecoLink);
+        resource.AddLinksIf(
+            resource.TipoUsuario.IsDiarista(),
+            atualizarEnderecoLink,
+            listarEnderecoLink,
+            cidadesAtendidasLink,
+            relacionarCidadesLink);
         resource.AddLink(listarDiariasLink);
         return resource;
     }

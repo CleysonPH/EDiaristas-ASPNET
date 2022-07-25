@@ -74,5 +74,7 @@ public static class ApiRoutes
     {
         public const string ListarPorUsuarioLogado = "/api/usuarios/cidades-atendidas";
         public const string ListarPorUsuarioLogadoName = "ListarPorUsuarioLogado";
+        public const string Atualizar = "/api/usuarios/cidades-atendidas";
+        public const string AtualizarName = "AtualizarCidadeAtendida";
     }
 }
