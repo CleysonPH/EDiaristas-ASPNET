@@ -31,5 +31,6 @@ public class EDiaristasDbContext : DbContext
         builder.ApplyConfiguration(new CidadeAtendidaEntityConfig());
         builder.ApplyConfiguration(new InvalidatedTokenEntityConfig());
         builder.ApplyConfiguration(new DiariaEntityConfig());
+        builder.ApplyConfiguration(new EnderecoEntityConfig());
     }
 }

@@ -1,7 +1,11 @@
 using EDiaristas.Api.Auth.Dtos;
 using EDiaristas.Api.Auth.Validators;
+using EDiaristas.Api.CidadesAtentidas.Dtos;
+using EDiaristas.Api.CidadesAtentidas.Validators;
 using EDiaristas.Api.Diarias.Dtos;
 using EDiaristas.Api.Diarias.Validators;
+using EDiaristas.Api.EnderecosDiarista.Dtos;
+using EDiaristas.Api.EnderecosDiarista.Validators;
 using EDiaristas.Api.Usuarios.Dtos;
 using EDiaristas.Api.Usuarios.Validators;
 using FluentValidation;
@@ -17,5 +21,7 @@ public static class ApiValidatorsConfig
         services.AddTransient<IValidator<RefreshTokenRequest>, RefreshTokenRequestValidator>();
         services.AddTransient<IValidator<DiariaRequest>, DiariaRequestValidator>();
         services.AddTransient<IValidator<PagamentoRequest>, PagamentoRequestValidator>();
+        services.AddTransient<IValidator<EnderecoDiaristaRequest>, EnderecoDiaristaRequestValidator>();
+        services.AddTransient<IValidator<CidadesAtendidasRequest>, CidadesAtendidasRequestValidator>();
     }
 }

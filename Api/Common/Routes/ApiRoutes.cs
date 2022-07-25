@@ -61,4 +61,20 @@ public static class ApiRoutes
         public const string Pagar = "/api/diarias/{diariaId}/pagar";
         public const string PagarName = "PagarDiaria";
     }
+
+    public static class EnderecosDiarista
+    {
+        public const string AtualizarEndereco = "/api/usuarios/endereco";
+        public const string AtualizarEnderecoName = "AtualizarEndereco";
+        public const string ObterEnderecoUsuarioLogado = "/api/usuarios/endereco";
+        public const string ObterEnderecoUsuarioLogadoName = "ObterEnderecoUsuarioLogado";
+    }
+
+    public static class CidadeAtendida
+    {
+        public const string ListarPorUsuarioLogado = "/api/usuarios/cidades-atendidas";
+        public const string ListarPorUsuarioLogadoName = "ListarPorUsuarioLogado";
+        public const string Atualizar = "/api/usuarios/cidades-atendidas";
+        public const string AtualizarName = "AtualizarCidadeAtendida";
+    }
 }

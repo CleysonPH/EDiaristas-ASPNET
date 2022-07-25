@@ -50,5 +50,11 @@ public class UsuarioEntityConfig : IEntityTypeConfiguration<Usuario>
                 v => v.ToTipoUsuarioName(),
                 v => v.ToTipoUsuario()
             );
+
+        builder.HasOne(u => u.Endereco)
+            .WithOne()
+            .HasForeignKey<Usuario>(u => u.EnderecoId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false);
     }
 }

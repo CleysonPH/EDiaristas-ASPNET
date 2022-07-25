@@ -14,9 +14,11 @@ public class Usuario
     public string? Telefone { get; set; } = string.Empty;
     public double? Reputacao { get; set; }
     public string? ChavePix { get; set; }
+    public int? EnderecoId { get; set; }
 
-    public ICollection<CidadeAtendida>? _cidadesAtendidas;
-    public ICollection<Diaria>? _candidaturas;
+    private ICollection<CidadeAtendida>? _cidadesAtendidas;
+    private ICollection<Diaria>? _candidaturas;
+    private EnderecoDiarista? _endereco;
 
     private ILazyLoader? LazyLoader { get; set; }
 
@@ -30,6 +32,12 @@ public class Usuario
     {
         get => LazyLoader.Load(this, ref _candidaturas) ?? new List<Diaria>();
         set => _candidaturas = value;
+    }
+
+    public EnderecoDiarista? Endereco
+    {
+        get => LazyLoader.Load(this, ref _endereco);
+        set => _endereco = value;
     }
 
     public Usuario()
