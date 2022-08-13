@@ -1,3 +1,4 @@
+using EDiaristas.Api.Common.JsonConverters;
 using EDiaristas.Api.Common.NamingPolicies;
 
 namespace EDiaristas.Config;
@@ -9,6 +10,9 @@ public static class ControllersConfig
         services.AddControllersWithViews();
         services.AddControllers()
             .AddJsonOptions(options =>
-                options.JsonSerializerOptions.PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance);
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance;
+                options.JsonSerializerOptions.Converters.Add(new JsonNumberToStringConverter());
+            });
     }
 }

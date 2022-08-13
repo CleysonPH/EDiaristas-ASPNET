@@ -77,4 +77,10 @@ public static class ApiRoutes
         public const string Atualizar = "/api/usuarios/cidades-atendidas";
         public const string AtualizarName = "AtualizarCidadeAtendida";
     }
+
+    public static class Oportunidade
+    {
+        public const string BuscarOportunidades = "/api/oportunidades";
+        public const string BuscarOportunidadesName = "BuscarOportunidades";
+    }
 }

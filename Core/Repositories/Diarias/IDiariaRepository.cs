@@ -8,4 +8,5 @@ public interface IDiariaRepository : ICrudRepository<Diaria, int>
     bool ExistsByIdAndDiaristaId(int diariaId, int diaristaId);
     ICollection<Diaria> FindByClienteId(int clienteId);
     ICollection<Diaria> FindByDiaristaId(int diaristaId);
+    ICollection<Diaria> FindOportunidades(ICollection<string> cidades, Usuario candidato);
 }

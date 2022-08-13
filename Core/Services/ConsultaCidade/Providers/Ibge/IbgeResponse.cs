@@ -4,7 +4,7 @@ namespace EDiaristas.Core.Services.ConsultaCidade.Providers.Ibge;
 
 public partial class IbgeResponse
 {
-    public string Id { get; set; } = string.Empty;
+    public int Id { get; set; }
     public string Nome { get; set; } = string.Empty;
     public Microrregiao Microrregiao { get; set; } = new Microrregiao();
 }

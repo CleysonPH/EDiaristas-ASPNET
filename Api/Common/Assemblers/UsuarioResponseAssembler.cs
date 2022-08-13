@@ -21,16 +21,16 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
             Rel = "cadastrar_diaria",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.CadastrarName, new { })
         };
-        var listarDiariasLink = new LinkResponse
+        var listaDiariasLink = new LinkResponse
         {
             Type = HttpMethods.Get,
-            Rel = "listar_diarias",
+            Rel = "lista_diarias",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.ListarName, new { })
         };
-        var atualizarEnderecoLink = new LinkResponse
+        var cadastrarEnderecoLink = new LinkResponse
         {
             Type = HttpMethods.Put,
-            Rel = "atualizar_endereco",
+            Rel = "cadastrar_endereco",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.EnderecosDiarista.AtualizarEnderecoName, new { })
         };
         var listarEnderecoLink = new LinkResponse
@@ -54,11 +54,11 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
         resource.AddLinkIf(resource.TipoUsuario.IsCliente(), cadastrarDiariaLink);
         resource.AddLinksIf(
             resource.TipoUsuario.IsDiarista(),
-            atualizarEnderecoLink,
+            cadastrarEnderecoLink,
             listarEnderecoLink,
             cidadesAtendidasLink,
             relacionarCidadesLink);
-        resource.AddLink(listarDiariasLink);
+        resource.AddLink(listaDiariasLink);
         return resource;
     }
 }

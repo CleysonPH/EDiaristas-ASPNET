@@ -1,5 +1,6 @@
 using EDiaristas.Core.Data.Contexts;
 using EDiaristas.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Repositories.Diarias;
 
@@ -68,6 +69,20 @@ public class DiariaRepository : IDiariaRepository
     public Diaria? FindById(int id)
     {
         return _context.Diarias.FirstOrDefault(d => d.Id == id);
+    }
+
+    public ICollection<Diaria> FindOportunidades(ICollection<string> cidades, Usuario candidato)
+    {
+        return _context.Diarias
+            .Include(d => d.Candidatos)
+            .Where(d =>
+                d.Status == DiariaStatus.Pago &&
+                cidades.Any(c => c == d.CodigoIbge) &&
+                d.DiaristaId == null &&
+                d.Candidatos.Count() < 3 &&
+                !d.Candidatos.Any(c => c.Id == candidato.Id)
+            )
+            .ToList();
     }
 
     public Diaria Update(Diaria model)
