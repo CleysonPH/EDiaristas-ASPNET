@@ -21,8 +21,9 @@ public class IbgeConsultaCidadeService : IConsultaCidadeService
         {
             return tryBuscarCidadePorCodigoIbge(response);
         }
-        catch (JsonException)
+        catch (JsonException e)
         {
+            Console.WriteLine(e);
             throw new ConsultaCidadeException("Código IBGE não encontrado");
         }
     }
@@ -37,7 +38,7 @@ public class IbgeConsultaCidadeService : IConsultaCidadeService
 
         return new ConsultaCidadeResult
         {
-            Ibge = ibgeResponse.Id,
+            Ibge = ibgeResponse.Id.ToString(),
             Cidade = ibgeResponse.Nome,
             Estado = ibgeResponse.Microrregiao.Mesorregiao.Uf.Sigla
         };

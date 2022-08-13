@@ -11,6 +11,7 @@ builder.Services.RegisterIdentity();
 builder.Services.RegisterSeeds();
 builder.Services.RegisterAssemblers();
 builder.Services.RegisterPermissions();
+builder.Services.RegisterCors();
 
 builder.Services.RegisterControllers();
 
@@ -24,7 +25,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -38,5 +39,6 @@ app.MapControllerRoute(
 
 app.RegisterMiddlewares();
 app.ExecuteSeeds();
+app.UseCors("CorsPolicy");
 
 app.Run();

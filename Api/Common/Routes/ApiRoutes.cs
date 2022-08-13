@@ -60,6 +60,8 @@ public static class ApiRoutes
         public const string BuscarPorIdName = "BuscarDiariaPorId";
         public const string Pagar = "/api/diarias/{diariaId}/pagar";
         public const string PagarName = "PagarDiaria";
+        public const string Candidatar = "/api/diarias/{diariaId}/candidatar";
+        public const string CandidatarName = "Candidatar";
     }
 
     public static class EnderecosDiarista
@@ -76,5 +78,11 @@ public static class ApiRoutes
         public const string ListarPorUsuarioLogadoName = "ListarPorUsuarioLogado";
         public const string Atualizar = "/api/usuarios/cidades-atendidas";
         public const string AtualizarName = "AtualizarCidadeAtendida";
+    }
+
+    public static class Oportunidade
+    {
+        public const string BuscarOportunidades = "/api/oportunidades";
+        public const string BuscarOportunidadesName = "BuscarOportunidades";
     }
 }
