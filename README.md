@@ -52,28 +52,29 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas da API
 
-| Verbo | Rota                              | Funcionalidade                                               | Requer Autenticação? | Tipo Usuário      |
-| ----- | --------------------------------- | ------------------------------------------------------------ | -------------------- | ----------------- |
-| GET   | /api                              | Lista os links iniciais da api                               | Não                  | -                 |
-| GET   | /api/servicos                     | Listar serviços cadastrados                                  | Não                  | -                 |
-| GET   | /api/enderecos                    | Buscar endereço por cep                                      | Não                  | -                 |
-| GET   | /api/diaristas/localidades        | Listar diaristas que atendem um determinado cep              | Não                  | -                 |
-| GET   | /api/diaristas/disponibilidade    | Verifica a disponibilidade de atendimento por cep            | Não                  | -                 |
-| POST  | /api/usuarios                     | Realiza o cadastro de um novo usuário                        | Não                  | -                 |
-| POST  | /auth/token                       | Autentica usuários através das credenciais                   | Não                  | -                 |
-| POST  | /auth/refresh                     | Autentica usuários através do refresh token                  | Não                  | -                 |
-| POST  | /auth/logout                      | Invalida o refresh token                                     | Não                  | -                 |
-| GET   | /api/me                           | Exibe os dados do usuário autenticado                        | Sim                  | Diarista, Cliente |
-| POST  | /api/diarias                      | Cadastra uma nova diária                                     | Sim                  | Cliente           |
-| POST  | /api/diarias/{id}/pagar           | Pagar uma diária                                             | Sim                  | Cliente           |
-| GET   | /api/diarias/                     | Lista as diários do usuário autenticado                      | Sim                  | Diarista, Cliente |
-| GET   | /api/diarias/{id}                 | Detalha a diária                                             | Sim                  | Diarista, Cliente |
-| GET   | /api/usuarios/endereco            | Exibe os detalhes do endereço do usuário cadastrado          | Sim                  | Diarista          |
-| PUT   | /api/usuarios/endereco            | Altera o endereço do usuário cadastrado                      | Sim                  | Diarista          |
-| GET   | /api/usuarios/cidades-atendidas   | Lista as cidades atendidas pelo usuário logado               | Sim                  | Diarista          |
-| PUT   | /api/usuarios/cidades-atendidas   | Atualiza a lista as cidades atendidas pelo usuário logado    | Sim                  | Diarista          |
-| GET   | /api/oportunidades                | Lista as diarias em que o diarista logado pode se candidatar | Sim                  | Diarista          |
-| GET   | /api/diaria/{diariaId}/candidatar | Realiza a candidatura do usuário logado em uma diária        | Sim                  | Diarista          |
+| Verbo | Rota                                      | Funcionalidade                                               | Requer Autenticação? | Tipo Usuário      |
+| ----- | ----------------------------------------- | ------------------------------------------------------------ | -------------------- | ----------------- |
+| GET   | /api                                      | Lista os links iniciais da api                               | Não                  | -                 |
+| GET   | /api/servicos                             | Listar serviços cadastrados                                  | Não                  | -                 |
+| GET   | /api/enderecos                            | Buscar endereço por cep                                      | Não                  | -                 |
+| GET   | /api/diaristas/localidades                | Listar diaristas que atendem um determinado cep              | Não                  | -                 |
+| GET   | /api/diaristas/disponibilidade            | Verifica a disponibilidade de atendimento por cep            | Não                  | -                 |
+| POST  | /api/usuarios                             | Realiza o cadastro de um novo usuário                        | Não                  | -                 |
+| POST  | /auth/token                               | Autentica usuários através das credenciais                   | Não                  | -                 |
+| POST  | /auth/refresh                             | Autentica usuários através do refresh token                  | Não                  | -                 |
+| POST  | /auth/logout                              | Invalida o refresh token                                     | Não                  | -                 |
+| GET   | /api/me                                   | Exibe os dados do usuário autenticado                        | Sim                  | Diarista, Cliente |
+| POST  | /api/diarias                              | Cadastra uma nova diária                                     | Sim                  | Cliente           |
+| POST  | /api/diarias/{id}/pagar                   | Pagar uma diária                                             | Sim                  | Cliente           |
+| GET   | /api/diarias/                             | Lista as diários do usuário autenticado                      | Sim                  | Diarista, Cliente |
+| GET   | /api/diarias/{id}                         | Detalha a diária                                             | Sim                  | Diarista, Cliente |
+| GET   | /api/usuarios/endereco                    | Exibe os detalhes do endereço do usuário cadastrado          | Sim                  | Diarista          |
+| PUT   | /api/usuarios/endereco                    | Altera o endereço do usuário cadastrado                      | Sim                  | Diarista          |
+| GET   | /api/usuarios/cidades-atendidas           | Lista as cidades atendidas pelo usuário logado               | Sim                  | Diarista          |
+| PUT   | /api/usuarios/cidades-atendidas           | Atualiza a lista as cidades atendidas pelo usuário logado    | Sim                  | Diarista          |
+| GET   | /api/oportunidades                        | Lista as diarias em que o diarista logado pode se candidatar | Sim                  | Diarista          |
+| POST  | /api/diaria/{diariaId}/candidatar         | Realiza a candidatura do usuário logado em uma diária        | Sim                  | Diarista          |
+| PATCH | /api/diaria/{diariaId}/confirmar-presenca | Confirma a presença do diárista na diária                    | Sim                  | Cliente           |
 
 ## TODO
 
@@ -129,6 +130,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rota de listagem de oportunidades
   - [x] Rota de candidatar-se a uma diária
 - [ ] Confirmação de presença
+  - [x] Rota de confirmação de presença
 - [ ] Avaliação da Diária
 - [ ] Integração com gateway de pagamento
 - [ ] Reembolso automático de pagamento

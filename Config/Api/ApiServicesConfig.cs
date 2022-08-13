@@ -24,5 +24,6 @@ public static class ApiServicesConfig
         services.AddScoped<ICidadeAtendidaService, CidadeAtendidaService>();
         services.AddScoped<IOportunidadeService, OportunidadeService>();
         services.AddScoped<ICandidaturaService, CandidaturaService>();
+        services.AddScoped<IConfirmacaoPresencaService, ConfirmacaoPresencaService>();
     }
 }

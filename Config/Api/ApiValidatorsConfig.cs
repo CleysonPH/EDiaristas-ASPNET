@@ -24,5 +24,6 @@ public static class ApiValidatorsConfig
         services.AddTransient<IValidator<EnderecoDiaristaRequest>, EnderecoDiaristaRequestValidator>();
         services.AddTransient<IValidator<CidadesAtendidasRequest>, CidadesAtendidasRequestValidator>();
         services.AddTransient<IValidator<CandidaturaData>, CandidaturaValidator>();
+        services.AddTransient<IValidator<ConfirmacaoPresencaData>, ConfirmacaoPresencaValidator>();
     }
 }

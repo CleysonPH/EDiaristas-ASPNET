@@ -20,7 +20,7 @@ public class DiariaPermissions : IPermission<int>
         {
             throw new UnauthenticatedException();
         }
-        if (operation == DiariaOperations.Pagar && !_diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(usuarioId)))
+        if ((operation == DiariaOperations.Pagar || operation == DiariaOperations.ConfirmarPresenca) && !_diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(usuarioId)))
         {
             throw new UnauthorizedException();
         }
@@ -41,4 +41,5 @@ public static class DiariaOperations
 {
     public const string Pagar = "Pagar";
     public const string Detalhar = "Detalhar";
+    public const string ConfirmarPresenca = "ConfirmarPresenca";
 }
