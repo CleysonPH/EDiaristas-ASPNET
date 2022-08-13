@@ -1,4 +1,6 @@
+using EDiaristas.Api.Common.Assemblers;
 using EDiaristas.Api.Common.Routes;
+using EDiaristas.Api.Oportunidades.Dtos;
 using EDiaristas.Api.Oportunidades.Services;
 using EDiaristas.Core.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,16 +16,20 @@ namespace EDiaristas.Api.Oportunidades.Controllers;
 public class OportunidadeController : ControllerBase
 {
     private readonly IOportunidadeService _oportunidadeService;
+    private readonly IAssembler<OportunidadeResponse> _oportunidadeResponseAssembler;
 
-    public OportunidadeController(IOportunidadeService oportunidadeService)
+    public OportunidadeController(
+        IOportunidadeService oportunidadeService,
+        IAssembler<OportunidadeResponse> oportunidadeResponseAssembler)
     {
         _oportunidadeService = oportunidadeService;
+        _oportunidadeResponseAssembler = oportunidadeResponseAssembler;
     }
 
     [HttpGet(ApiRoutes.Oportunidade.BuscarOportunidades, Name = ApiRoutes.Oportunidade.BuscarOportunidadesName)]
     public IActionResult BuscarOportunidades()
     {
-        var oportunidades = _oportunidadeService.BuscarOportunidades();
-        return Ok(oportunidades);
+        var body = _oportunidadeService.BuscarOportunidades();
+        return Ok(_oportunidadeResponseAssembler.ToResourceCollection(body, HttpContext));
     }
 }

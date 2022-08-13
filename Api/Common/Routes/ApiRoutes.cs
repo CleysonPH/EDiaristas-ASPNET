@@ -60,6 +60,8 @@ public static class ApiRoutes
         public const string BuscarPorIdName = "BuscarDiariaPorId";
         public const string Pagar = "/api/diarias/{diariaId}/pagar";
         public const string PagarName = "PagarDiaria";
+        public const string Candidatar = "/api/diarias/{diariaId}/candidatar";
+        public const string CandidatarName = "Candidatar";
     }
 
     public static class EnderecosDiarista

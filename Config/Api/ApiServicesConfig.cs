@@ -23,5 +23,6 @@ public static class ApiServicesConfig
         services.AddScoped<IEnderecoDiaristaService, EnderecoDiaristaService>();
         services.AddScoped<ICidadeAtendidaService, CidadeAtendidaService>();
         services.AddScoped<IOportunidadeService, OportunidadeService>();
+        services.AddScoped<ICandidaturaService, CandidaturaService>();
     }
 }
