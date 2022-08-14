@@ -6,6 +6,6 @@ public static class DatabaseConfig
 {
     public static void RegisterDatabase(this IServiceCollection services)
     {
-        services.AddDbContext<EDiaristasDbContext>();
+        services.AddDbContext<EDiaristasDbContext>(ServiceLifetime.Singleton);
     }
 }

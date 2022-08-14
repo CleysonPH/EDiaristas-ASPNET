@@ -12,6 +12,7 @@ builder.Services.RegisterSeeds();
 builder.Services.RegisterAssemblers();
 builder.Services.RegisterPermissions();
 builder.Services.RegisterCors();
+builder.Services.RegisterTasks();
 
 builder.Services.RegisterControllers();
 

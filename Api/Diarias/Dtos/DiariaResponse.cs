@@ -26,6 +26,7 @@ public class DiariaResponse : ResourceResponse
     public int QuantidadeOutros { get; set; }
     public string? Observacoes { get; set; }
     public int Servico { get; set; }
+    public DateTime? CreatedAt { get; set; }
     public UsuarioDiariaResponse? Cliente { get; set; } = new UsuarioDiariaResponse();
     public UsuarioDiariaResponse? Diarista { get; set; } = new UsuarioDiariaResponse();
 }
