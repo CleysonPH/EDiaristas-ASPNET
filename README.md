@@ -131,6 +131,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Rota de candidatar-se a uma diária
 - [ ] Confirmação de presença
   - [x] Rota de confirmação de presença
+  - [ ] Task de seleção de diaristas
 - [ ] Avaliação da Diária
 - [ ] Integração com gateway de pagamento
 - [ ] Reembolso automático de pagamento
