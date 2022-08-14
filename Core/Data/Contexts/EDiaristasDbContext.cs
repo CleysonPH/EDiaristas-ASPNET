@@ -11,7 +11,7 @@ public class EDiaristasDbContext : DbContext
     public DbSet<CidadeAtendida> CidadesAtendidas => Set<CidadeAtendida>();
     public DbSet<InvalidatedToken> InvalidatedTokens => Set<InvalidatedToken>();
     public DbSet<Diaria> Diarias => Set<Diaria>();
-    public DbSet<Avaliacao> Avaliacaos => Set<Avaliacao>();
+    public DbSet<Avaliacao> Avaliacoes => Set<Avaliacao>();
 
     private readonly string _connectionString;
 
