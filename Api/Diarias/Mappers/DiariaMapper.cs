@@ -58,6 +58,7 @@ public class DiariaMapper : IDiariaMapper
             QuantidadeOutros = diaria.QuantidadeOutros,
             Observacoes = diaria.Observacoes,
             Servico = diaria.ServicoId,
+            CreatedAt = diaria.CreatedAt,
             Cliente = UsuarioToUsuarioDiariaResponse(diaria.Cliente),
             Diarista = UsuarioToUsuarioDiariaResponse(diaria.Diarista)
         };

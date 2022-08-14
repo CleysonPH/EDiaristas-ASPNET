@@ -15,6 +15,12 @@ public class DiariaEntityConfig : IEntityTypeConfiguration<Diaria>
         builder.Property(d => d.DataAtendimento)
             .IsRequired();
 
+        builder.Property(d => d.CreatedAt)
+            .IsRequired(false);
+
+        builder.Property(d => d.UpdatedAt)
+            .IsRequired(false);
+
         builder.Property(d => d.TempoAtendimento)
             .IsRequired();
 

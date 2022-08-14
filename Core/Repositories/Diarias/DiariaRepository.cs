@@ -52,6 +52,23 @@ public class DiariaRepository : IDiariaRepository
         return _context.Diarias.ToList();
     }
 
+    public ICollection<Diaria> FindAptasParaSelecao()
+    {
+        return _context.Diarias.Where(d =>
+            (
+                d.Status == DiariaStatus.Pago &&
+                d.Diarista == null &&
+                d.Candidatos.Count() == 3
+            ) ||
+            (
+                d.Status == DiariaStatus.Pago &&
+                d.Diarista == null &&
+                d.CreatedAt <= DateTime.Now.AddHours(-24) &&
+                (d.Candidatos.Count() > 0 && d.Candidatos.Count() < 3)
+            )
+        ).ToList();
+    }
+
     public ICollection<Diaria> FindByClienteId(int clienteId)
     {
         return _context.Diarias

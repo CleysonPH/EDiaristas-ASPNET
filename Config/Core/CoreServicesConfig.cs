@@ -2,8 +2,12 @@ using EDiaristas.Core.Services.Authentication.Adapters;
 using EDiaristas.Core.Services.Authentication.Providers;
 using EDiaristas.Core.Services.ConsultaCidade.Adapters;
 using EDiaristas.Core.Services.ConsultaCidade.Providers.Ibge;
+using EDiaristas.Core.Services.ConsultaDistancia.Adapters;
+using EDiaristas.Core.Services.ConsultaDistancia.Providers.GoogleMatrix;
 using EDiaristas.Core.Services.ConsultaEndereco.Adapters;
 using EDiaristas.Core.Services.ConsultaEndereco.Providers;
+using EDiaristas.Core.Services.DiaristaIndice.Adapters;
+using EDiaristas.Core.Services.DiaristaIndice.Providers;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using EDiaristas.Core.Services.PasswordEnconder.Providers;
 using EDiaristas.Core.Services.Token.Adapters;
@@ -20,7 +24,8 @@ public static class CoreServicesConfig
         services.AddScoped<IPasswordEnconderService, BCryptService>();
         services.AddScoped<ICustomAuthenticationService, CustomAuthenticationService>();
         services.AddScoped<IConsultaCidadeService, IbgeConsultaCidadeService>();
-
+        services.AddSingleton<IConsultaDistanciaService, GoogleMatrixService>();
+        services.AddSingleton<IDiaristaIndiceService, DiaristaIndiceService>();
         services.AddSingleton<HttpClient>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     }

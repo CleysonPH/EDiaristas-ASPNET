@@ -13,7 +13,7 @@ public static class RepositoriesConfig
         services.AddScoped<IServicoRepository, ServicoRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IInvalidatedTokenRepository, InvalidatedTokenRepository>();
-        services.AddScoped<IDiariaRepository, DiariaRepository>();
+        services.AddSingleton<IDiariaRepository, DiariaRepository>();
         services.AddScoped<ICidadeAtendidaRepository, CidadeAtendidaRepository>();
     }
 }
