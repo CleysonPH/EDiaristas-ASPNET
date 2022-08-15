@@ -75,6 +75,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | GET   | /api/oportunidades                        | Lista as diarias em que o diarista logado pode se candidatar | Sim                  | Diarista          |
 | POST  | /api/diaria/{diariaId}/candidatar         | Realiza a candidatura do usuário logado em uma diária        | Sim                  | Diarista          |
 | PATCH | /api/diaria/{diariaId}/confirmar-presenca | Confirma a presença do diárista na diária                    | Sim                  | Cliente           |
+| PATCH | /api/diaria/{diariaId}/avaliacao          | Avalia a diária                                              | Sim                  | Diarista, Cliente |
 
 ## TODO
 
