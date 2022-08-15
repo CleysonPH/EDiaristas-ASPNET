@@ -87,4 +87,10 @@ public static class ApiRoutes
         public const string BuscarOportunidades = "/api/oportunidades";
         public const string BuscarOportunidadesName = "BuscarOportunidades";
     }
+
+    public static class Avaliacao
+    {
+        public const string Avaliar = "/api/diarias/{diariaId}/avaliacao";
+        public const string AvaliarName = "AvaliarDiaria";
+    }
 }

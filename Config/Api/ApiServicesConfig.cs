@@ -1,4 +1,5 @@
 using EDiaristas.Api.Auth.Services;
+using EDiaristas.Api.Avaliacoes.Services;
 using EDiaristas.Api.CidadesAtentidas.Services;
 using EDiaristas.Api.Diarias.Services;
 using EDiaristas.Api.Diaristas.Services;
@@ -25,5 +26,6 @@ public static class ApiServicesConfig
         services.AddScoped<IOportunidadeService, OportunidadeService>();
         services.AddScoped<ICandidaturaService, CandidaturaService>();
         services.AddScoped<IConfirmacaoPresencaService, ConfirmacaoPresencaService>();
+        services.AddScoped<IAvaliacaoService, AvaliacaoService>();
     }
 }

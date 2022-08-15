@@ -82,4 +82,9 @@ public static class DiariaStatusExtensions
     {
         return diariaStatus == (int)DiariaStatus.Confirmado;
     }
+
+    public static bool IsConcluido(this int diariaStatus)
+    {
+        return diariaStatus == (int)DiariaStatus.Concluido;
+    }
 }

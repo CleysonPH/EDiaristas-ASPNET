@@ -10,4 +10,5 @@ public interface IDiariaRepository : ICrudRepository<Diaria, int>
     ICollection<Diaria> FindByDiaristaId(int diaristaId);
     ICollection<Diaria> FindOportunidades(ICollection<string> cidades, Usuario candidato);
     ICollection<Diaria> FindAptasParaSelecao();
+    bool IsAvaliada(int diariaId);
 }
