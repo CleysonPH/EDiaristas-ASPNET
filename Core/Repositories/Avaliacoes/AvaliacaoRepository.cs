@@ -51,6 +51,15 @@ public class AvaliacaoRepository : IAvaliacaoRepository
         return _context.Avaliacoes.ToList();
     }
 
+    public ICollection<Avaliacao> FindByAvaliadoId(int avaliadoId, int take)
+    {
+        return _context.Avaliacoes
+            .Where(a => a.AvaliadoId == avaliadoId)
+            .OrderByDescending(a => a.CreatedAt)
+            .Take(take)
+            .ToList();
+    }
+
     public Avaliacao? FindById(int id)
     {
         return _context.Avaliacoes.Find(id);
