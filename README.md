@@ -132,7 +132,9 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [x] Confirmação de presença
   - [x] Task de seleção de diaristas
   - [x] Rota de confirmação de presença
-- [ ] Avaliação da Diária
+- [x] Avaliação da Diária
+  - [x] Rota de avaliação da diária
+  - [x] Adicionar HATEOAS com link de avaliação da diária
 - [ ] Integração com gateway de pagamento
 - [ ] Reembolso automático de pagamento
 - [ ] Cancelar diária

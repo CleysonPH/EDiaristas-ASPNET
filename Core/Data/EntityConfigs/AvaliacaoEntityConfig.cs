@@ -23,7 +23,7 @@ public class AvaliacaoEntityConfig : IEntityTypeConfiguration<Avaliacao>
             .IsRequired();
 
         builder.HasOne(a => a.Diaria)
-            .WithMany()
+            .WithMany(d => d.Avaliacoes)
             .HasForeignKey(a => a.DiariaId)
             .IsRequired();
 

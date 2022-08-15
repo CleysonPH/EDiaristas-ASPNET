@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EDiaristas.Core.Data.Migrations
 {
     [DbContext(typeof(EDiaristasDbContext))]
-    [Migration("20220814203041_CreateAvaliacoesTable")]
-    partial class CreateAvaliacoesTable
+    [Migration("20220814233355_CreateAvaliacaoTable")]
+    partial class CreateAvaliacaoTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace EDiaristas.Core.Data.Migrations
                     b.Property<int>("AvaliadoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AvaliadorId")
+                    b.Property<int?>("AvaliadorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -492,7 +492,7 @@ namespace EDiaristas.Core.Data.Migrations
                         .HasForeignKey("AvaliadorId");
 
                     b.HasOne("EDiaristas.Core.Models.Diaria", "Diaria")
-                        .WithMany()
+                        .WithMany("Avaliacoes")
                         .HasForeignKey("DiariaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -537,6 +537,11 @@ namespace EDiaristas.Core.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("EDiaristas.Core.Models.Diaria", b =>
+                {
+                    b.Navigation("Avaliacoes");
                 });
 #pragma warning restore 612, 618
         }

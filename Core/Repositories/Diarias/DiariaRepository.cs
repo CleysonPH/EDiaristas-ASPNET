@@ -102,6 +102,14 @@ public class DiariaRepository : IDiariaRepository
             .ToList();
     }
 
+    public bool IsAvaliada(int diariaId)
+    {
+        return _context.Diarias
+            .Include(d => d.Avaliacoes)
+            .Where(d => d.Id == diariaId && d.Avaliacoes.Count() >= 2)
+            .Any();
+    }
+
     public Diaria Update(Diaria model)
     {
         _context.Diarias.Update(model);

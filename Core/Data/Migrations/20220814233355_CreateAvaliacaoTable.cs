@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EDiaristas.Core.Data.Migrations
 {
-    public partial class CreateAvaliacoesTable : Migration
+    public partial class CreateAvaliacaoTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace EDiaristas.Core.Data.Migrations
                     Nota = table.Column<double>(type: "float", nullable: false),
                     Visibilidade = table.Column<bool>(type: "bit", nullable: false),
                     DiariaId = table.Column<int>(type: "int", nullable: false),
-                    AvaliadorId = table.Column<int>(type: "int", nullable: false),
+                    AvaliadorId = table.Column<int>(type: "int", nullable: true),
                     AvaliadoId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)

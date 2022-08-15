@@ -20,21 +20,48 @@ public class DiariaPermissions : IPermission<int>
         {
             throw new UnauthenticatedException();
         }
-        if ((operation == DiariaOperations.Pagar || operation == DiariaOperations.ConfirmarPresenca) && !_diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(usuarioId)))
-        {
-            throw new UnauthorizedException();
-        }
-        if (operation == DiariaOperations.Detalhar)
-        {
-            var hasPermission = _diariaRepository.ExistsByIdAndClienteId(diariaId, int.Parse(usuarioId))
-                || _diariaRepository.ExistsByIdAndDiaristaId(diariaId, int.Parse(usuarioId));
 
-            if (!hasPermission)
+        if (operation == DiariaOperations.Pagar)
+        {
+            if (isClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
+            {
+                throw new UnauthorizedException();
+            }
+        }
+        else if (operation == DiariaOperations.ConfirmarPresenca)
+        {
+            if (!isClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
+            {
+                throw new UnauthorizedException();
+            }
+        }
+        else if (operation == DiariaOperations.Detalhar)
+        {
+            if (!isDiaristaOuClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
+            {
+                throw new UnauthorizedException();
+            }
+        }
+        else if (operation == DiariaOperations.Avaliar)
+        {
+            if (!isDiaristaOuClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
             {
                 throw new UnauthorizedException();
             }
         }
     }
+
+    private bool isDiaristaOuClienteDonoDaDiaria(int diariaId, int usuarioId)
+    {
+        return _diariaRepository.ExistsByIdAndClienteId(diariaId, usuarioId)
+            || _diariaRepository.ExistsByIdAndDiaristaId(diariaId, usuarioId);
+    }
+
+    private bool isClienteDonoDaDiaria(int diariaId, int usuarioId)
+    {
+        return !_diariaRepository.ExistsByIdAndClienteId(diariaId, usuarioId);
+    }
+
 }
 
 public static class DiariaOperations
@@ -42,4 +69,5 @@ public static class DiariaOperations
     public const string Pagar = "Pagar";
     public const string Detalhar = "Detalhar";
     public const string ConfirmarPresenca = "ConfirmarPresenca";
+    public const string Avaliar = "Avaliar";
 }

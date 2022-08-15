@@ -34,6 +34,7 @@ public class Diaria : Auditable
     private Usuario? _cliente;
     private Usuario? _diarista;
     private ICollection<Usuario>? _candidatos;
+    private ICollection<Avaliacao>? _avaliacoes;
 
     private ILazyLoader? LazyLoader { get; set; }
 
@@ -59,6 +60,12 @@ public class Diaria : Auditable
     {
         get => LazyLoader.Load(this, ref _candidatos) ?? new List<Usuario>();
         set => _candidatos = value;
+    }
+
+    public ICollection<Avaliacao> Avaliacoes
+    {
+        get => LazyLoader.Load(this, ref _avaliacoes) ?? new List<Avaliacao>();
+        set => _avaliacoes = value;
     }
 
     public Diaria()

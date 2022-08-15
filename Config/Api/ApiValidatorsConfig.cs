@@ -1,5 +1,7 @@
 using EDiaristas.Api.Auth.Dtos;
 using EDiaristas.Api.Auth.Validators;
+using EDiaristas.Api.Avaliacoes.Dtos;
+using EDiaristas.Api.Avaliacoes.Validators;
 using EDiaristas.Api.CidadesAtentidas.Dtos;
 using EDiaristas.Api.CidadesAtentidas.Validators;
 using EDiaristas.Api.Diarias.Dtos;
@@ -25,5 +27,6 @@ public static class ApiValidatorsConfig
         services.AddTransient<IValidator<CidadesAtendidasRequest>, CidadesAtendidasRequestValidator>();
         services.AddTransient<IValidator<CandidaturaData>, CandidaturaValidator>();
         services.AddTransient<IValidator<ConfirmacaoPresencaData>, ConfirmacaoPresencaValidator>();
+        services.AddTransient<IValidator<AvaliacaoData>, AvaliacaoValidator>();
     }
 }

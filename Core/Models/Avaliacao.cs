@@ -9,7 +9,7 @@ public class Avaliacao : Auditable
     public double Nota { get; set; }
     public bool Visibilidade { get; set; }
     public int DiariaId { get; set; }
-    public int AvaliadorId { get; set; }
+    public int? AvaliadorId { get; set; }
     public int AvaliadoId { get; set; }
 
     private Diaria? _diaria;

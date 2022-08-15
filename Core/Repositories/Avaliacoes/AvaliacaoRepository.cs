@@ -29,6 +29,18 @@ public class AvaliacaoRepository : IAvaliacaoRepository
         }
     }
 
+    public bool ExistsByAvaliadorIdAndDiariaId(int avaliadorId, int diariaId)
+    {
+        return _context.Avaliacoes
+            .Any(a => a.AvaliadorId == avaliadorId && a.DiariaId == diariaId);
+    }
+
+    public bool ExistsByDiariaAndAvaliador(Diaria diaria, Usuario avaliador)
+    {
+        return _context.Avaliacoes.Any(a =>
+            a.DiariaId == diaria.Id && a.AvaliadorId == avaliador.Id);
+    }
+
     public bool ExistsById(int id)
     {
         return _context.Avaliacoes.Any(a => a.Id == id);
@@ -42,6 +54,15 @@ public class AvaliacaoRepository : IAvaliacaoRepository
     public Avaliacao? FindById(int id)
     {
         return _context.Avaliacoes.Find(id);
+    }
+
+    public double GetAvaliacaoMedia(Usuario avaliado)
+    {
+        var avalicaoes = _context.Avaliacoes.Where(a => a.AvaliadoId == avaliado.Id);
+        var count = avalicaoes.Count();
+        var total = avalicaoes.Sum(a => a.Nota);
+        var media = total / count;
+        return double.IsNaN(media) ? 0.0 : media;
     }
 
     public Avaliacao Update(Avaliacao model)
