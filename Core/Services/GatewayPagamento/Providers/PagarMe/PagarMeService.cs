@@ -42,6 +42,43 @@ public class PagarMeService : IGatewayPagamentoService
         throw new GatewayPagamentoServiceException(transactionErrorResponse.Errors.First().Message);
     }
 
+    public Pagamento Estornar(Diaria diaria)
+    {
+        if (diaria.Status != DiariaStatus.Pago)
+        {
+            throw new GatewayPagamentoServiceException("Não é possível estornar uma diária que não foi paga");
+        }
+        var pagamento = diaria.Pagamentos.FirstOrDefault(p => p.Status == PagamentoStatus.Aceito);
+        if (pagamento is null)
+        {
+            throw new GatewayPagamentoServiceException("Não foi possível encontrar o pagamento para estornar");
+        }
+        var url = $"{Url}/{pagamento.TransacaoId}/refund";
+        var request = new RefundRequest(_pagarMeApiKey);
+        var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance };
+        var response = _httpClient.PostAsJsonAsync(url, request, jsonSerializerOptions).Result;
+        if (response.IsSuccessStatusCode)
+        {
+            var refundResponse = response
+                .Content
+                .Deserialize<RefundResponse>(jsonSerializerOptions);
+            return criarPagamento(diaria, refundResponse);
+        }
+        throw new GatewayPagamentoServiceException("Não foi possível estornar o pagamento");
+    }
+
+    private Pagamento criarPagamento(Diaria diaria, RefundResponse refundResponse)
+    {
+        var pagamento = new Pagamento
+        {
+            TransacaoId = refundResponse.Id.ToString(),
+            DiariaId = diaria.Id,
+            Status = PagamentoStatus.Reembolsado,
+            Valor = converterCentavosParaReais(refundResponse.Amount)
+        };
+        return _pagamentoRepository.Create(pagamento);
+    }
+
     private Pagamento criarPagamento(Diaria diaria, TransactionSuccessResponse transactionSuccessResponse)
     {
         var pagamento = new Pagamento
@@ -68,5 +105,10 @@ public class PagarMeService : IGatewayPagamentoService
     private int converterReaisParaCentavos(decimal valorEmReais)
     {
         return (int)(valorEmReais * 100);
+    }
+
+    private decimal converterCentavosParaReais(int valorEmCentavos)
+    {
+        return (decimal)valorEmCentavos / 100;
     }
 }

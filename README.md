@@ -141,7 +141,10 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Criar repository de pagamento
   - [x] Criar service de integração com gateway de pagamento Pagar.me
   - [x] Utilizar service de integração com gateway de pagamento Pagar.me na rota de pagar diária
-- [ ] Reembolso automático de pagamento
+- [x] Reembolso automático de pagamento
+  - [x] Criar método busca de diária aptas para cancelamento
+  - [x] Criar método de reembolso de diária
+  - [x] Criar task de cancelamento de diária
 - [ ] Cancelar diária
 - [ ] Aviso de pagamento Admin
 - [ ] Lista de pagamentos de diaristas

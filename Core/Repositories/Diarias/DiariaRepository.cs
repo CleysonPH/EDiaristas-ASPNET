@@ -52,6 +52,22 @@ public class DiariaRepository : IDiariaRepository
         return _context.Diarias.ToList();
     }
 
+    public ICollection<Diaria> FindAptasParaCancelamento()
+    {
+        return _context.Diarias.Where(d =>
+            (
+                d.Status == DiariaStatus.Pago &&
+                d.DataAtendimento < DateTime.Now.AddHours(24) &&
+                d.Candidatos.Count == 0
+            ) ||
+            (
+                d.Status == DiariaStatus.SemPagamento &&
+                (d.CreatedAt == null || d.CreatedAt <= DateTime.Now.AddHours(-24)) &&
+                d.Candidatos.Count == 0
+            )
+        ).ToList();
+    }
+
     public ICollection<Diaria> FindAptasParaSelecao()
     {
         return _context.Diarias.Where(d =>
