@@ -10,6 +10,11 @@ public static class StringExtensions
         ).ToLower();
     }
 
+    public static T ParseEnum<T>(this string str)
+    {
+        return (T)Enum.Parse(typeof(T), str, true);
+    }
+
     public static bool IsValidCpf(this string str)
     {
         int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
