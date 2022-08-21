@@ -24,8 +24,8 @@ public static class CoreServicesConfig
         services.AddScoped<IPasswordEnconderService, BCryptService>();
         services.AddScoped<ICustomAuthenticationService, CustomAuthenticationService>();
         services.AddScoped<IConsultaCidadeService, IbgeConsultaCidadeService>();
-        services.AddSingleton<IConsultaDistanciaService, GoogleMatrixService>();
-        services.AddSingleton<IDiaristaIndiceService, DiaristaIndiceService>();
+        services.AddScoped<IConsultaDistanciaService, GoogleMatrixService>();
+        services.AddScoped<IDiaristaIndiceService, DiaristaIndiceService>();
         services.AddSingleton<HttpClient>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     }
