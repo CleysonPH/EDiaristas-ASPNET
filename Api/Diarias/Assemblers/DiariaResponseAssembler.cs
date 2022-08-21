@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using EDiaristas.Api.Common.Assemblers;
 using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Common.Routes;

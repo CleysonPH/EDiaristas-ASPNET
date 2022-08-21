@@ -14,7 +14,7 @@ public static class RepositoriesConfig
         services.AddScoped<IServicoRepository, ServicoRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IInvalidatedTokenRepository, InvalidatedTokenRepository>();
-        services.AddSingleton<IDiariaRepository, DiariaRepository>();
+        services.AddScoped<IDiariaRepository, DiariaRepository>();
         services.AddScoped<ICidadeAtendidaRepository, CidadeAtendidaRepository>();
         services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
     }
