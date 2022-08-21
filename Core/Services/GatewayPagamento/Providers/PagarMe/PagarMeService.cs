@@ -2,6 +2,7 @@ using System.Text.Json;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Pagamentos;
 using EDiaristas.Core.Extensions;
+using EDiaristas.Api.Common.NamingPolicies;
 
 namespace EDiaristas.Core.Services.GatewayPagamento.PagarMe;
 
@@ -23,10 +24,10 @@ public class PagarMeService : IGatewayPagamentoService
         _pagarMeApiKey = configuration.GetValue<string>("GatewayPagamento:PagarMe:ApiKey");
     }
 
-    public Pagamento pagar(Diaria diaria, string cardHash)
+    public Pagamento Pagar(Diaria diaria, string cardHash)
     {
         var request = criarTransactionRequest(diaria.Preco, cardHash);
-        var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance };
         var response = _httpClient.PostAsJsonAsync(Url, request, jsonSerializerOptions).Result;
         if (response.IsSuccessStatusCode)
         {
@@ -46,7 +47,7 @@ public class PagarMeService : IGatewayPagamentoService
         var pagamento = new Pagamento
         {
             Valor = diaria.Preco,
-            TransacaoId = transactionSuccessResponse.Id,
+            TransacaoId = transactionSuccessResponse.Id.ToString(),
             DiariaId = diaria.Id,
             Status = transactionSuccessResponse.Status == "paid" ? PagamentoStatus.Aceito : PagamentoStatus.Reprovado
         };

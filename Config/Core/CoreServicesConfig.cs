@@ -8,6 +8,8 @@ using EDiaristas.Core.Services.ConsultaEndereco.Adapters;
 using EDiaristas.Core.Services.ConsultaEndereco.Providers;
 using EDiaristas.Core.Services.DiaristaIndice.Adapters;
 using EDiaristas.Core.Services.DiaristaIndice.Providers;
+using EDiaristas.Core.Services.GatewayPagamento;
+using EDiaristas.Core.Services.GatewayPagamento.PagarMe;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using EDiaristas.Core.Services.PasswordEnconder.Providers;
 using EDiaristas.Core.Services.Token.Adapters;
@@ -26,6 +28,8 @@ public static class CoreServicesConfig
         services.AddScoped<IConsultaCidadeService, IbgeConsultaCidadeService>();
         services.AddScoped<IConsultaDistanciaService, GoogleMatrixService>();
         services.AddScoped<IDiaristaIndiceService, DiaristaIndiceService>();
+        services.AddScoped<IGatewayPagamentoService, PagarMeService>();
+
         services.AddSingleton<HttpClient>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     }

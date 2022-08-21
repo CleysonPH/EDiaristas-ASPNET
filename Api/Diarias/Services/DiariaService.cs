@@ -6,6 +6,7 @@ using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Diarias;
 using EDiaristas.Core.Repositories.Servicos;
 using EDiaristas.Core.Services.Authentication.Adapters;
+using EDiaristas.Core.Services.GatewayPagamento;
 using FluentValidation;
 
 namespace EDiaristas.Api.Diarias.Services;
@@ -16,23 +17,26 @@ public class DiariaService : IDiariaService
     private readonly IDiariaRepository _diariaRepository;
     private readonly IServicoRepository _servicoRepository;
     private readonly IValidator<DiariaRequest> _diariaRequestValidator;
-    private readonly ICustomAuthenticationService _customAuthenticationService;
+    private readonly IGatewayPagamentoService _gatewayPagamentoService;
     private readonly IValidator<PagamentoRequest> _pagamentoRequestValidator;
+    private readonly ICustomAuthenticationService _customAuthenticationService;
 
     public DiariaService(
         IDiariaMapper diariaMapper,
         IDiariaRepository diariaRepository,
-        IValidator<DiariaRequest> diariaRequestValidator,
         IServicoRepository servicoRepository,
-        ICustomAuthenticationService customAuthenticationService,
-        IValidator<PagamentoRequest> pagamentoRequestValidator)
+        IGatewayPagamentoService gatewayPagamentoService,
+        IValidator<DiariaRequest> diariaRequestValidator,
+        IValidator<PagamentoRequest> pagamentoRequestValidator,
+        ICustomAuthenticationService customAuthenticationService)
     {
         _diariaMapper = diariaMapper;
         _diariaRepository = diariaRepository;
-        _diariaRequestValidator = diariaRequestValidator;
         _servicoRepository = servicoRepository;
-        _customAuthenticationService = customAuthenticationService;
+        _diariaRequestValidator = diariaRequestValidator;
+        _gatewayPagamentoService = gatewayPagamentoService;
         _pagamentoRequestValidator = pagamentoRequestValidator;
+        _customAuthenticationService = customAuthenticationService;
     }
 
     public DiariaResponse BuscarPeloId(int diariaId)
@@ -81,13 +85,14 @@ public class DiariaService : IDiariaService
         request.DiariaStatus = diaria.Status;
         _pagamentoRequestValidator.ValidateAndThrow(request);
 
-        diaria.Status = DiariaStatus.Pago;
-        _diariaRepository.Update(diaria);
-
-        return new MessageResponse
+        var pagamento = _gatewayPagamentoService.Pagar(diaria, request.CardHash);
+        if (pagamento.Status == PagamentoStatus.Aceito)
         {
-            Message = "Pagamento realizado com sucesso"
-        };
+            diaria.Status = DiariaStatus.Pago;
+            _diariaRepository.Update(diaria);
+            return new MessageResponse("Pagamento realizado com sucesso");
+        }
+        return new MessageResponse("Pagamento recusado");
     }
 
     private decimal calcularComissao(Diaria diaria)

@@ -4,5 +4,5 @@ namespace EDiaristas.Core.Services.GatewayPagamento;
 
 public interface IGatewayPagamentoService
 {
-    Pagamento pagar(Diaria diaria, string cardHash);
+    Pagamento Pagar(Diaria diaria, string cardHash);
 }
