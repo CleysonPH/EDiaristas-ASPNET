@@ -12,6 +12,7 @@ public class EDiaristasDbContext : DbContext
     public DbSet<InvalidatedToken> InvalidatedTokens => Set<InvalidatedToken>();
     public DbSet<Diaria> Diarias => Set<Diaria>();
     public DbSet<Avaliacao> Avaliacoes => Set<Avaliacao>();
+    public DbSet<Pagamento> Pagamentos => Set<Pagamento>();
 
     private readonly string _connectionString;
 
@@ -51,5 +52,6 @@ public class EDiaristasDbContext : DbContext
         builder.ApplyConfiguration(new DiariaEntityConfig());
         builder.ApplyConfiguration(new EnderecoEntityConfig());
         builder.ApplyConfiguration(new AvaliacaoEntityConfig());
+        builder.ApplyConfiguration(new PagamentoEntityConfig());
     }
 }

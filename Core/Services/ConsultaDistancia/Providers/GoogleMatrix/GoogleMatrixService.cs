@@ -13,7 +13,7 @@ public class GoogleMatrixService : IConsultaDistanciaService
     public GoogleMatrixService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _googleMatrixApiKey = configuration.GetValue<string>("ConsultaEndereco:GoogleMatrixApiKey");
+        _googleMatrixApiKey = configuration.GetValue<string>("ConsultaEndereco:GoogleMatrix:ApiKey");
     }
 
     public ConsultaDistanciaResult CalcularDistanciaEntreCeps(string cepOrigem, string cepDestino)

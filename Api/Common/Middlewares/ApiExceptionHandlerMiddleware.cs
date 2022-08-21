@@ -3,6 +3,7 @@ using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Common.NamingPolicies;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Services.ConsultaEndereco.Exceptions;
+using EDiaristas.Core.Services.GatewayPagamento;
 using FluentValidation;
 
 namespace EDiaristas.Api.Common.Middlewares;
@@ -52,6 +53,15 @@ public class ApiExceptionHandlerMiddleware
         {
             await handleUnauthorizedException(context, ex);
         }
+        catch (GatewayPagamentoServiceException ex)
+        {
+            await handleGatewayPagamentoServiceException(context, ex);
+        }
+    }
+
+    private Task handleGatewayPagamentoServiceException(HttpContext context, GatewayPagamentoServiceException ex)
+    {
+        return handleException(context, 400, "Bad Request", ex.GetType().Name, ex.Message);
     }
 
     private Task handleUnauthorizedException(HttpContext context, UnauthorizedException ex)
