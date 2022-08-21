@@ -4,4 +4,5 @@ public enum PagamentoStatus
 {
     Aceito = 1,
     Reprovado = 2,
+    Reembolsado = 3,
 }
