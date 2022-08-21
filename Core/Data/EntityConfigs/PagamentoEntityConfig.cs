@@ -22,14 +22,14 @@ public class PagamentoEntityConfig : IEntityTypeConfiguration<Pagamento>
 
         builder.Property(p => p.Status)
             .IsRequired()
-            .HasMaxLength(9)
+            .HasMaxLength(11)
             .HasConversion(
                 v => v.ToString(),
                 v => v.ParseEnum<PagamentoStatus>()
             );
 
         builder.HasOne(p => p.Diaria)
-            .WithMany()
+            .WithMany(d => d.Pagamentos)
             .HasForeignKey(p => p.DiariaId)
             .IsRequired();
     }

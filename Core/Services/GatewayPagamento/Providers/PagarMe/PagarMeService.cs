@@ -48,12 +48,12 @@ public class PagarMeService : IGatewayPagamentoService
         {
             throw new GatewayPagamentoServiceException("Não é possível estornar uma diária que não foi paga");
         }
-        var pagamento = diaria.Pagamentos.First(p => p.Status == PagamentoStatus.Aceito);
+        var pagamento = diaria.Pagamentos.FirstOrDefault(p => p.Status == PagamentoStatus.Aceito);
         if (pagamento is null)
         {
             throw new GatewayPagamentoServiceException("Não foi possível encontrar o pagamento para estornar");
         }
-        var url = $"{Url}/{pagamento.Id}/refund";
+        var url = $"{Url}/{pagamento.TransacaoId}/refund";
         var request = new RefundRequest(_pagarMeApiKey);
         var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance };
         var response = _httpClient.PostAsJsonAsync(url, request, jsonSerializerOptions).Result;
