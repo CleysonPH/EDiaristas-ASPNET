@@ -136,11 +136,11 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [x] Avaliação da Diária
   - [x] Rota de avaliação da diária
   - [x] Adicionar HATEOAS com link de avaliação da diária
-- [ ] Integração com gateway de pagamento
-  - [ ] Criar model de Pagamento
-  - [ ] Criar repository de pagamento
-  - [ ] Criar service de integração com gateway de pagamento Pagar.me
-  - [ ] Utilizar service de integração com gateway de pagamento Pagar.me na rota de pagar diária
+- [x] Integração com gateway de pagamento
+  - [x] Criar model de Pagamento
+  - [x] Criar repository de pagamento
+  - [x] Criar service de integração com gateway de pagamento Pagar.me
+  - [x] Utilizar service de integração com gateway de pagamento Pagar.me na rota de pagar diária
 - [ ] Reembolso automático de pagamento
 - [ ] Cancelar diária
 - [ ] Aviso de pagamento Admin
