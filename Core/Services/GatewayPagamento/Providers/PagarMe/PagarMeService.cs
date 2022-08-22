@@ -44,19 +44,23 @@ public class PagarMeService : IGatewayPagamentoService
 
     public Pagamento Estornar(Diaria diaria)
     {
-        if (diaria.Status != DiariaStatus.Pago)
-        {
-            throw new GatewayPagamentoServiceException("Não é possível estornar uma diária que não foi paga");
-        }
-        var pagamento = diaria.Pagamentos.FirstOrDefault(p => p.Status == PagamentoStatus.Aceito);
-        if (pagamento is null)
-        {
-            throw new GatewayPagamentoServiceException("Não foi possível encontrar o pagamento para estornar");
-        }
-        var url = $"{Url}/{pagamento.TransacaoId}/refund";
         var request = new RefundRequest(_pagarMeApiKey);
+        return estornar(diaria, request);
+    }
+
+    public Pagamento Estornar(Diaria diaria, decimal amount)
+    {
+        var request = new RefundRequest(_pagarMeApiKey, converterReaisParaCentavos(amount));
+        return estornar(diaria, request);
+    }
+
+    private Pagamento estornar(Diaria diaria, RefundRequest refundRequest)
+    {
+        validarDiaria(diaria);
+        var pagamento = getPagamentoDaDiaria(diaria);
+        var url = $"{Url}/{pagamento.TransacaoId}/refund";
         var jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance };
-        var response = _httpClient.PostAsJsonAsync(url, request, jsonSerializerOptions).Result;
+        var response = _httpClient.PostAsJsonAsync(url, refundRequest, jsonSerializerOptions).Result;
         if (response.IsSuccessStatusCode)
         {
             var refundResponse = response
@@ -65,6 +69,24 @@ public class PagarMeService : IGatewayPagamentoService
             return criarPagamento(diaria, refundResponse);
         }
         throw new GatewayPagamentoServiceException("Não foi possível estornar o pagamento");
+    }
+
+    private Pagamento getPagamentoDaDiaria(Diaria diaria)
+    {
+        var pagamento = diaria.Pagamentos.FirstOrDefault(p => p.Status == PagamentoStatus.Aceito);
+        if (pagamento is null)
+        {
+            throw new GatewayPagamentoServiceException("Não foi possível encontrar o pagamento para estornar");
+        }
+        return pagamento;
+    }
+
+    private void validarDiaria(Diaria diaria)
+    {
+        if (diaria.Status != DiariaStatus.Pago)
+        {
+            throw new GatewayPagamentoServiceException("Não é possível estornar uma diária que não foi paga");
+        }
     }
 
     private Pagamento criarPagamento(Diaria diaria, RefundResponse refundResponse)

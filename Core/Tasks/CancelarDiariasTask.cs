@@ -40,15 +40,15 @@ public class CancelarDiariasTask : BackgroundService
                         try
                         {
                             gatewayPagamentoService.Estornar(diaria);
-                            diaria.Status = DiariaStatus.Cancelado;
-                            diariaRepository.Update(diaria);
-                            _logger.LogInformation($"Diaria {diaria.Id} cancelada");
                         }
                         catch (GatewayPagamentoServiceException e)
                         {
                             _logger.LogError(e, $"Erro ao reembolsar pagamento da diária {diaria.Id}");
                         }
                     }
+                    diaria.Status = DiariaStatus.Cancelado;
+                    diariaRepository.Update(diaria);
+                    _logger.LogInformation($"Diaria {diaria.Id} cancelada");
                 });
             }
             _logger.LogInformation("CancelarDiariasTask is finished.");
