@@ -76,6 +76,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 | POST  | /api/diaria/{diariaId}/candidatar         | Realiza a candidatura do usuário logado em uma diária        | Sim                  | Diarista          |
 | PATCH | /api/diaria/{diariaId}/confirmar-presenca | Confirma a presença do diárista na diária                    | Sim                  | Cliente           |
 | PATCH | /api/diaria/{diariaId}/avaliacao          | Avalia a diária                                              | Sim                  | Diarista, Cliente |
+| POST  | /api/diaria/{diariaId}/cancelar           | Cancelar a diária                                            | Sim                  | Diarista, Cliente |
 
 ## TODO
 
@@ -146,6 +147,11 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Criar método de reembolso de diária
   - [x] Criar task de cancelamento de diária
 - [ ] Cancelar diária
+  - [x] Criar funcionalidade de estorno parcial no servico de comunicação com gateway de pagamento
+  - [x] Criar validação de cancelamento de diária
+  - [x] Criar permission para realizar cancelamento de diária
+  - [x] Criar rota de cancelamento de diária
+  - [x] Adicionar link de cancelamento de diária no HATEOAS
 - [ ] Aviso de pagamento Admin
 - [ ] Lista de pagamentos de diaristas
 - [ ] Alteração dos dados do usuário

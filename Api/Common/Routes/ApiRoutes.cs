@@ -64,6 +64,8 @@ public static class ApiRoutes
         public const string CandidatarName = "Candidatar";
         public const string ConfirmarPresenca = "/api/diarias/{diariaId}/confirmar-presenca";
         public const string ConfirmarPresencaName = "ConfirmarPresenca";
+        public const string Cancelar = "/api/diarias/{diariaId}/cancelar";
+        public const string CancelarName = "CancelarDiaria";
     }
 
     public static class EnderecosDiarista

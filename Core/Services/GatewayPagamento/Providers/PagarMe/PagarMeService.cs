@@ -83,7 +83,7 @@ public class PagarMeService : IGatewayPagamentoService
 
     private void validarDiaria(Diaria diaria)
     {
-        if (diaria.Status != DiariaStatus.Pago)
+        if (diaria.Status != DiariaStatus.Pago && diaria.Status != DiariaStatus.Confirmado)
         {
             throw new GatewayPagamentoServiceException("Não é possível estornar uma diária que não foi paga");
         }
@@ -96,7 +96,7 @@ public class PagarMeService : IGatewayPagamentoService
             TransacaoId = refundResponse.Id.ToString(),
             DiariaId = diaria.Id,
             Status = PagamentoStatus.Reembolsado,
-            Valor = converterCentavosParaReais(refundResponse.Amount)
+            Valor = converterCentavosParaReais(refundResponse.RefundedAmount)
         };
         return _pagamentoRepository.Create(pagamento);
     }

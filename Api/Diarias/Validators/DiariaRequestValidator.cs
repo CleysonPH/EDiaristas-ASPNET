@@ -23,7 +23,7 @@ public class DiariaRequestValidator : AbstractValidator<DiariaRequest>
             .Must(x => x.Hour >= 6)
             .WithMessage("a hora deve ser maior ou igual a 6")
             .Must(x => x >= DateTime.Now.AddHours(48))
-            .WithMessage("deve ser menor que 48 horas da data atual")
+            .WithMessage("deve ser maior que 48 horas da data atual")
             .OverridePropertyName("data_atendimento");
 
         RuleFor(x => x.TempoAtendimento)
