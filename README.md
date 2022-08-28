@@ -146,7 +146,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Criar método busca de diária aptas para cancelamento
   - [x] Criar método de reembolso de diária
   - [x] Criar task de cancelamento de diária
-- [ ] Cancelar diária
+- [x] Cancelar diária
   - [x] Criar funcionalidade de estorno parcial no servico de comunicação com gateway de pagamento
   - [x] Criar validação de cancelamento de diária
   - [x] Criar permission para realizar cancelamento de diária
