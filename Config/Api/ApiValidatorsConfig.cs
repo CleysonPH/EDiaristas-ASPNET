@@ -28,5 +28,6 @@ public static class ApiValidatorsConfig
         services.AddTransient<IValidator<CandidaturaData>, CandidaturaValidator>();
         services.AddTransient<IValidator<ConfirmacaoPresencaData>, ConfirmacaoPresencaValidator>();
         services.AddTransient<IValidator<AvaliacaoData>, AvaliacaoValidator>();
+        services.AddTransient<IValidator<CancelamentoRequest>, CancelamentoValidator>();
     }
 }

@@ -50,11 +50,18 @@ public class DiariaResponseAssembler : IAssembler<DiariaResponse>
             Rel = "avaliar_diaria",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Avaliacao.AvaliarName, new { DiariaId = resource.Id })
         };
+        var cancelarDiariaLink = new LinkResponse
+        {
+            Type = HttpMethods.Patch,
+            Rel = "cancelar_diaria",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.CancelarName, new { DiariaId = resource.Id })
+        };
 
         resource.AddLink(selfLink);
         resource.AddLinkIf(resource.Status.IsSemPagamento(), pagarDiariaLink);
         resource.AddLinkIf(isAptaParaConfirmarPresenca(resource), confirmarPresencaLink);
         resource.AddLinkIf(isAptaParaAvaliacao(resource), avaliarDiariaLink);
+        resource.AddLinkIf(isAptaParaCancelamento(resource), cancelarDiariaLink);
 
         return resource;
     }
@@ -70,5 +77,11 @@ public class DiariaResponseAssembler : IAssembler<DiariaResponse>
         return resource.Status.IsConfirmado()
             && resource.DataAtendimento < DateTime.Now
             && resource.Diarista != null;
+    }
+
+    private bool isAptaParaCancelamento(DiariaResponse resource)
+    {
+        return (resource.Status.IsPago() || resource.Status.IsConfirmado())
+            && resource.DataAtendimento > DateTime.Now;
     }
 }

@@ -49,6 +49,13 @@ public class DiariaPermissions : IPermission<int>
                 throw new UnauthorizedException();
             }
         }
+        else if (operation == DiariaOperations.Cancelar)
+        {
+            if (!isDiaristaOuClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
+            {
+                throw new UnauthorizedException();
+            }
+        }
     }
 
     private bool isDiaristaOuClienteDonoDaDiaria(int diariaId, int usuarioId)
@@ -70,4 +77,5 @@ public static class DiariaOperations
     public const string Detalhar = "Detalhar";
     public const string ConfirmarPresenca = "ConfirmarPresenca";
     public const string Avaliar = "Avaliar";
+    public const string Cancelar = "Cancelar";
 }
