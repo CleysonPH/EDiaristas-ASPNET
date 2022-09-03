@@ -55,8 +55,8 @@
             </a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-footer">
-              <a asp-controller="Usuario" asp-action="UpdatePassword" class="btn btn-primary btn-sm">Mudar senha</a>
-              <a asp-controller="Auth" asp-action="Logout" class="btn btn-danger btn-sm">Sair</a>
+              <a asp-route="@AdminRoutes.Usuarios.UpdatePasswordName" class="btn btn-primary btn-sm">Mudar senha</a>
+              <a asp-route="@AdminRoutes.Auth.LogoutName" class="btn btn-danger btn-sm">Sair</a>
             </div>
           </div>
         </li>
@@ -94,13 +94,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a class="nav-link" asp-controller="Servico" asp-action="Create">
+                  <a class="nav-link" asp-route="@AdminRoutes.Servicos.CreateName">
                     <em class="nav-icon fas fa-edit nav-icon"></em>
                     <p>Cadastrar</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" asp-controller="Servico" asp-action="Index">
+                  <a class="nav-link" asp-route="@AdminRoutes.Servicos.IndexName">
                     <em class="fas fa-table nav-icon"></em>
                     <p>Listar</p>
                   </a>
@@ -117,13 +117,30 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a class="nav-link" asp-controller="Usuario" asp-action="Create">
+                  <a class="nav-link" asp-route="@AdminRoutes.Usuarios.CreateName">
                     <em class="nav-icon fas fa-edit nav-icon"></em>
                     <p>Cadastrar</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" asp-controller="Usuario" asp-action="Index">
+                  <a class="nav-link" asp-route="@AdminRoutes.Usuarios.IndexName">
+                    <em class="fas fa-table nav-icon"></em>
+                    <p>Listar</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <em class="nav-icon fas fa-clipboard-list"></em>
+                <p>
+                  Diárias
+                  <em class="fas fa-angle-left right"></em>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a class="nav-link" asp-route="@AdminRoutes.Diarias.IndexName">
                     <em class="fas fa-table nav-icon"></em>
                     <p>Listar</p>
                   </a>

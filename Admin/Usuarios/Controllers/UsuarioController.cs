@@ -1,7 +1,7 @@
 using EDiaristas.Admin.Common.Dtos;
 using EDiaristas.Admin.Common.Extensions;
+using EDiaristas.Admin.Common.Routes;
 using EDiaristas.Admin.Usuarios.Dtos;
-using EDiaristas.Admin.Usuarios.Routes;
 using EDiaristas.Admin.Usuarios.Services;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
@@ -22,14 +22,14 @@ public class UsuarioController : Controller
         _usuarioService = usuarioService;
     }
 
-    [HttpGet(UsuarioRoutes.Index)]
+    [HttpGet(AdminRoutes.Usuarios.Index, Name = AdminRoutes.Usuarios.IndexName)]
     public IActionResult Index()
     {
         ViewData["Title"] = "Lista de Usuários";
         return View(_usuarioService.FindAll());
     }
 
-    [HttpGet(UsuarioRoutes.Create)]
+    [HttpGet(AdminRoutes.Usuarios.Create, Name = AdminRoutes.Usuarios.CreateName)]
     public IActionResult Create()
     {
         ViewData["Title"] = "Cadastrar Usuário";
@@ -37,7 +37,7 @@ public class UsuarioController : Controller
     }
 
     [ValidateAntiForgeryToken]
-    [HttpPost(UsuarioRoutes.Create)]
+    [HttpPost(AdminRoutes.Usuarios.Create, Name = AdminRoutes.Usuarios.CreateName)]
     public IActionResult Create([FromForm] UsuarioCreateForm form)
     {
         try
@@ -55,7 +55,7 @@ public class UsuarioController : Controller
         }
     }
 
-    [HttpGet(UsuarioRoutes.UpdateById)]
+    [HttpGet(AdminRoutes.Usuarios.UpdateById, Name = AdminRoutes.Usuarios.UpdateByIdName)]
     public IActionResult UpdateById([FromRoute] int id)
     {
         ViewData["Title"] = "Editar Usuário";
@@ -63,7 +63,7 @@ public class UsuarioController : Controller
     }
 
     [ValidateAntiForgeryToken]
-    [HttpPost(UsuarioRoutes.UpdateById)]
+    [HttpPost(AdminRoutes.Usuarios.UpdateById, Name = AdminRoutes.Usuarios.UpdateByIdName)]
     public IActionResult UpdateById([FromRoute] int id, [FromForm] UsuarioUpdateForm form)
     {
         try
@@ -81,7 +81,7 @@ public class UsuarioController : Controller
         }
     }
 
-    [HttpGet(UsuarioRoutes.DeleteById)]
+    [HttpGet(AdminRoutes.Usuarios.DeleteById, Name = AdminRoutes.Usuarios.DeleteByIdName)]
     public IActionResult DeleteById([FromRoute] int id)
     {
         _usuarioService.DeleteById(id);
@@ -89,7 +89,7 @@ public class UsuarioController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [HttpGet(UsuarioRoutes.UpdatePassword)]
+    [HttpGet(AdminRoutes.Usuarios.UpdatePassword, Name = AdminRoutes.Usuarios.UpdatePasswordName)]
     public IActionResult UpdatePassword()
     {
         ViewData["Title"] = "Alterar Senha";
@@ -97,7 +97,7 @@ public class UsuarioController : Controller
     }
 
     [ValidateAntiForgeryToken]
-    [HttpPost(UsuarioRoutes.UpdatePassword)]
+    [HttpPost(AdminRoutes.Usuarios.UpdatePassword, Name = AdminRoutes.Usuarios.UpdatePasswordName)]
     public IActionResult UpdatePassword([FromForm] UpdatePasswordForm form)
     {
         try

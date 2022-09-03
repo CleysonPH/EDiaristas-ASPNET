@@ -1,3 +1,4 @@
+using EDiaristas.Admin.Diarias.Mappers;
 using EDiaristas.Admin.Servicos.Mappers;
 using EDiaristas.Admin.Usuarios.Mappers;
 
@@ -9,5 +10,6 @@ public static class AdminMappersConfig
     {
         services.AddScoped<IServicoMapper, ServicoMapper>();
         services.AddScoped<IUsuarioMapper, UsuarioMapper>();
+        services.AddScoped<IDiariaMapper, DiariaMapper>();
     }
 }

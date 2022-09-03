@@ -1,4 +1,5 @@
 using System.Text;
+using EDiaristas.Admin.Common.Routes;
 using Microsoft.IdentityModel.Tokens;
 
 namespace EDiaristas.Config;
@@ -12,8 +13,8 @@ public static class IdentityConfig
         services.AddAuthentication()
             .AddCookie(options =>
             {
-                options.LoginPath = "/admin/login";
-                options.AccessDeniedPath = "/admin/login";
+                options.LoginPath = AdminRoutes.Auth.Login;
+                options.AccessDeniedPath = AdminRoutes.Auth.Login;
                 options.ExpireTimeSpan = TimeSpan.FromDays(1);
             })
             .AddJwtBearer(options =>

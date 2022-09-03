@@ -2,8 +2,8 @@ using EDiaristas.Admin.Auth.Dtos;
 using EDiaristas.Admin.Auth.Services;
 using EDiaristas.Admin.Common.Dtos;
 using EDiaristas.Admin.Common.Extensions;
+using EDiaristas.Admin.Common.Routes;
 using EDiaristas.Admin.Servicos.Controllers;
-using EDiaristas.Admin.Auth.Routes;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
 using FluentValidation;
@@ -24,14 +24,14 @@ public class AuthController : Controller
     }
 
     [AllowAnonymous]
-    [HttpGet(AuthRoutes.Login)]
+    [HttpGet(AdminRoutes.Auth.Login, Name = AdminRoutes.Auth.LoginName)]
     public IActionResult Login()
     {
         return View();
     }
 
     [AllowAnonymous]
-    [HttpPost(AuthRoutes.Login)]
+    [HttpPost(AdminRoutes.Auth.Login, Name = AdminRoutes.Auth.LoginName)]
     [ValidateAntiForgeryToken]
     public IActionResult Login([FromForm] LoginForm form, [FromQuery] string returnUrl)
     {
@@ -57,7 +57,7 @@ public class AuthController : Controller
         }
     }
 
-    [HttpGet(AuthRoutes.Logout)]
+    [HttpGet(AdminRoutes.Auth.Logout, Name = AdminRoutes.Auth.LogoutName)]
     public IActionResult Logout()
     {
         _authService.Logout(HttpContext);

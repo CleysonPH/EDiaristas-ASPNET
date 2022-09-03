@@ -52,6 +52,34 @@ public class DiariaRepository : IDiariaRepository
         return _context.Diarias.ToList();
     }
 
+    public ICollection<Diaria> FindAll<TKey>(Func<Diaria, TKey> keySelector, bool ascending = true)
+    {
+        if (ascending)
+        {
+            return _context.Diarias.OrderBy(keySelector).ToList();
+        }
+        return _context.Diarias.OrderByDescending(keySelector).ToList();
+    }
+
+    public ICollection<Diaria> FindAll<TKey>(Func<Diaria, TKey> keySelector, DiariaFiltro filtro, bool ascending = true)
+    {
+        var query = _context.Diarias.AsQueryable();
+        if (!string.IsNullOrEmpty(filtro.ClienteNome))
+        {
+            query = query.Include(d => d.Cliente)
+                .Where(d => d.Cliente.NomeCompleto.Contains(filtro.ClienteNome));
+        }
+        if (filtro.Statuses.Count > 0)
+        {
+            query = query.Where(d => filtro.Statuses.Contains(d.Status));
+        }
+        if (ascending)
+        {
+            return query.OrderBy(keySelector).ToList();
+        }
+        return query.OrderByDescending(keySelector).ToList();
+    }
+
     public ICollection<Diaria> FindAptasParaCancelamento()
     {
         return _context.Diarias.Where(d =>
