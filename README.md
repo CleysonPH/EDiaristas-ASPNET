@@ -36,19 +36,21 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 
 ## Rotas do Admin
 
-| Rota                          | Funcionalidade                                | Reque autenticação? | Tipo Usuário |
-| ----------------------------- | --------------------------------------------- | ------------------- | ------------ |
-| /admin/login                  | Realizar login na aplicação administrativa    | Não                 | -            |
-| /admin/logout                 | Realizar o logout na aplicação administrativa | Sim                 | Admin        |
-| /admin/servicos               | Listar todos os serviços cadastrados          | Sim                 | Admin        |
-| /admin/servicos/cadastrar     | Cadastrar novo serviço                        | Sim                 | Admin        |
-| /admin/servicos/{id}/editar   | Editar os dados de um serviço                 | Sim                 | Admin        |
-| /admin/servicos/{id}/excluir  | Excluir um serviço                            | Sim                 | Admin        |
-| /admin/usuarios               | Listar todos os usuários cadastrados          | Sim                 | Admin        |
-| /admin/usuarios/cadastrar     | Cadastrar um novo usuário com o perfil ADMIN  | Sim                 | Admin        |
-| /admin/usuarios/{id}/editar   | Editar os dados de um usuário                 | Sim                 | Admin        |
-| /admin/usuarios/{id}/excluir  | Excluir um usuário                            | Sim                 | Admin        |
-| /admin/usuarios/alterar-senha | Alterar a senha do usuário logado             | Sim                 | Admin        |
+| Rota                                 | Funcionalidade                                | Reque autenticação? | Tipo Usuário |
+| ------------------------------------ | --------------------------------------------- | ------------------- | ------------ |
+| /admin/login                         | Realizar login na aplicação administrativa    | Não                 | -            |
+| /admin/logout                        | Realizar o logout na aplicação administrativa | Sim                 | Admin        |
+| /admin/servicos                      | Listar todos os serviços cadastrados          | Sim                 | Admin        |
+| /admin/servicos/cadastrar            | Cadastrar novo serviço                        | Sim                 | Admin        |
+| /admin/servicos/{id}/editar          | Editar os dados de um serviço                 | Sim                 | Admin        |
+| /admin/servicos/{id}/excluir         | Excluir um serviço                            | Sim                 | Admin        |
+| /admin/usuarios                      | Listar todos os usuários cadastrados          | Sim                 | Admin        |
+| /admin/usuarios/cadastrar            | Cadastrar um novo usuário com o perfil ADMIN  | Sim                 | Admin        |
+| /admin/usuarios/{id}/editar          | Editar os dados de um usuário                 | Sim                 | Admin        |
+| /admin/usuarios/{id}/excluir         | Excluir um usuário                            | Sim                 | Admin        |
+| /admin/usuarios/alterar-senha        | Alterar a senha do usuário logado             | Sim                 | Admin        |
+| /admin/diarias                       | Lista as diárias                              | Sim                 | Admin        |
+| /admin/diarias/{diariaId}/transferir | Muda o status da diária para transferido      | Sim                 | Admin        |
 
 ## Rotas da API
 
@@ -152,7 +154,10 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Criar permission para realizar cancelamento de diária
   - [x] Criar rota de cancelamento de diária
   - [x] Adicionar link de cancelamento de diária no HATEOAS
-- [ ] Aviso de pagamento Admin
+- [x] Aviso de pagamento Admin
+  - [x] Página de listagem de diárias
+  - [x] Botão para marcar a diária como transferida
+  - [x] Filtros de diárias
 - [ ] Lista de pagamentos de diaristas
 - [ ] Alteração dos dados do usuário
 - [ ] Recuperação de senha
