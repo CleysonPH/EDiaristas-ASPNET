@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace EDiaristas.Admin.Servicos.Controllers;
 
-[Authorize(Roles = Roles.Admin, AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+[Authorize(
+    Roles = Roles.Admin,
+    AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
 public class ServicoController : Controller
 {
     private readonly IServicoService _servicoService;

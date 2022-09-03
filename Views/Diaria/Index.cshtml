@@ -6,7 +6,42 @@
       <div class="card-header">
         <div class="card-title">@ViewData["title"]</div>
         <div class="card-tools">
+          <form method="get" class="form-inline">
+            <label for="clienteNome" class="sr-only">Nome do cliente</label>
+            <input
+              type="text"
+              name="clienteNome"
+              class="form-control mb-2 mr-sm-2"
+              placeholder="Nome do cliente"
+              value='@Context.Request.Query["clienteNome"]'
+            >
 
+            <label for="statuses" class="sr-only">Status</label>
+            <select name="status" class="form-control mb-2 mr-sm-2">
+              <option value="">Todos</option>
+              <option
+                value="SemPagamento,Pago,Confirmado"
+                selected='@(Context.Request.Query["statuses"] == "SemPagamento,Pago,Confirmado")'
+              >
+                Pendentes
+              </option>
+              <option
+                value="Cancelado"
+                selected='@(Context.Request.Query["statuses"] == "Cancelado")'
+              >
+                Canceladas
+              </option>
+              <option
+                value="Concluido,Avaliado,Transferido"
+                selected='@(Context.Request.Query["statuses"] == "Concluido,Avaliado,Transferido")'
+              >
+                Concluídas
+              </option>
+            </select>
+
+            <button class="btn btn-primary mb-2" type="submit">Filtrar</button>
+            <a asp-controller="Diaria" asp-action="Index" class="btn btn-default mb-2 ml-2">Limpar</a>
+          </form>
         </div>
       </div>
       <div class="card-body">
@@ -30,6 +65,7 @@
                 <th>Preço</th>
                 <th>Comissão</th>
                 <th>Transferencia</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -45,6 +81,28 @@
                   <td>@diaria.Preco</td>
                   <td>@diaria.Comissao</td>
                   <td>@diaria.Transferencia</td>
+                  <td>
+                    @if (new[] {"Presença Confirmada", "Avaliada"}.Contains(diaria.Status))
+                    {
+                      <a
+                        asp-controller="Diaria"
+                        asp-action="MarcarComoTransferida"
+                        asp-route-diariaId="@diaria.Id"
+                        class="btn btn-sm btn-primary"
+                      >
+                        Marcar como transferido
+                      </a>
+                    }
+                    else
+                    {
+                      <a
+                        href="#"
+                        class="btn btn-sm btn-danger disabled"
+                      >
+                        Indisponível
+                      </a>
+                    }
+                  </td>
                 </tr>
               }
             </tbody>

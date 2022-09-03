@@ -4,5 +4,6 @@ namespace EDiaristas.Admin.Diarias.Services;
 
 public interface IDiariaService
 {
-    ICollection<DiariaSummary> Listar();
+    ICollection<DiariaSummary> Listar(string clienteNome, string status);
+    void MarcarComoTransferida(int diariaId);
 }
