@@ -4,6 +4,7 @@ namespace EDiaristas.Core.Repositories.Diarias;
 
 public interface IDiariaRepository : ICrudRepository<Diaria, int>
 {
+    ICollection<Diaria> FindAll<TKey>(Func<Diaria, TKey> keySelector, bool ascending = true);
     bool ExistsByIdAndClienteId(int diariaId, int clienteId);
     bool ExistsByIdAndDiaristaId(int diariaId, int diaristaId);
     ICollection<Diaria> FindByClienteId(int clienteId);

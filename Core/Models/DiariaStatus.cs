@@ -13,6 +13,21 @@ public enum DiariaStatus
 
 public static class DiariaStatusExtensions
 {
+    public static string GetDescription(this DiariaStatus diariaStatus)
+    {
+        return diariaStatus switch
+        {
+            DiariaStatus.SemPagamento => "Aguardando pagamento",
+            DiariaStatus.Pago => "Paga",
+            DiariaStatus.Confirmado => "Diarista Selecionado",
+            DiariaStatus.Concluido => "Presença Confirmada",
+            DiariaStatus.Cancelado => "Cancelada",
+            DiariaStatus.Avaliado => "Avaliada",
+            DiariaStatus.Transferido => "Transferido para Diarista",
+            _ => throw new ArgumentOutOfRangeException(nameof(diariaStatus), diariaStatus, null),
+        };
+    }
+
     public static string ToDiariaStatusName(this DiariaStatus diariaStatus)
     {
         return diariaStatus switch
