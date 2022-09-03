@@ -6,7 +6,7 @@
       <div class="card-header">
         <div class="card-title">@ViewData["title"]</div>
         <div class="card-tools">
-          <a class="btn btn-success" asp-controller="Usuario" asp-action="Create">
+          <a class="btn btn-success" asp-route="@AdminRoutes.Usuarios.CreateName">
             <em class="fas fa-plus"></em>
             Novo Usuário
           </a>
@@ -40,18 +40,14 @@
                   <td>
                     <a
                       class="btn btn-sm btn-warning"
-                      asp-controller="Usuario"
-                      asp-action="UpdateById"
-                      asp-route-id="@usuario.Id"
+                      asp-route="@AdminRoutes.Usuarios.UpdateByIdName"
                     >
                       Editar
                     </a>
                     <a
                       class="btn btn-sm btn-danger"
                       onclick="return confirm('Tem certeja que deseja excluir este serviço?')"
-                      asp-controller="Usuario"
-                      asp-action="DeleteById"
-                      asp-route-id="@usuario.Id"
+                      asp-route="@AdminRoutes.Usuarios.DeleteByIdName"
                     >
                       Excluir
                     </a>

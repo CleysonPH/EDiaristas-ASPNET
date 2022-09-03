@@ -1,5 +1,6 @@
 using EDiaristas.Admin.Common.Dtos;
 using EDiaristas.Admin.Common.Extensions;
+using EDiaristas.Admin.Common.Routes;
 using EDiaristas.Admin.Diarias.Services;
 using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
@@ -19,6 +20,7 @@ public class DiariaController : Controller
         _diariaService = diariaService;
     }
 
+    [HttpGet(AdminRoutes.Diarias.Index, Name = AdminRoutes.Diarias.IndexName)]
     public IActionResult Index(
         string clienteNome = "",
         string status = "")
@@ -27,6 +29,7 @@ public class DiariaController : Controller
         return View(_diariaService.Listar(clienteNome, status));
     }
 
+    [HttpGet(AdminRoutes.Diarias.MarcarComoTransferida, Name = AdminRoutes.Diarias.MarcarComoTransferidaName)]
     public IActionResult MarcarComoTransferida(int diariaId)
     {
         try

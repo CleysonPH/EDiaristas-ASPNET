@@ -1,7 +1,7 @@
 using EDiaristas.Admin.Servicos.Dtos;
 using EDiaristas.Admin.Servicos.Services;
-using EDiaristas.Admin.Servicos.Routes;
 using EDiaristas.Admin.Common.Extensions;
+using EDiaristas.Admin.Common.Routes;
 using Microsoft.AspNetCore.Mvc;
 using EDiaristas.Admin.Common.Dtos;
 using FluentValidation;
@@ -23,14 +23,14 @@ public class ServicoController : Controller
         _servicoService = servicoService;
     }
 
-    [HttpGet(ServicoRoutes.Index)]
+    [HttpGet(AdminRoutes.Servicos.Index, Name = AdminRoutes.Servicos.IndexName)]
     public IActionResult Index()
     {
         ViewData["Title"] = "Lista de Serviços";
         return View(_servicoService.FindAll());
     }
 
-    [HttpGet(ServicoRoutes.Create)]
+    [HttpGet(AdminRoutes.Servicos.Create, Name = AdminRoutes.Servicos.CreateName)]
     public IActionResult Create()
     {
         ViewData["Title"] = "Cadastrar Serviço";
@@ -38,7 +38,7 @@ public class ServicoController : Controller
     }
 
     [ValidateAntiForgeryToken]
-    [HttpPost(ServicoRoutes.Create)]
+    [HttpPost(AdminRoutes.Servicos.Create, Name = AdminRoutes.Servicos.CreateName)]
     public IActionResult Create([FromForm] ServicoForm form)
     {
         try
@@ -56,7 +56,7 @@ public class ServicoController : Controller
         }
     }
 
-    [HttpGet(ServicoRoutes.UpdateById)]
+    [HttpGet(AdminRoutes.Servicos.UpdateById, Name = AdminRoutes.Servicos.UpdateByIdName)]
     public IActionResult UpdateById([FromRoute] int id)
     {
         ViewData["Title"] = "Editar Serviço";
@@ -64,7 +64,7 @@ public class ServicoController : Controller
     }
 
     [ValidateAntiForgeryToken]
-    [HttpPost(ServicoRoutes.UpdateById)]
+    [HttpPost(AdminRoutes.Servicos.UpdateById, Name = AdminRoutes.Servicos.UpdateByIdName)]
     public IActionResult UpdateById([FromRoute] int id, [FromForm] ServicoForm form)
     {
         try
@@ -82,7 +82,7 @@ public class ServicoController : Controller
         }
     }
 
-    [HttpGet(ServicoRoutes.DeleteById)]
+    [HttpGet(AdminRoutes.Servicos.DeleteById, Name = AdminRoutes.Servicos.DeleteByIdName)]
     public IActionResult DeleteById([FromRoute] int id)
     {
         _servicoService.DeleteById(id);

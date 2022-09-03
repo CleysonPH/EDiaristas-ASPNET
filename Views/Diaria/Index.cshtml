@@ -40,7 +40,7 @@
             </select>
 
             <button class="btn btn-primary mb-2" type="submit">Filtrar</button>
-            <a asp-controller="Diaria" asp-action="Index" class="btn btn-default mb-2 ml-2">Limpar</a>
+            <a asp-route="@AdminRoutes.Diarias.IndexName" class="btn btn-default mb-2 ml-2">Limpar</a>
           </form>
         </div>
       </div>
@@ -85,8 +85,7 @@
                     @if (new[] {"Presença Confirmada", "Avaliada"}.Contains(diaria.Status))
                     {
                       <a
-                        asp-controller="Diaria"
-                        asp-action="MarcarComoTransferida"
+                        asp-route="@AdminRoutes.Diarias.MarcarComoTransferidaName"
                         asp-route-diariaId="@diaria.Id"
                         class="btn btn-sm btn-primary"
                       >
