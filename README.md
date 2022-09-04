@@ -158,7 +158,8 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Página de listagem de diárias
   - [x] Botão para marcar a diária como transferida
   - [x] Filtros de diárias
-- [ ] Lista de pagamentos de diaristas
+- [x] Lista de pagamentos de diaristas
+  - [x] Rota de listagem de pagamentos de diaristas
 - [ ] Alteração dos dados do usuário
 - [ ] Recuperação de senha
 - [ ] Deploy da aplicação
