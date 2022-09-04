@@ -5,6 +5,7 @@ using EDiaristas.Api.Diaristas.Mappers;
 using EDiaristas.Api.EnderecosDiarista.Mappers;
 using EDiaristas.Api.Me.Mappers;
 using EDiaristas.Api.Oportunidades.Mappers;
+using EDiaristas.Api.Pagamentos.Mappers;
 using EDiaristas.Api.Servicos.Mappers;
 using EDiaristas.Api.Usuarios.Mappers;
 
@@ -23,5 +24,6 @@ public static class ApiMappersConfig
         services.AddScoped<ICidadeAtendidaMapper, CidadeAtendidaMapper>();
         services.AddScoped<IOportunidadeMapper, OportunidadeMapper>();
         services.AddScoped<IAvaliacaoMapper, AvaliacaoMapper>();
+        services.AddScoped<IPagamentoMapper, PagamentoMapper>();
     }
 }

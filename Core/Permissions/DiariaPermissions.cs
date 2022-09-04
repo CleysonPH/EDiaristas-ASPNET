@@ -66,7 +66,7 @@ public class DiariaPermissions : IPermission<int>
 
     private bool isClienteDonoDaDiaria(int diariaId, int usuarioId)
     {
-        return !_diariaRepository.ExistsByIdAndClienteId(diariaId, usuarioId);
+        return _diariaRepository.ExistsByIdAndClienteId(diariaId, usuarioId);
     }
 
 }

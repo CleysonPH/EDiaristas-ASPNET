@@ -1,5 +1,6 @@
 using EDiaristas.Core.Data.Contexts;
 using EDiaristas.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Repositories.Pagamentos;
 
@@ -37,6 +38,14 @@ public class PagamentoRepository : IPagamentoRepository
     public ICollection<Pagamento> FindAll()
     {
         return _context.Pagamentos.ToList();
+    }
+
+    public ICollection<Pagamento> FindByDiaristaAndDiariaStatuses(int diaristaId, ICollection<DiariaStatus> statuses)
+    {
+        return _context.Pagamentos
+            .Include(p => p.Diaria)
+            .Where(p => p.Diaria.DiaristaId == diaristaId && statuses.Contains(p.Diaria.Status))
+            .ToList();
     }
 
     public Pagamento? FindById(int id)
