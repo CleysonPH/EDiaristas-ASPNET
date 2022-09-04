@@ -95,4 +95,10 @@ public static class ApiRoutes
         public const string Avaliar = "/api/diarias/{diariaId}/avaliacao";
         public const string AvaliarName = "AvaliarDiaria";
     }
+
+    public static class Pagamentos
+    {
+        public const string Listar = "/api/pagamentos";
+        public const string ListarName = "ListarPagamentos";
+    }
 }
