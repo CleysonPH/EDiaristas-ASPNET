@@ -51,6 +51,12 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
             Rel = "relacionar_cidades",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.CidadeAtendida.AtualizarName, new { })
         };
+        var editarUsuarioLink = new LinkResponse
+        {
+            Type = HttpMethods.Put,
+            Rel = "editar_usuario",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Usuarios.AtualizarUsuarioName, new { })
+        };
         resource.AddLinkIf(resource.TipoUsuario.IsCliente(), cadastrarDiariaLink);
         resource.AddLinksIf(
             resource.TipoUsuario.IsDiarista(),
@@ -58,7 +64,7 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
             listarEnderecoLink,
             cidadesAtendidasLink,
             relacionarCidadesLink);
-        resource.AddLink(listaDiariasLink);
+        resource.AddLinks(listaDiariasLink, editarUsuarioLink);
         return resource;
     }
 }
