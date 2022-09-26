@@ -38,6 +38,8 @@ public static class ApiRoutes
     {
         public const string CadastrarUsuario = "/api/usuarios";
         public const string CadastrarUsuarioName = "CadastrarUsuario";
+        public const string AtualizarUsuario = "/api/usuarios";
+        public const string AtualizarUsuarioName = "AtualizarUsuario";
     }
 
     public static class Auth

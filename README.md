@@ -161,5 +161,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [x] Lista de pagamentos de diaristas
   - [x] Rota de listagem de pagamentos de diaristas
 - [ ] Alteração dos dados do usuário
+  - [ ] Rota de alteração de foto de perfil
+  - [x] Rota de alteração de dados pessoais
 - [ ] Recuperação de senha
 - [ ] Deploy da aplicação

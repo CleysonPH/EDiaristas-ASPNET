@@ -3,6 +3,7 @@ using EDiaristas.Api.Usuarios.Dtos;
 using EDiaristas.Api.Usuarios.Mappers;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Usuarios;
+using EDiaristas.Core.Services.Authentication.Adapters;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using EDiaristas.Core.Services.Token.Adapters;
 using FluentValidation;
@@ -16,6 +17,8 @@ public class UsuarioService : IUsuarioService
     private readonly IValidator<UsuarioRequest> _validator;
     private readonly IPasswordEnconderService _passwordEnconderService;
     private readonly ITokenService _tokenService;
+    private readonly ICustomAuthenticationService _authenticationService;
+    private readonly IValidator<AtualizarUsuarioRequest> _atualizarUsuarioValidator;
 
     private const double REPUTACAO_MAXIMA = 5.0;
 
@@ -24,13 +27,17 @@ public class UsuarioService : IUsuarioService
         IUsuarioRepository usuarioRepository,
         IValidator<UsuarioRequest> validator,
         IPasswordEnconderService passwordEnconderService,
-        ITokenService tokenService)
+        ITokenService tokenService,
+        ICustomAuthenticationService authenticationService,
+        IValidator<AtualizarUsuarioRequest> atualizarUsuarioValidator)
     {
         _usuarioMapper = usuarioMapper;
         _usuarioRepository = usuarioRepository;
         _validator = validator;
         _passwordEnconderService = passwordEnconderService;
         _tokenService = tokenService;
+        _authenticationService = authenticationService;
+        _atualizarUsuarioValidator = atualizarUsuarioValidator;
     }
 
     public UsuarioCreatedResponse Cadastrar(UsuarioRequest request)
@@ -43,6 +50,40 @@ public class UsuarioService : IUsuarioService
         var response = _usuarioMapper.ToCreatedResponse(usuarioCadastrado);
         response.Token = generateTokenResponse(usuarioCadastrado);
         return response;
+    }
+
+    public MessageResponse Atualizar(AtualizarUsuarioRequest request)
+    {
+        var usuario = _authenticationService.GetUsuarioAutenticado();
+        request.Id = usuario.Id;
+        _atualizarUsuarioValidator.ValidateAndThrow(request);
+        atualizarInformacoesUsuarioLogado(usuario, request);
+        alterarSenhaUsuarioLogado(usuario, request);
+        _usuarioRepository.Update(usuario);
+        return new MessageResponse("Usuário atualizado com sucesso");
+    }
+
+    private void alterarSenhaUsuarioLogado(Usuario usuario, AtualizarUsuarioRequest request)
+    {
+        var temQueAtualizarSenha = !string.IsNullOrEmpty(request.Password)
+            && !string.IsNullOrEmpty(request.NewPassword)
+            && !string.IsNullOrEmpty(request.PasswordConfirmation);
+
+        if (temQueAtualizarSenha)
+        {
+            var novaSenha = _passwordEnconderService.Enconde(request.NewPassword ?? string.Empty);
+            usuario.Senha = novaSenha;
+        }
+    }
+
+    private void atualizarInformacoesUsuarioLogado(Usuario usuario, AtualizarUsuarioRequest request)
+    {
+        usuario.NomeCompleto = request.NomeCompleto ?? usuario.NomeCompleto;
+        usuario.Email = request.Email ?? usuario.Email;
+        usuario.Cpf = request.Cpf ?? usuario.Cpf;
+        usuario.Nascimento = request.Nascimento ?? usuario.Nascimento;
+        usuario.Telefone = request.Telefone ?? usuario.Telefone;
+        usuario.ChavePix = request.ChavePix ?? usuario.ChavePix;
     }
 
     private TokenResponse generateTokenResponse(Usuario usuario)

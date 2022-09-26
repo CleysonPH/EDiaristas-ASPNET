@@ -11,4 +11,15 @@ public static class DateTimeExtensions
         }
         return idade;
     }
+
+    public static int GetIdade(this DateTime? dateTime)
+    {
+        var newDateTime = dateTime ?? DateTime.Now;
+        var idade = DateTime.Now.Year - newDateTime.Year;
+        if (DateTime.Now.Month < newDateTime.Month || (DateTime.Now.Month == newDateTime.Month && DateTime.Now.Day < newDateTime.Day))
+        {
+            idade--;
+        }
+        return idade;
+    }
 }
