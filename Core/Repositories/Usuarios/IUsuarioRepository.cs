@@ -15,4 +15,5 @@ public interface IUsuarioRepository : ICrudRepository<Usuario, int>
     bool ExistsByCidadesAtendidasCodigoIbge(string codigoIbge);
     double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario);
     ICollection<Usuario> FindByTipoUsuario(TipoUsuario tipoUsuario);
+    ICollection<Usuario> FindCandidatos(Diaria diaria);
 }

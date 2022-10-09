@@ -59,7 +59,7 @@ public class UsuarioService : IUsuarioService
 
     private void enviarEmailDeBoasVindas(Usuario usuarioCadastrado)
     {
-        var props = new EmailParams(
+        var emailParams = new EmailParams(
             destinatario: usuarioCadastrado.Email,
             assunto: "Cadastro realizado com sucesso",
             template: EmailParams.TemplateOptions.BoasVindas,
@@ -69,7 +69,7 @@ public class UsuarioService : IUsuarioService
                 { "TipoUsuario", usuarioCadastrado.TipoUsuario.ToString() }
             }
         );
-        _emailService.EnviarAsync(props);
+        _emailService.EnviarAsync(emailParams);
     }
 
     public MessageResponse Atualizar(AtualizarUsuarioRequest request)

@@ -1,3 +1,4 @@
+using System.Collections;
 using EDiaristas.Api.Common.Dtos;
 using EDiaristas.Api.Diarias.Dtos;
 using EDiaristas.Api.Diarias.Mappers;
@@ -5,7 +6,9 @@ using EDiaristas.Core.Exceptions;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Diarias;
 using EDiaristas.Core.Repositories.Servicos;
+using EDiaristas.Core.Repositories.Usuarios;
 using EDiaristas.Core.Services.Authentication.Adapters;
+using EDiaristas.Core.Services.Email;
 using EDiaristas.Core.Services.GatewayPagamento;
 using FluentValidation;
 
@@ -14,7 +17,9 @@ namespace EDiaristas.Api.Diarias.Services;
 public class DiariaService : IDiariaService
 {
     private readonly IDiariaMapper _diariaMapper;
+    private readonly IEmailService _emailService;
     private readonly IDiariaRepository _diariaRepository;
+    private readonly IUsuarioRepository _usuarioRepository;
     private readonly IServicoRepository _servicoRepository;
     private readonly IValidator<DiariaRequest> _diariaRequestValidator;
     private readonly IGatewayPagamentoService _gatewayPagamentoService;
@@ -23,7 +28,9 @@ public class DiariaService : IDiariaService
 
     public DiariaService(
         IDiariaMapper diariaMapper,
+        IEmailService emailService,
         IDiariaRepository diariaRepository,
+        IUsuarioRepository usuarioRepository,
         IServicoRepository servicoRepository,
         IGatewayPagamentoService gatewayPagamentoService,
         IValidator<DiariaRequest> diariaRequestValidator,
@@ -31,7 +38,9 @@ public class DiariaService : IDiariaService
         ICustomAuthenticationService customAuthenticationService)
     {
         _diariaMapper = diariaMapper;
+        _emailService = emailService;
         _diariaRepository = diariaRepository;
+        _usuarioRepository = usuarioRepository;
         _servicoRepository = servicoRepository;
         _diariaRequestValidator = diariaRequestValidator;
         _gatewayPagamentoService = gatewayPagamentoService;
@@ -90,9 +99,25 @@ public class DiariaService : IDiariaService
         {
             diaria.Status = DiariaStatus.Pago;
             _diariaRepository.Update(diaria);
+            enviarEmailDeOportunidade(diaria);
             return new MessageResponse("Pagamento realizado com sucesso");
         }
         return new MessageResponse("Pagamento recusado");
+    }
+
+    private void enviarEmailDeOportunidade(Diaria diaria)
+    {
+        var candidatos = _usuarioRepository.FindCandidatos(diaria);
+        candidatos.ToList().ForEach(candidato =>
+        {
+            var emailParams = new EmailParams(
+                destinatario: candidato.Email,
+                assunto: "Nova oportunidade",
+                template: EmailParams.TemplateOptions.NovaOportunidade,
+                props: new Dictionary<string, string>()
+            );
+            _emailService.EnviarAsync(emailParams);
+        });
     }
 
     private decimal calcularComissao(Diaria diaria)
