@@ -4,6 +4,7 @@ using EDiaristas.Api.Usuarios.Mappers;
 using EDiaristas.Core.Models;
 using EDiaristas.Core.Repositories.Usuarios;
 using EDiaristas.Core.Services.Authentication.Adapters;
+using EDiaristas.Core.Services.Email;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using EDiaristas.Core.Services.Token.Adapters;
 using FluentValidation;
@@ -19,6 +20,7 @@ public class UsuarioService : IUsuarioService
     private readonly ITokenService _tokenService;
     private readonly ICustomAuthenticationService _authenticationService;
     private readonly IValidator<AtualizarUsuarioRequest> _atualizarUsuarioValidator;
+    private readonly IEmailService _emailService;
 
     private const double REPUTACAO_MAXIMA = 5.0;
 
@@ -29,7 +31,8 @@ public class UsuarioService : IUsuarioService
         IPasswordEnconderService passwordEnconderService,
         ITokenService tokenService,
         ICustomAuthenticationService authenticationService,
-        IValidator<AtualizarUsuarioRequest> atualizarUsuarioValidator)
+        IValidator<AtualizarUsuarioRequest> atualizarUsuarioValidator,
+        IEmailService emailService)
     {
         _usuarioMapper = usuarioMapper;
         _usuarioRepository = usuarioRepository;
@@ -38,6 +41,7 @@ public class UsuarioService : IUsuarioService
         _tokenService = tokenService;
         _authenticationService = authenticationService;
         _atualizarUsuarioValidator = atualizarUsuarioValidator;
+        _emailService = emailService;
     }
 
     public UsuarioCreatedResponse Cadastrar(UsuarioRequest request)
@@ -47,9 +51,25 @@ public class UsuarioService : IUsuarioService
         usuarioParaCadastrar.Senha = _passwordEnconderService.Enconde(request.Password);
         usuarioParaCadastrar.Reputacao = calcularMediaReputacao(usuarioParaCadastrar.TipoUsuario);
         var usuarioCadastrado = _usuarioRepository.Create(usuarioParaCadastrar);
+        enviarEmailDeBoasVindas(usuarioCadastrado);
         var response = _usuarioMapper.ToCreatedResponse(usuarioCadastrado);
         response.Token = generateTokenResponse(usuarioCadastrado);
         return response;
+    }
+
+    private void enviarEmailDeBoasVindas(Usuario usuarioCadastrado)
+    {
+        var props = new EmailParams(
+            destinatario: usuarioCadastrado.Email,
+            assunto: "Cadastro realizado com sucesso",
+            template: EmailParams.TemplateOptions.BoasVindas,
+            props: new Dictionary<string, string>
+            {
+                { "NomeCompleto", usuarioCadastrado.NomeCompleto },
+                { "TipoUsuario", usuarioCadastrado.TipoUsuario.ToString() }
+            }
+        );
+        _emailService.EnviarAsync(props);
     }
 
     public MessageResponse Atualizar(AtualizarUsuarioRequest request)
