@@ -114,6 +114,16 @@ public class UsuarioRepository : IUsuarioRepository
             .ToList();
     }
 
+    public ICollection<Usuario> FindCandidatos(Diaria diaria)
+    {
+        return _context.Usuarios
+            .Include(x => x.CidadesAtendidas)
+            .Where(x =>
+                x.TipoUsuario == TipoUsuario.Diarista &&
+                x.CidadesAtendidas.Any(y => y.CodigoIbge == diaria.CodigoIbge))
+            .ToList();
+    }
+
     public double GetMediaReputacaoByTipoUsuario(TipoUsuario tipoUsuario)
     {
         var usuarios = _context.Usuarios

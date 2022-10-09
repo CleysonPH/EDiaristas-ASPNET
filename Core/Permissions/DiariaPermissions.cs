@@ -23,7 +23,7 @@ public class DiariaPermissions : IPermission<int>
 
         if (operation == DiariaOperations.Pagar)
         {
-            if (isClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
+            if (!isClienteDonoDaDiaria(diariaId, int.Parse(usuarioId)))
             {
                 throw new UnauthorizedException();
             }
