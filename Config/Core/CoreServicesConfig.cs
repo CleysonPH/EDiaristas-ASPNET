@@ -14,6 +14,8 @@ using EDiaristas.Core.Services.GatewayPagamento;
 using EDiaristas.Core.Services.GatewayPagamento.PagarMe;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using EDiaristas.Core.Services.PasswordEnconder.Providers;
+using EDiaristas.Core.Services.Storage.Adapters;
+using EDiaristas.Core.Services.Storage.Providers.S3;
 using EDiaristas.Core.Services.Token.Adapters;
 using EDiaristas.Core.Services.Token.Providers;
 
@@ -32,6 +34,7 @@ public static class CoreServicesConfig
         services.AddScoped<IDiaristaIndiceService, DiaristaIndiceService>();
         services.AddScoped<IGatewayPagamentoService, PagarMeService>();
         services.AddScoped<IEmailService, SmtpEmailService>();
+        services.AddScoped<IStorageService, S3StorageService>();
 
         services.AddSingleton<HttpClient>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
