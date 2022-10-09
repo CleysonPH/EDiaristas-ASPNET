@@ -106,7 +106,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [ ] Contratação de Diarista (Dados do Cliente)
   - [x] Rotas de cadastro de usuário
   - [x] Calculo da media de reputação
-  - [ ] Envio de e-mail de boas vindas
+  - [x] Envio de e-mail de boas vindas
   - [ ] Upload de foto documento
   - [x] Rota de autenticação via credenciais
   - [x] Rota de autenticação via refresh token
