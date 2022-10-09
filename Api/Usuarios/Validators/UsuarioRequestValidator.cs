@@ -101,5 +101,18 @@ public class UsuarioRequestValidator : AbstractValidator<UsuarioRequest>
                 .WithMessage("não deve ser preenchido")
                 .OverridePropertyName("chave_pix");
         });
+
+        RuleFor(x => x.FotoDocumento)
+            .NotNull().WithMessage("é obrigatório")
+            .NotEmpty().WithMessage("é obrigatório")
+            .OverridePropertyName("foto_documento");
+
+        When(x => x.FotoDocumento is not null, () =>
+        {
+            RuleFor(x => x.FotoDocumento)
+                .Must(x => x.Length > 0).WithMessage("é obrigatório")
+                .Must(x => x.ContentType == "image/jpeg" || x.ContentType == "image/png").WithMessage("deve ser uma imagem JPEG ou PNG")
+                .OverridePropertyName("foto_documento");
+        });
     }
 }

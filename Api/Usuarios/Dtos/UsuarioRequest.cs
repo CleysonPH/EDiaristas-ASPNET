@@ -25,4 +25,7 @@ public class UsuarioRequest
 
     [BindProperty(Name = "chave_pix")]
     public string ChavePix { get; set; } = string.Empty;
+
+    [BindProperty(Name = "foto_documento")]
+    public IFormFile FotoDocumento { get; set; } = null!;
 }
