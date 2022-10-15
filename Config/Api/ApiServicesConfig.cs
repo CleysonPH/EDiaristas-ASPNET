@@ -30,5 +30,6 @@ public static class ApiServicesConfig
         services.AddScoped<IAvaliacaoService, AvaliacaoService>();
         services.AddScoped<ICancelamentoService, CancelamentoService>();
         services.AddScoped<IPagamentoService, PagamentoService>();
+        services.AddScoped<IFotoUsuarioService, FotoUsuarioService>();
     }
 }

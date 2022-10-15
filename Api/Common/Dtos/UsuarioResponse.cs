@@ -10,4 +10,5 @@ public class UsuarioResponse : ResourceResponse
     public DateTime Nascimento { get; set; }
     public string Telefone { get; set; } = string.Empty;
     public string ChavePix { get; set; } = string.Empty;
+    public string? FotoUsuario { get; set; } = string.Empty;
 }
