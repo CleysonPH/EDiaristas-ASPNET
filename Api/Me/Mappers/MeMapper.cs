@@ -16,7 +16,8 @@ public class MeMapper : IMeMapper
             Nascimento = usuario.Nascimento ?? DateTime.MinValue,
             Telefone = usuario.Telefone ?? string.Empty,
             ChavePix = usuario.ChavePix ?? string.Empty,
-            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt()
+            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt(),
+            FotoUsuario = usuario.FotoUsuario
         };
     }
 }

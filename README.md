@@ -103,11 +103,11 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Busca de endereço por CEP
   - [x] Listagem de Serviços
   - [x] Implementar HATEOAS
-- [ ] Contratação de Diarista (Dados do Cliente)
+- [x] Contratação de Diarista (Dados do Cliente)
   - [x] Rotas de cadastro de usuário
   - [x] Calculo da media de reputação
   - [x] Envio de e-mail de boas vindas
-  - [ ] Upload de foto documento
+  - [x] Upload de foto documento
   - [x] Rota de autenticação via credenciais
   - [x] Rota de autenticação via refresh token
   - [x] Rota de logout
@@ -160,8 +160,8 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Filtros de diárias
 - [x] Lista de pagamentos de diaristas
   - [x] Rota de listagem de pagamentos de diaristas
-- [ ] Alteração dos dados do usuário
-  - [ ] Rota de alteração de foto de perfil
+- [x] Alteração dos dados do usuário
+  - [x] Rota de alteração de foto de perfil
   - [x] Rota de alteração de dados pessoais
 - [ ] Recuperação de senha
 - [ ] Deploy da aplicação

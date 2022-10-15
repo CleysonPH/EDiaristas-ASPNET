@@ -56,5 +56,13 @@ public class UsuarioEntityConfig : IEntityTypeConfiguration<Usuario>
             .HasForeignKey<Usuario>(u => u.EnderecoId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(false);
+
+        builder.Property(u => u.FotoDocumento)
+            .HasMaxLength(500)
+            .IsRequired();
+
+        builder.Property(u => u.FotoUsuario)
+            .HasMaxLength(500)
+            .IsRequired(false);
     }
 }

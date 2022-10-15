@@ -17,7 +17,8 @@ public class UsuarioMapper : IUsuarioMapper
             Nascimento = usuario.Nascimento ?? DateTime.MinValue,
             Telefone = usuario.Telefone ?? string.Empty,
             ChavePix = usuario.ChavePix ?? string.Empty,
-            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt()
+            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt(),
+            FotoUsuario = usuario.FotoUsuario
         };
     }
 
@@ -47,7 +48,8 @@ public class UsuarioMapper : IUsuarioMapper
             Nascimento = usuario.Nascimento ?? DateTime.MinValue,
             Telefone = usuario.Telefone ?? string.Empty,
             ChavePix = usuario.ChavePix ?? string.Empty,
-            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt()
+            TipoUsuario = usuario.TipoUsuario.ToTipoUsuarioInt(),
+            FotoUsuario = usuario.FotoUsuario
         };
     }
 }

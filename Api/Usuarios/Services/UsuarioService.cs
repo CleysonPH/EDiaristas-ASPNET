@@ -6,6 +6,7 @@ using EDiaristas.Core.Repositories.Usuarios;
 using EDiaristas.Core.Services.Authentication.Adapters;
 using EDiaristas.Core.Services.Email;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
+using EDiaristas.Core.Services.Storage.Adapters;
 using EDiaristas.Core.Services.Token.Adapters;
 using FluentValidation;
 
@@ -21,6 +22,7 @@ public class UsuarioService : IUsuarioService
     private readonly ICustomAuthenticationService _authenticationService;
     private readonly IValidator<AtualizarUsuarioRequest> _atualizarUsuarioValidator;
     private readonly IEmailService _emailService;
+    private readonly IStorageService _storageService;
 
     private const double REPUTACAO_MAXIMA = 5.0;
 
@@ -32,7 +34,8 @@ public class UsuarioService : IUsuarioService
         ITokenService tokenService,
         ICustomAuthenticationService authenticationService,
         IValidator<AtualizarUsuarioRequest> atualizarUsuarioValidator,
-        IEmailService emailService)
+        IEmailService emailService,
+        IStorageService storageService)
     {
         _usuarioMapper = usuarioMapper;
         _usuarioRepository = usuarioRepository;
@@ -42,6 +45,7 @@ public class UsuarioService : IUsuarioService
         _authenticationService = authenticationService;
         _atualizarUsuarioValidator = atualizarUsuarioValidator;
         _emailService = emailService;
+        _storageService = storageService;
     }
 
     public UsuarioCreatedResponse Cadastrar(UsuarioRequest request)
@@ -50,11 +54,17 @@ public class UsuarioService : IUsuarioService
         var usuarioParaCadastrar = _usuarioMapper.ToModel(request);
         usuarioParaCadastrar.Senha = _passwordEnconderService.Enconde(request.Password);
         usuarioParaCadastrar.Reputacao = calcularMediaReputacao(usuarioParaCadastrar.TipoUsuario);
+        usuarioParaCadastrar.FotoDocumento = salvarFotoDocumento(request.FotoDocumento);
         var usuarioCadastrado = _usuarioRepository.Create(usuarioParaCadastrar);
         enviarEmailDeBoasVindas(usuarioCadastrado);
         var response = _usuarioMapper.ToCreatedResponse(usuarioCadastrado);
         response.Token = generateTokenResponse(usuarioCadastrado);
         return response;
+    }
+
+    private string salvarFotoDocumento(IFormFile fotoDocumento)
+    {
+        return _storageService.UploadFile(fotoDocumento.FileName, fotoDocumento.OpenReadStream(), fotoDocumento.ContentType);
     }
 
     private void enviarEmailDeBoasVindas(Usuario usuarioCadastrado)

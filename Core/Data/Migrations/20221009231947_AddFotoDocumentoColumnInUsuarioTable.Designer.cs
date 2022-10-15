@@ -4,6 +4,7 @@ using EDiaristas.Core.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EDiaristas.Core.Data.Migrations
 {
     [DbContext(typeof(EDiaristasDbContext))]
-    partial class EDiaristasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221009231947_AddFotoDocumentoColumnInUsuarioTable")]
+    partial class AddFotoDocumentoColumnInUsuarioTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -449,11 +451,6 @@ namespace EDiaristas.Core.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FotoDocumento")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("FotoUsuario")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");

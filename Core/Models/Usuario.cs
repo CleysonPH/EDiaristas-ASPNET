@@ -15,6 +15,8 @@ public class Usuario
     public double? Reputacao { get; set; }
     public string? ChavePix { get; set; }
     public int? EnderecoId { get; set; }
+    public string FotoDocumento { get; set; } = string.Empty;
+    public string? FotoUsuario { get; set; }
 
     private ICollection<CidadeAtendida>? _cidadesAtendidas;
     private ICollection<Diaria>? _candidaturas;

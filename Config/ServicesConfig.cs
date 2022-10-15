@@ -6,10 +6,10 @@ namespace EDiaristas.Config;
 
 public static class ServicesConfig
 {
-    public static void RegisterServices(this IServiceCollection services)
+    public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.RegisterApiServices();
-        services.RegisterCoreServices();
+        services.RegisterCoreServices(configuration);
         services.RegisterAdminServices();
 
     }

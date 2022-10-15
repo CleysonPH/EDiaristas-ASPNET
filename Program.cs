@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.RegisterDatabase();
 builder.Services.RegisterRepositories();
 builder.Services.RegisterMappers();
-builder.Services.RegisterServices();
+builder.Services.RegisterServices(builder.Configuration);
 builder.Services.RegisterValidators();
 builder.Services.RegisterIdentity();
 builder.Services.RegisterSeeds();
