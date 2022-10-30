@@ -7,6 +7,7 @@ using EDiaristas.Api.EnderecosDiarista.Services;
 using EDiaristas.Api.Me.Services;
 using EDiaristas.Api.Oportunidades.Services;
 using EDiaristas.Api.Pagamentos.Services;
+using EDiaristas.Api.ResetSenha.Services;
 using EDiaristas.Api.Servicos.Services;
 using EDiaristas.Api.Usuarios.Services;
 
@@ -31,5 +32,6 @@ public static class ApiServicesConfig
         services.AddScoped<ICancelamentoService, CancelamentoService>();
         services.AddScoped<IPagamentoService, PagamentoService>();
         services.AddScoped<IFotoUsuarioService, FotoUsuarioService>();
+        services.AddScoped<IResetSenhaService, ResetSenhaService>();
     }
 }

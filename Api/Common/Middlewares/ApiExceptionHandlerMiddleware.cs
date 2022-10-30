@@ -57,6 +57,24 @@ public class ApiExceptionHandlerMiddleware
         {
             await handleGatewayPagamentoServiceException(context, ex);
         }
+        catch (InvalidCredentialsException ex)
+        {
+            await handleInvalidCredentialsException(context, ex);
+        }
+        catch (PasswordResetTokenExpiredException ex)
+        {
+            await handlePasswordResetTokenExpiredException(context, ex);
+        }
+    }
+
+    private Task handlePasswordResetTokenExpiredException(HttpContext context, PasswordResetTokenExpiredException ex)
+    {
+        return handleException(context, 400, "Bad Request", ex.GetType().Name, ex.Message);
+    }
+
+    private Task handleInvalidCredentialsException(HttpContext context, InvalidCredentialsException ex)
+    {
+        return handleException(context, 401, "Unauthorized", ex.GetType().Name, ex.Message);
     }
 
     private Task handleGatewayPagamentoServiceException(HttpContext context, GatewayPagamentoServiceException ex)

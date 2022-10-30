@@ -14,6 +14,8 @@ using EDiaristas.Core.Services.GatewayPagamento;
 using EDiaristas.Core.Services.GatewayPagamento.PagarMe;
 using EDiaristas.Core.Services.PasswordEnconder.Adapters;
 using EDiaristas.Core.Services.PasswordEnconder.Providers;
+using EDiaristas.Core.Services.PasswordReset.Adapters;
+using EDiaristas.Core.Services.PasswordReset.Providers;
 using EDiaristas.Core.Services.Storage.Adapters;
 using EDiaristas.Core.Services.Storage.Providers;
 using EDiaristas.Core.Services.Storage.Providers.Local;
@@ -36,6 +38,7 @@ public static class CoreServicesConfig
         services.AddScoped<IDiaristaIndiceService, DiaristaIndiceService>();
         services.AddScoped<IGatewayPagamentoService, PagarMeService>();
         services.AddScoped<IEmailService, SmtpEmailService>();
+        services.AddScoped<IPasswordResetService, PasswordResetService>();
 
         var storageProvider = configuration.GetValue<StorageProviderOptions>("Storage:Provider");
         switch (storageProvider)
