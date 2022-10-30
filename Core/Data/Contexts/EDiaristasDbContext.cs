@@ -13,6 +13,7 @@ public class EDiaristasDbContext : DbContext
     public DbSet<Diaria> Diarias => Set<Diaria>();
     public DbSet<Avaliacao> Avaliacoes => Set<Avaliacao>();
     public DbSet<Pagamento> Pagamentos => Set<Pagamento>();
+    public DbSet<PasswordResetToken> PasswordResetTokens => Set<PasswordResetToken>();
 
     private readonly string _connectionString;
 
@@ -53,5 +54,6 @@ public class EDiaristasDbContext : DbContext
         builder.ApplyConfiguration(new EnderecoEntityConfig());
         builder.ApplyConfiguration(new AvaliacaoEntityConfig());
         builder.ApplyConfiguration(new PagamentoEntityConfig());
+        builder.ApplyConfiguration(new PasswordResetTokenEntityConfig());
     }
 }

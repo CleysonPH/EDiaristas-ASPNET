@@ -105,4 +105,12 @@ public static class ApiRoutes
         public const string Listar = "/api/pagamentos";
         public const string ListarName = "ListarPagamentos";
     }
+
+    public static class ResetSenha
+    {
+        public const string SolicitarResetSenha = "/api/recuperar-senha";
+        public const string SolicitarResetSenhaName = "SolicitarResetSenha";
+        public const string ConfirmaResetSenha = "/api/recuperar-senha/confirm";
+        public const string ConfirmaResetSenhaName = "ConfirmaResetSenha";
+    }
 }

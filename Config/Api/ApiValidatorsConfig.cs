@@ -8,6 +8,8 @@ using EDiaristas.Api.Diarias.Dtos;
 using EDiaristas.Api.Diarias.Validators;
 using EDiaristas.Api.EnderecosDiarista.Dtos;
 using EDiaristas.Api.EnderecosDiarista.Validators;
+using EDiaristas.Api.ResetSenha.Dtos;
+using EDiaristas.Api.ResetSenha.Validators;
 using EDiaristas.Api.Usuarios.Dtos;
 using EDiaristas.Api.Usuarios.Validators;
 using FluentValidation;
@@ -31,5 +33,7 @@ public static class ApiValidatorsConfig
         services.AddTransient<IValidator<CancelamentoRequest>, CancelamentoValidator>();
         services.AddTransient<IValidator<AtualizarUsuarioRequest>, AtualizarUsuarioValidator>();
         services.AddTransient<IValidator<AtualizarFotoRequest>, AtualizarFotoValidator>();
+        services.AddTransient<IValidator<SolicitarResetSenhaRequest>, SolicitarResetSenhaValidator>();
+        services.AddTransient<IValidator<ConfirmaResetSenhaRequest>, ConfirmaResetSenhaValidator>();
     }
 }

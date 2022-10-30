@@ -22,6 +22,7 @@ public class EmailParams
     public enum TemplateOptions
     {
         BoasVindas,
+        ResetSenha,
         NovaOportunidade,
         DiaristaSelecionado,
     }

@@ -43,4 +43,12 @@ public static class AdminRoutes
         public const string MarcarComoTransferida = "/admin/diarias/{diariaId}/transferir";
         public const string MarcarComoTransferidaName = "DiariasMarcarComoTransferida";
     }
+
+    public static class ResetSenha
+    {
+        public const string Solicitar = "/admin/reset-senha/solicitar";
+        public const string SolicitarName = "ResetSenhaSolicitar";
+        public const string Resetar = "/admin/reset-senha/resetar";
+        public const string ResetarName = "ResetSenhaResetar";
+    }
 }
