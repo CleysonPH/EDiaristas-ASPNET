@@ -34,7 +34,7 @@ public class PasswordResetService : IPasswordResetService
             Email = email,
             Token = Guid.NewGuid().ToString(),
             IssuedAt = DateTime.Now,
-            ExpirationDate = DateTime.Now.AddMinutes(30)
+            ExpirationDate = DateTime.Now.AddMinutes(1)
         };
         _passwordResetTokenRepository.Create(passwordResetToken);
         return passwordResetToken.Token;

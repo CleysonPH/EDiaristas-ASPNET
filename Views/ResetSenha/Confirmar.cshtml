@@ -1,4 +1,4 @@
-@model LoginForm
+@model ConfirmarResetSenhaForm
 
 @{
   Layout = "";
@@ -10,7 +10,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>E-Diaristas | Log in</title>
+  <title>E-Diaristas | @ViewData["Title"]</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,7 +28,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Entre com suas credenciais para iniciar a seção</p>
+      <p class="login-box-msg">Informe o seu e-mail para que possamos enviar o link para prosseguir com o reset de sua senha</p>
 
       @if (alert != null)
       {
@@ -42,36 +42,29 @@
 
       <form method="POST">
         <div class="input-group mb-3">
-          <input asp-for="Email" type="text" class="form-control" placeholder="E-mail" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
           <input asp-for="Senha" type="password" class="form-control" placeholder="Senha" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          <span asp-validation-for="Senha" class="text-danger"></span>
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input asp-for="LembrarMe" type="checkbox" id="lembrar-me">
-              <label asp-for="LembrarMe" >Lembrar-me</label>
+        <div class="input-group mb-3">
+          <input asp-for="ConfirmarSenha" type="password" class="form-control" placeholder="Confirmação de Senha" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
             </div>
           </div>
+          <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+        </div>
 
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        <div class="row">
+          <div class="col">
+            <button type="submit" class="btn btn-primary btn-block">Resetar senha</button>
           </div>
         </div>
-        <p class="mb-1">
-          <a asp-route="@AdminRoutes.ResetSenha.SolicitarName">Esqueci minha senha</a>
-        </p>
       </form>
     </div>
     <!-- /.login-card-body -->

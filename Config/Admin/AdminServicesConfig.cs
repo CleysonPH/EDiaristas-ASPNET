@@ -1,5 +1,6 @@
 using EDiaristas.Admin.Auth.Services;
 using EDiaristas.Admin.Diarias.Services;
+using EDiaristas.Admin.ResetSenha.Services;
 using EDiaristas.Admin.Servicos.Services;
 using EDiaristas.Admin.Usuarios.Services;
 
@@ -13,5 +14,6 @@ public static class AdminServicesConfig
         services.AddScoped<IUsuarioService, UsuarioService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IDiariaService, DiariaService>();
+        services.AddScoped<IResetSenhaService, ResetSenhaService>();
     }
 }
