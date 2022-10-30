@@ -4,66 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Repositories.Diarias;
 
-public class DiariaRepository : IDiariaRepository
+public class DiariaRepository : AbstractRepository<Diaria>, IDiariaRepository
 {
-    private readonly EDiaristasDbContext _context;
-
-    public DiariaRepository(EDiaristasDbContext context)
-    {
-        _context = context;
-    }
-
-    public Diaria Create(Diaria model)
-    {
-        _context.Diarias.Add(model);
-        _context.SaveChanges();
-        return model;
-    }
-
-    public void DeleteById(int id)
-    {
-        var diaria = _context.Diarias.Find(id);
-        if (diaria != null)
-        {
-            _context.Diarias.Remove(diaria);
-            _context.SaveChanges();
-        }
-    }
-
-    public bool ExistsById(int id)
-    {
-        return _context.Diarias.Any(d => d.Id == id);
-    }
+    public DiariaRepository(EDiaristasDbContext context) : base(context)
+    { }
 
     public bool ExistsByIdAndClienteId(int diariaId, int clienteId)
     {
-        return _context.Diarias
+        return context.Diarias
             .Any(d => d.Id == diariaId && d.ClienteId == clienteId);
     }
 
     public bool ExistsByIdAndDiaristaId(int diariaId, int diaristaId)
     {
-        return _context.Diarias
+        return context.Diarias
             .Any(d => d.Id == diariaId && d.DiaristaId == diaristaId);
-    }
-
-    public ICollection<Diaria> FindAll()
-    {
-        return _context.Diarias.ToList();
-    }
-
-    public ICollection<Diaria> FindAll<TKey>(Func<Diaria, TKey> keySelector, bool ascending = true)
-    {
-        if (ascending)
-        {
-            return _context.Diarias.OrderBy(keySelector).ToList();
-        }
-        return _context.Diarias.OrderByDescending(keySelector).ToList();
     }
 
     public ICollection<Diaria> FindAll<TKey>(Func<Diaria, TKey> keySelector, DiariaFiltro filtro, bool ascending = true)
     {
-        var query = _context.Diarias.AsQueryable();
+        var query = context.Diarias.AsQueryable();
         if (!string.IsNullOrEmpty(filtro.ClienteNome))
         {
             query = query.Include(d => d.Cliente)
@@ -82,7 +42,7 @@ public class DiariaRepository : IDiariaRepository
 
     public ICollection<Diaria> FindAptasParaCancelamento()
     {
-        return _context.Diarias.Where(d =>
+        return context.Diarias.Where(d =>
             (
                 d.Status == DiariaStatus.Pago &&
                 d.DataAtendimento < DateTime.Now.AddHours(24) &&
@@ -98,7 +58,7 @@ public class DiariaRepository : IDiariaRepository
 
     public ICollection<Diaria> FindAptasParaSelecao()
     {
-        return _context.Diarias.Where(d =>
+        return context.Diarias.Where(d =>
             (
                 d.Status == DiariaStatus.Pago &&
                 d.Diarista == null &&
@@ -115,26 +75,21 @@ public class DiariaRepository : IDiariaRepository
 
     public ICollection<Diaria> FindByClienteId(int clienteId)
     {
-        return _context.Diarias
+        return context.Diarias
             .Where(d => d.ClienteId == clienteId)
             .ToList();
     }
 
     public ICollection<Diaria> FindByDiaristaId(int diaristaId)
     {
-        return _context.Diarias
+        return context.Diarias
             .Where(d => d.DiaristaId == diaristaId)
             .ToList();
     }
 
-    public Diaria? FindById(int id)
-    {
-        return _context.Diarias.FirstOrDefault(d => d.Id == id);
-    }
-
     public ICollection<Diaria> FindOportunidades(ICollection<string> cidades, Usuario candidato)
     {
-        return _context.Diarias
+        return context.Diarias
             .Include(d => d.Candidatos)
             .Where(d =>
                 d.Status == DiariaStatus.Pago &&
@@ -148,16 +103,9 @@ public class DiariaRepository : IDiariaRepository
 
     public bool IsAvaliada(int diariaId)
     {
-        return _context.Diarias
+        return context.Diarias
             .Include(d => d.Avaliacoes)
             .Where(d => d.Id == diariaId && d.Avaliacoes.Count() >= 2)
             .Any();
-    }
-
-    public Diaria Update(Diaria model)
-    {
-        _context.Diarias.Update(model);
-        _context.SaveChanges();
-        return model;
     }
 }

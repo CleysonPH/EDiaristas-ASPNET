@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class PagamentoEntityConfig : IEntityTypeConfiguration<Pagamento>
+public class PagamentoEntityConfig : BaseModelEntityConfig<Pagamento>
 {
-    public void Configure(EntityTypeBuilder<Pagamento> builder)
+    public override void Configure(EntityTypeBuilder<Pagamento> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Pagamentos");
-
-        builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Valor)
             .HasPrecision(18, 2)

@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class ServicoEntityConfig : IEntityTypeConfiguration<Servico>
+public class ServicoEntityConfig : BaseModelEntityConfig<Servico>
 {
-    public void Configure(EntityTypeBuilder<Servico> builder)
+    public override void Configure(EntityTypeBuilder<Servico> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Servicos");
-
-        builder.HasKey(s => s.Id);
 
         builder.Property(s => s.Nome)
             .HasMaxLength(100)

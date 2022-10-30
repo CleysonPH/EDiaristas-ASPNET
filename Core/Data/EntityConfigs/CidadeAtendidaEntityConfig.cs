@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class CidadeAtendidaEntityConfig : IEntityTypeConfiguration<CidadeAtendida>
+public class CidadeAtendidaEntityConfig : BaseModelEntityConfig<CidadeAtendida>
 {
-    public void Configure(EntityTypeBuilder<CidadeAtendida> builder)
+    public override void Configure(EntityTypeBuilder<CidadeAtendida> builder)
     {
+        base.Configure(builder);
         builder.ToTable("CidadeAtendida");
-
-        builder.HasKey(c => c.Id);
 
         builder.Property(c => c.CodigoIbge)
             .HasMaxLength(100)

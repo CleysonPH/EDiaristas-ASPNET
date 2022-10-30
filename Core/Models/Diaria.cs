@@ -2,9 +2,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EDiaristas.Core.Models;
 
-public class Diaria : Auditable
+public class Diaria : BaseModel
 {
-    public int Id { get; set; }
     public DateTime DataAtendimento { get; set; }
     public int TempoAtendimento { get; set; }
     public DiariaStatus Status { get; set; }

@@ -4,22 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class DiariaEntityConfig : IEntityTypeConfiguration<Diaria>
+public class DiariaEntityConfig : BaseModelEntityConfig<Diaria>
 {
-    public void Configure(EntityTypeBuilder<Diaria> builder)
+    public override void Configure(EntityTypeBuilder<Diaria> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Diarias");
-
-        builder.HasKey(d => d.Id);
 
         builder.Property(d => d.DataAtendimento)
             .IsRequired();
-
-        builder.Property(d => d.CreatedAt)
-            .IsRequired(false);
-
-        builder.Property(d => d.UpdatedAt)
-            .IsRequired(false);
 
         builder.Property(d => d.TempoAtendimento)
             .IsRequired();

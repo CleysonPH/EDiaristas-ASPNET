@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class UsuarioEntityConfig : IEntityTypeConfiguration<Usuario>
+public class UsuarioEntityConfig : BaseModelEntityConfig<Usuario>
 {
-    public void Configure(EntityTypeBuilder<Usuario> builder)
+    public override void Configure(EntityTypeBuilder<Usuario> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Usuarios");
-
-        builder.HasKey(x => x.Id);
 
         builder.Property(u => u.NomeCompleto)
             .HasMaxLength(100)

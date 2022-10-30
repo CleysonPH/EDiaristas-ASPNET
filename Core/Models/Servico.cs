@@ -1,8 +1,7 @@
 namespace EDiaristas.Core.Models;
 
-public class Servico
+public class Servico : BaseModel
 {
-    public int Id { get; set; }
     public string Nome { get; set; } = string.Empty;
     public decimal ValorMinimo { get; set; }
     public int QtdHoras { get; set; }

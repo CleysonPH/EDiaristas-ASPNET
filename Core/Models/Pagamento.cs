@@ -2,9 +2,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EDiaristas.Core.Models;
 
-public class Pagamento : Auditable
+public class Pagamento : BaseModel
 {
-    public int Id { get; set; }
     public PagamentoStatus Status { get; set; }
     public decimal Valor { get; set; }
     public string TransacaoId { get; set; } = string.Empty;
