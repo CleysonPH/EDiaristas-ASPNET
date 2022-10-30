@@ -87,7 +87,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Listagem de Serviços
   - [x] Exclusão de Serviços
   - [x] Edição de Serviços
-- [ ] Sistema Administrativo parte 2
+- [x] Sistema Administrativo parte 2
   - [x] Cadastro de Usuários
   - [x] Listagem de Usuários
   - [x] Exclusão de Usuários
@@ -95,7 +95,7 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
   - [x] Login
   - [x] Logout
   - [x] Alteração de senha
-  - [ ] Reset de senha
+  - [x] Reset de senha
 - [x] Buscar diaristas que atendem um cep
   - [x] Listar diaristas que atendem um cep
 - [x] Contratação de Diarista (Detalhes do Serviço)
@@ -163,5 +163,5 @@ Na primeira execução do projeto é criado o usuário inicial que possui as seg
 - [x] Alteração dos dados do usuário
   - [x] Rota de alteração de foto de perfil
   - [x] Rota de alteração de dados pessoais
-- [ ] Recuperação de senha
+- [x] Recuperação de senha
 - [ ] Deploy da aplicação
