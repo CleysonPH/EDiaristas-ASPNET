@@ -38,10 +38,10 @@ public class DiariaResponseAssembler : IAssembler<DiariaResponse>
             Rel = "pagar_diaria",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.PagarName, new { DiariaId = resource.Id })
         };
-        var confirmarPresencaLink = new LinkResponse
+        var confirmarDiaristaLink = new LinkResponse
         {
             Type = HttpMethods.Patch,
-            Rel = "confirmar_presenca",
+            Rel = "confirmar_diarista",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Diarias.ConfirmarPresencaName, new { DiariaId = resource.Id })
         };
         var avaliarDiariaLink = new LinkResponse
@@ -59,7 +59,7 @@ public class DiariaResponseAssembler : IAssembler<DiariaResponse>
 
         resource.AddLink(selfLink);
         resource.AddLinkIf(resource.Status.IsSemPagamento(), pagarDiariaLink);
-        resource.AddLinkIf(isAptaParaConfirmarPresenca(resource), confirmarPresencaLink);
+        resource.AddLinkIf(isAptaParaConfirmarPresenca(resource), confirmarDiaristaLink);
         resource.AddLinkIf(isAptaParaAvaliacao(resource), avaliarDiariaLink);
         resource.AddLinkIf(isAptaParaCancelamento(resource), cancelarDiariaLink);
 

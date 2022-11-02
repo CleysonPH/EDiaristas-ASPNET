@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class EnderecoEntityConfig : IEntityTypeConfiguration<EnderecoDiarista>
+public class EnderecoEntityConfig : BaseModelEntityConfig<EnderecoDiarista>
 {
-    public void Configure(EntityTypeBuilder<EnderecoDiarista> builder)
+    public override void Configure(EntityTypeBuilder<EnderecoDiarista> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Enderecos");
-
-        builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Logradouro)
             .HasMaxLength(100)

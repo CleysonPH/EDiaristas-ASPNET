@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class InvalidatedTokenEntityConfig : IEntityTypeConfiguration<InvalidatedToken>
+public class InvalidatedTokenEntityConfig : BaseModelEntityConfig<InvalidatedToken>
 {
-    public void Configure(EntityTypeBuilder<InvalidatedToken> builder)
+    public override void Configure(EntityTypeBuilder<InvalidatedToken> builder)
     {
+        base.Configure(builder);
         builder.ToTable("InvalidatedTokens");
-
-        builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Token)
             .HasMaxLength(500)

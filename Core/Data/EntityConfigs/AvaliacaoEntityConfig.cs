@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class AvaliacaoEntityConfig : IEntityTypeConfiguration<Avaliacao>
+public class AvaliacaoEntityConfig : BaseModelEntityConfig<Avaliacao>
 {
-    public void Configure(EntityTypeBuilder<Avaliacao> builder)
+    public override void Configure(EntityTypeBuilder<Avaliacao> builder)
     {
+        base.Configure(builder);
         builder.ToTable("Avaliacoes");
-
-        builder.HasKey(a => a.Id);
 
         builder.Property(a => a.Descricao)
             .HasMaxLength(255)

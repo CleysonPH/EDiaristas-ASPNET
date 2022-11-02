@@ -2,9 +2,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EDiaristas.Core.Models;
 
-public class Avaliacao : Auditable
+public class Avaliacao : BaseModel
 {
-    public int Id { get; set; }
     public string Descricao { get; set; } = string.Empty;
     public double Nota { get; set; }
     public bool Visibilidade { get; set; }

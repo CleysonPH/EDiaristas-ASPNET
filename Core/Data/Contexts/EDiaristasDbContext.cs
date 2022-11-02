@@ -27,13 +27,13 @@ public class EDiaristasDbContext : DbContext
         var entries = ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
         foreach (var entrie in entries)
         {
-            if (entrie.Entity is Auditable auditable)
+            if (entrie.Entity is BaseModel model)
             {
                 if (entrie.State == EntityState.Added)
                 {
-                    auditable.CreatedAt = DateTime.Now;
+                    model.CreatedAt = DateTime.Now;
                 }
-                auditable.UpdatedAt = DateTime.Now;
+                model.UpdatedAt = DateTime.Now;
             }
         }
         return base.SaveChanges();

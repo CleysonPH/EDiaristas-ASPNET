@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDiaristas.Core.Data.EntityConfigs;
 
-public class PasswordResetTokenEntityConfig : IEntityTypeConfiguration<PasswordResetToken>
+public class PasswordResetTokenEntityConfig : BaseModelEntityConfig<PasswordResetToken>
 {
-    public void Configure(EntityTypeBuilder<PasswordResetToken> builder)
+    public override void Configure(EntityTypeBuilder<PasswordResetToken> builder)
     {
+        base.Configure(builder);
         builder.ToTable("PasswordResetTokens");
-
-        builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Email)
             .IsRequired()

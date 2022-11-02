@@ -42,7 +42,7 @@ public class S3StorageService : IStorageService
         var client = new AmazonS3Client(credentials, config);
         var fileTransferUtility = new TransferUtility(client);
         fileTransferUtility.Upload(uploadRequest);
-        return client.GetPreSignedURL(createGetPreSignedUrlRequest(uploadRequest));
+        return $"https://{_bucket}.s3.{_region.SystemName}.amazonaws.com/{uploadRequest.Key}";
     }
 
     private GetPreSignedUrlRequest createGetPreSignedUrlRequest(TransferUtilityUploadRequest uploadRequest)
