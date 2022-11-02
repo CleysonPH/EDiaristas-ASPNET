@@ -12,7 +12,8 @@ public class PagamentoMapper : IPagamentoMapper
             Id = pagamento.Id,
             Valor = pagamento.Diaria.Preco,
             ValorDepoisto = pagamento.Diaria.Preco - pagamento.Diaria.ValorComissao,
-            Status = diariaStatusToInt(pagamento.Diaria.Status)
+            Status = diariaStatusToInt(pagamento.Diaria.Status),
+            CreatedAt = pagamento.CreatedAt ?? DateTime.MinValue
         };
     }
 

@@ -57,14 +57,35 @@ public class UsuarioResponseAssembler : IAssembler<UsuarioResponse>
             Rel = "editar_usuario",
             Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Usuarios.AtualizarUsuarioName, new { })
         };
+        var listaOportunidadesLink = new LinkResponse
+        {
+            Type = HttpMethods.Get,
+            Rel = "lista_oportunidades",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Oportunidade.BuscarOportunidadesName, new { })
+        };
+        var listaPagamentosLink = new LinkResponse
+        {
+            Type = HttpMethods.Get,
+            Rel = "lista_pagamentos",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Pagamentos.ListarName, new { })
+        };
+        var alterarFotoUsuarioLink = new LinkResponse
+        {
+            Type = HttpMethods.Post,
+            Rel = "alterar_foto_usuario",
+            Uri = _linkGenerator.GetUriByName(context, ApiRoutes.Usuarios.AtualizarFotoUsuarioName, new { })
+        };
         resource.AddLinkIf(resource.TipoUsuario.IsCliente(), cadastrarDiariaLink);
         resource.AddLinksIf(
             resource.TipoUsuario.IsDiarista(),
             cadastrarEnderecoLink,
             listarEnderecoLink,
             cidadesAtendidasLink,
-            relacionarCidadesLink);
-        resource.AddLinks(listaDiariasLink, editarUsuarioLink);
+            relacionarCidadesLink,
+            listaOportunidadesLink,
+            listaPagamentosLink
+        );
+        resource.AddLinks(listaDiariasLink, editarUsuarioLink, alterarFotoUsuarioLink);
         return resource;
     }
 }
