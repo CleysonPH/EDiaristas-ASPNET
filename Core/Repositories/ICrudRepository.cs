@@ -1,11 +1,12 @@
 namespace EDiaristas.Core.Repositories;
 
-public interface ICrudRepository<Model, Id>
+public interface ICrudRepository<T, Id>
 {
-    ICollection<Model> FindAll();
-    Model? FindById(Id id);
-    Model Create(Model model);
-    Model Update(Model model);
+    ICollection<T> FindAll(params string[] includes);
+    ICollection<T> FindAll<TKey>(Func<T, TKey> keySelector, bool? ascending = true, params string[] includes);
+    T? FindById(Id id);
+    T Create(T model);
+    T Update(T model);
     void DeleteById(Id id);
     bool ExistsById(Id id);
 }

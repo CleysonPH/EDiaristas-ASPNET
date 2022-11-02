@@ -1,5 +1,6 @@
 using EDiaristas.Core.Data.Contexts;
 using EDiaristas.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EDiaristas.Core.Repositories;
 
@@ -34,18 +35,29 @@ public abstract class AbstractRepository<T> : ICrudRepository<T, int> where T : 
         return context.Set<T>().Any(e => e.Id == id);
     }
 
-    public ICollection<T> FindAll()
+    public ICollection<T> FindAll(params string[] includes)
     {
-        return context.Set<T>().ToList();
+        var query = context.Set<T>().AsQueryable();
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+        return query.ToList();
     }
 
-    public ICollection<T> FindAll<TKey>(Func<T, TKey> keySelector, bool? ascending = true)
+    public ICollection<T> FindAll<TKey>(Func<T, TKey> keySelector, bool? ascending = true, params string[] includes)
     {
-        if (ascending == true)
+        var query = context.Set<T>().AsQueryable();
+        foreach (var include in includes)
         {
-            return context.Set<T>().OrderBy(keySelector).ToList();
+            query = query.Include(include);
         }
-        return context.Set<T>().OrderByDescending(keySelector).ToList();
+        return ascending switch
+        {
+            true => query.OrderBy(keySelector).ToList(),
+            false => query.OrderByDescending(keySelector).ToList(),
+            _ => query.ToList(),
+        };
     }
 
     public T? FindById(int id)
